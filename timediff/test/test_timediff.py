@@ -57,6 +57,14 @@ class TestTimeDiff(unittest.TestCase):
         input_data = ["a", "b", "c", "d"]
         self.assertEqual([], self.d.cache_input(input_data, ["!"]))
 
+    def test_check_first_line_matches_positive(self):
+        input_data = ["%", "b", "c", "d"]
+        self.assertEqual(True, self.d.check_first_line_matches("%%", input_data))
+
+    def test_check_first_line_matches_negative(self):
+        input_data = ["a", "b", "c", "d"]
+        self.assertEqual(False, self.d.check_first_line_matches("%%", input_data))
+
     def test_display_help_short(self):
         self.assertEqual(self.d.get_help_text(), self.d.display_help(["!", "-h"], platform.system(), True))
 
@@ -64,7 +72,7 @@ class TestTimeDiff(unittest.TestCase):
         self.assertEqual(self.d.get_help_text(), self.d.display_help(["!", "--help"], platform.system(), True))
 
     def test_display_help_not_asked(self):
-        self.assertEqual(None, self.d.display_help(["!"], platform.system(), True))
+        self.assertEqual(False, self.d.display_help(["!"], platform.system(), True))
 
     def test_locale_none_given_unix(self):
         if platform.system() != "Windows":

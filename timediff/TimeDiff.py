@@ -61,7 +61,8 @@ ARGUMENTS (All are mandatory)
 					return self.get_help_text()
 				else:
 					print(self.get_help_text())
-		return None
+					return True
+		return False
 
 # Sets locale for formatting logs containing names of months and weekdays
 
@@ -131,7 +132,24 @@ ARGUMENTS (All are mandatory)
 		self.display_help(args, os_name, debug)
 		self.set_locale_settings(args, os_name, debug)
 		return self.get_formatting_string(args, os_name, debug)
-		
+	
+# Checks, whether the formatting string matches first line of data
+
+	def check_first_line_matches(self, formatting_string, input_data):
+		first_time = ""
+		try:
+			try:
+				first_time = time.strptime(" ".join(input_data[0].strip("\n").split(" ")[:3]), formatting_string) # Time of first message as time.struct_time
+				return True
+			except ValueError, v:
+			    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+			        first_time = input_data[0].split(v.args[0][26:])[0]
+			        first_time = time.strptime(first_time, formatting_string)
+			    else:
+					raise v
+		except ValueError:
+					print("Formatting string {0} does not match line {1}\n".format(formatting_string, input_data[0]))
+					return False
 
 # Caches given logs into a list, returns the list
 
