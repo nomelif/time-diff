@@ -6,9 +6,18 @@ import locale
 import os
 
 class TimeDiff:
+	"""
+
+Class containing all methods related to parsing logs
+
+	"""
+
+# Empty __init__-method
 
 	def __init__(self):
 		pass
+
+# Returns help to be showed with -h or --help argument
 
 	def get_help_text(self):
 		return """Use by piping file (or greped lines) to program.
@@ -24,13 +33,39 @@ ARGUMENTS (All are mandatory)
 
 -l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows)."""
 
-	def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+# Looks for not understood parameters and outputs error messages if such are found
 
-		if "-h" in args[-1]:
-			if debug:
-				return self.get_help_text()
-			else:
-				print(self.get_help_text())
+	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
+		for arg in args[1:]:
+		 	is_known = False
+		 	for known_arg in ["-f", "-h", "--help", "--format", "-p", "--format-preset", "-l", "--locale"]:
+		 		try:
+					if arg.split("=")[0] == known_arg:
+		 				is_known = True
+		 		except:
+		 			pass
+		 	if not is_known:
+		 		if debug:
+		 			return "Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format(arg)
+		 		else:
+		 			print("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format(arg))
+
+
+
+# Displays help if the user asked for it
+
+	def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+		for arg in args:
+			if arg == "-h" or arg == "--help":
+				if debug:
+					return self.get_help_text()
+				else:
+					print(self.get_help_text())
+		return None
+
+# Sets locale for formatting logs containing names of months and weekdays
+
+	def set_locale_settings(self, args=sys.argv, os_name=platform.system(), debug=False):
 		locale_error = False
 		eng_locale = "en_US"
 		if os_name == "Windows":
@@ -40,65 +75,67 @@ ARGUMENTS (All are mandatory)
 		except:
 			locale_error = True
 		for arg in args[1:]:
-			is_known = False
-			for known_arg in ["-f", "-h", "--help", "--format", "-p", "--format-preset", "-l", "--locale"]:
-				if arg.split("=")[0] == known_arg:
-					is_known = True
-			if not is_known:
-				print("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format(arg))
-			else:
-				if "-l=" in arg or "-locale=" in arg:
-					try:
-						locale.setlocale(locale.LC_ALL, arg.split("=")[1])
-					except:
-						print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
-				elif locale_error:
-					if debug:
-						raise LocaleError("")
-					else:
-						print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
-
+			if "-l=" in arg or "-locale=" in arg:
 				try:
-					if "--format=" in args[1]:
-						try:
-							return args[1].split("--format=")[1]
-						except:
-							print("Formatting error for datetime format, ignoring")
-							return "%b %d %H:%M:%S"
-					elif "-f=" in args[1]:
-						try:
-							return args[1].split("-f=")[1]
-						except:
-							print("Formatting error for datetime format, ignoring")
-							return "%b %d %H:%M:%S"
-					elif "--format-preset=" in args[1]:
-						try:
-							if args[1].split("--format-preset=")[1] == "custom1":
-								return "%Y%m%d_%H%M%S"
-							else:
-								print("No such formatting prefix exists, ignoring")
-								return "%b %d %H:%M:%S"
-						except:
-							print("Formatting error for datetime format prefix, ignoring")
-							return "%b %d %H:%M:%S"
-					elif "-p=" in args[1]:
-						try:
-							if args[1].split("-p=")[1] == "custom1":
-								return "%Y%m%d_%H%M%S"
-							else:
-								print("No such formatting prefix exists, ignoring")
-								return "%b %d %H:%M:%S"
-						except:
-							print("Formatting error for datetime format prefix, ignoring")
-							return "%b %d %H:%M:%S"
+					locale.setlocale(locale.LC_ALL, arg.split("=")[1])
+				except:
+					print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
+			elif locale_error:
+				if debug:
+					raise LocaleError("")
+				else:
+					print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
+
+# Returns string to use for formatting log input
+
+	def get_formatting_string(self, args=sys.argv, os_name=platform.system(), debug=False):
+		for arg in args[1:]:
+			if "--format=" in arg:
+				try:
+					return arg.split("--format=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-f=" in arg:
+				try:
+					return arg.split("-f=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "--format-preset=" in arg:
+				try:
+					if arg.split("--format-preset=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
 					else:
+						print("No such formatting prefix exists, ignoring")
 						return "%b %d %H:%M:%S"
-				except IndexError:
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-p=" in arg:
+				try:
+					if arg.split("-p=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
+					else:
+						print("No such formatting prefix exists, ignoring")
+						return "%b %d %H:%M:%S"
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
 					return "%b %d %H:%M:%S"
 		return "%b %d %H:%M:%S"
 
+# Calls set_locale_settings and get_formatting_string, returns output from get_formatting_string
+
+	def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+		self.respond_to_wrong_parameters(args, os_name, debug)
+		self.display_help(args, os_name, debug)
+		self.set_locale_settings(args, os_name, debug)
+		return self.get_formatting_string(args, os_name, debug)
+		
+
+# Caches given logs into a list, returns the list
+
 	def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
-		#print(sys.stdin.isatty())
 		if len(args) > 1:
 			if not "-h" in args[1] and (not sys.stdin.isatty()) or debug:
 				log_input = [] # Cache input into list

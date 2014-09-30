@@ -14,12 +14,15 @@ sys.path.append(TIMEDIFF_PATH)
 import TimeDiff
 
 class TestTimeDiff(unittest.TestCase):
- 
+
     def setUp(self):
         self.d = TimeDiff.TimeDiff()
  
     def test_formatting_preset_short_existing(self):
         self.assertEqual("%Y%m%d_%H%M%S", self.d.set_formatting(["!", "-p=custom1"]))
+
+    def test_bad_arg(self):
+        self.assertEqual("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format("bad_data"), self.d.respond_to_wrong_parameters(["!", "bad_data"], platform.system(), True))
 
     def test_formatting_preset_long_existing(self):
         self.assertEqual("%Y%m%d_%H%M%S", self.d.set_formatting(["!", "--format-preset=custom1"]))
@@ -55,10 +58,13 @@ class TestTimeDiff(unittest.TestCase):
         self.assertEqual([], self.d.cache_input(input_data, ["!"]))
 
     def test_display_help_short(self):
-        self.assertEqual(self.d.get_help_text(), self.d.set_formatting(["!", "-h"], platform.system(), True))
+        self.assertEqual(self.d.get_help_text(), self.d.display_help(["!", "-h"], platform.system(), True))
 
     def test_display_help_long(self):
-        self.assertEqual(self.d.get_help_text(), self.d.set_formatting(["!", "--help"], platform.system(), True))
+        self.assertEqual(self.d.get_help_text(), self.d.display_help(["!", "--help"], platform.system(), True))
+
+    def test_display_help_not_asked(self):
+        self.assertEqual(None, self.d.display_help(["!"], platform.system(), True))
 
     def test_locale_none_given_unix(self):
         if platform.system() != "Windows":
