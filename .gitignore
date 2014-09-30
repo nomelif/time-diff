@@ -1,0 +1,9 @@
+*.iml
+.idea
+*~
+*/target
+.DS_Store
+*.graphml
+*.pyc
+*.releaseBackup
+*.swp
