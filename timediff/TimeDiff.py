@@ -10,18 +10,23 @@ import StringIO
 class TimeDiff:
 	"""
 
-Class containing all methods related to parsing logs
+Class containing all methods related to parsing logs. The program itself is run from _../bin/time-diff_.
 
 	"""
 
 # Empty __init__-method
 
 	def __init__(self):
+		""" Empty _\_\_init\_\__ function """
 		pass
 
 # Returns help to be showed with -h or --help argument
 
 	def get_help_text(self):
+		"""
+Returns help text, used when calling _time-diff -h_ or _time-diff --help_.
+
+		""" 
 		return """Use by piping file (or greped lines) to program.
 
 ARGUMENTS (All are mandatory)
@@ -37,9 +42,12 @@ ARGUMENTS (All are mandatory)
 -r                    : Removes zero-padding from lines, eg. 002 becomes 2.
 -p                    : Cancels adding zero-padding, eg. without -p 2 would become 02"""
 
-# Looks for not understood parameters and outputs error messages if such are found
-
 	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Tells user that he / she enttered parameters, that werent understood, doesn't affect parsing of logs.
+
+		"""
 		for arg in args[1:]:
 		 	is_known = False
 		 	for known_arg in ["-p", "-r" "-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
@@ -54,11 +62,12 @@ ARGUMENTS (All are mandatory)
 		 		else:
 		 			print("Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
 
-
-
-# Displays help if the user asked for it
-
 	def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Displays help from _self.get_help_text()_.
+
+		"""
 		if self.is_help_needed(args, os_name, debug):
 			if debug:
 				return self.get_help_text()
@@ -67,14 +76,22 @@ ARGUMENTS (All are mandatory)
 				return True
 		return False
 	def is_help_needed(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns True if _../bin/time-diff_ was called with argument _-h_ or _--help_.
+
+		"""
 		for arg in args:
 			if arg == "-h" or arg == "--help":
 					return True
 		return False
 
-# Sets locale for formatting logs containing names of months and weekdays
-
 	def set_locale_settings(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Sets locale if such is given through _-l_ or _--locale_ for formatting logs containing names of months and weekdays. Default is American English, if it isn't installed this falls back to the systems current locale.
+
+		"""
 		locale_error = False
 		eng_locale = "en_US"
 		if os_name == "Windows":
@@ -95,9 +112,12 @@ ARGUMENTS (All are mandatory)
 				else:
 					print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
 
-# Returns string to use for formatting log input
-
 	def get_formatting_string(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns string to use for formatting log input. If a preset is correctly specified using _-F_ or _--format-preset_, the corresponding formatting string is returned. If no preset is given and a string is correctly specified using _-f_ or _--format_, it is returned. If a preset is specified, but it doesn't exist and no correct explicit formatting string is given with _-f_ or _--format_, this returns "%b %d %H:%M:%S". If no correct preset is specified, but a correct explicit formatting is, this returns the later. If no correct formatting of any sort is specified, returns "%b %d %H:%M:%S".
+
+		"""
 		for arg in args[1:]:
 			if "--format=" in arg:
 				try:
@@ -133,25 +153,34 @@ ARGUMENTS (All are mandatory)
 					return "%b %d %H:%M:%S"
 		return "%b %d %H:%M:%S"
 
-# Returns, whether to add zero-paddings or not
-
 	def check_add_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to add zero-paddings or not. If one of the args give is _-p_, returns False, else returns True.
+
+		"""
 		for arg in args:
 			if arg == "-p":
 				return False
 		return True
 
-# Returns, whether to remove zero-paddings or not
-
 	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to remove zero-paddings or not. If one of the args given is _-r_, returns True, else returns False.
+
+		"""
 		for arg in args:
 			if arg == "-r":
 				return True
 		return False
 
-# Removes zero-paddings
-
 	def remove_zero_pads(self, line):
+		"""
+
+Removes zero-paddings from input string. Eg. if input is "Tue Oct 03", the function returns "Tue Oct 3".
+
+		"""
 		p = re.compile("([^0-9]0+[1-9][0-9]*|[^0-9]0{2,}[^0-9])")
 		matches = p.findall(" "+line+" ")
 		for match in matches:
@@ -162,17 +191,23 @@ ARGUMENTS (All are mandatory)
 			line = line.replace(match, match[i:])
 		return line
 
-# Calls set_locale_settings and get_formatting_string, returns output from get_formatting_string
-
 	def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Calls _self.display_help()_, _self.set_locale_settings()_ and _self.get_formatting_string()_, returns output from _self.get_formatting_string()_.
+
+		"""
 		self.respond_to_wrong_parameters(args, os_name, debug)
 		self.display_help(args, os_name, debug)
 		self.set_locale_settings(args, os_name, debug)
 		return self.get_formatting_string(args, os_name, debug)
 	
-# Checks, whether the formatting string matches first line of data
-
 	def check_first_line_matches(self, formatting_string, input_data):
+		"""
+
+Checks, whether the formatting string matches first line of data. If so, returns True, else returns False.
+
+		"""
 		first_time = ""
 		try:
 			try:
@@ -188,9 +223,12 @@ ARGUMENTS (All are mandatory)
 					print("Formatting string {0} does not match line {1}\n".format(formatting_string, input_data[0]))
 					return False
 
-# Caches given logs into a list, returns the list
-
 	def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
+		"""
+
+Caches given logs into a list, returns the list where the log is cached. Every item in the list is a line from the logs.
+
+		"""
 		if self.is_help_needed() and (not sys.stdin.isatty()) or debug:
 			log_input = [] # Cache input into list
 			if debug and not isinstance(input_data, list):
@@ -206,7 +244,12 @@ ARGUMENTS (All are mandatory)
 			return log_input
 		return []
 
-	def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout):
+	def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses log files using _self.parse_line()_, formats result using _self.format_line()_
+
+		"""
 		if(len(log_input) > 0):
 			try:
 				try:
@@ -218,23 +261,41 @@ ARGUMENTS (All are mandatory)
 				    else:
 						raise v
 			except ValueError:
-						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+				out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
 			else:
+				out.write("0:00:00 : {0}\n".format(log_input[0]))
 				self.previous_time = self.first_time
 				for line in log_input[1:]: # Iterate over list
-					new_line = self.parse_line(line, time_format)
+					new_line = self.parse_line(line, time_format, zero_pads_add, zero_pads_remove)
 					if new_line == None:
 						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
 					else:
-						out.write(new_line)
-		elif not "-h" in sys.argv[-1]:
+						out.write(self.format_line(new_line))
+		elif self.is_help_needed():
 			out.write("No input specified, see --help or -h for intructions\n")
 
-	def parse_line(self, line, time_format):
+	def format_line(self, args):
+		"""
+
+Expects a tuple of three elemts containing the time from the first line in the log, the time from the previous line in the log and the contents of the current line, formats it to match: [time from first line] [time from previous line] : [contents of the line].
+
+		"""
+		return("{0} {1} : {2}\n".format(args[0], args[1], args[2]))
+
+	def parse_line(self, line, time_format, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses a single line from a log, returns the tuple (difference_in_time_from_first, difference_in_time_from_previous, line's_contents)
+
+		"""
 		orig_line = line
-		if self.check_add_zero_pads() and not self.check_remove_zero_pads():
+		if zero_pads_add == None:
+			zero_pads_add = self.check_add_zero_pads()
+		if zero_pads_remove == None:
+			zero_pads_add = self.check_remove_zero_pads()
+		if  zero_pads_add and not zero_pads_remove:
 			line = line.zfill(2)
-		elif not self.check_add_zero_pads() and self.check_remove_zero_pads():
+		elif not zero_pads_add and zero_pads_remove:
 			line = self.remove_zero_pads(line)
 		try:
 			msg_time = time.strptime(line, time_format) # Time of first message as time.struct_time
@@ -244,9 +305,9 @@ ARGUMENTS (All are mandatory)
 			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
 			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
 			self.previous_time = msg_time
-			return("{0} {1} : {2}\n".format(str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n")))
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
 		else:
 			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
 			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
 			self.previous_time = msg_time
-			return("{0} {1} : {2}\n".format(str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n")))
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))

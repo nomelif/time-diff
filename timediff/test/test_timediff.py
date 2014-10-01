@@ -114,8 +114,71 @@ class TestTimeDiff(unittest.TestCase):
             self.d.set_formatting(["!"], "--locale=en_US")
             eng_locale = "en_US"
             self.assertEqual(eng_locale, locale.getlocale()[0])
+            
+    def test_format_line(self):
+        input_data = [
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized"),
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized"),
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11"),
+        ("0:00:02", "0:00:02", "Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up"),
+
+        ("0:00:02", "0:00:00", "Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready"),
+        ("0:00:04", "0:00:02", "Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting"),
+        ("0:00:09", "0:00:05", "Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting"),
+        ("0:05:00", "0:04:51", "Sep 30 09:34:54 zaphod rsyslogd: [origin software=\"rsyslogd\" swVersion=\"5.8.11\" x-pid=\"2049\" x-info=\"http://www.rsyslog.com\"] rsyslogd was HUPed"),
+        ("0:05:00", "0:00:00", "Sep 30 09:34:54 zaphod rsyslogd: [origin software=\"rsyslogd\" swVersion=\"5.8.11\" x-pid=\"2049\" x-info=\"http://www.rsyslog.com\"] rsyslogd was HUPed")
+        ]
+        expected_output = """0:00:00 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized
+0:00:00 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized
+0:00:00 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11
+0:00:02 0:00:02 : Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up
+0:00:02 0:00:00 : Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+0:00:04 0:00:02 : Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting
+0:00:09 0:00:05 : Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting
+0:05:00 0:04:51 : Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+0:05:00 0:00:00 : Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed"""
+        expected_output = expected_output.split("\n")
+        i = 0
+        while i < len(input_data):
+            self.assertEqual(expected_output[i]+"\n", self.d.format_line(input_data[i]))
+            i = i + 1
 
     def test_parse_line(self):
+        log = """Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized
+Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized
+Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11
+Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up
+Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting
+Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting
+Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed"""
+        log = log.split("\n")
+        expected_output = [
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized"),
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized"),
+        ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11"),
+        ("0:00:02", "0:00:02", "Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up"),
+
+        ("0:00:02", "0:00:00", "Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready"),
+        ("0:00:04", "0:00:02", "Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting"),
+        ("0:00:09", "0:00:05", "Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting"),
+        ("0:05:00", "0:04:51", "Sep 30 09:34:54 zaphod rsyslogd: [origin software=\"rsyslogd\" swVersion=\"5.8.11\" x-pid=\"2049\" x-info=\"http://www.rsyslog.com\"] rsyslogd was HUPed"),
+        ("0:05:00", "0:00:00", "Sep 30 09:34:54 zaphod rsyslogd: [origin software=\"rsyslogd\" swVersion=\"5.8.11\" x-pid=\"2049\" x-info=\"http://www.rsyslog.com\"] rsyslogd was HUPed")
+        ]
+        i = 1
+        try:
+            self.d.first_time = time.strptime(log[0], "%b %d %H:%M:%S") # Time of first message as time.struct_time
+        except ValueError, v:
+            self.d.first_time = log[0].split(v.args[0][26:])[0]
+            self.d.first_time = time.strptime(self.d.first_time, "%b %d %H:%M:%S")
+        self.d.previous_time = self.d.first_time
+        while i < len(log):
+            line = self.d.parse_line(log[i], "%b %d %H:%M:%S")
+            self.assertEqual(expected_output[i], line)
+            i = i + 1
+
+    def test_parse_and_format_line(self):
         log = """Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized
 Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized
 Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11
@@ -145,11 +208,33 @@ Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" 
         self.d.previous_time = self.d.first_time
         while i < len(log):
             line = self.d.parse_line(log[i], "%b %d %H:%M:%S")
-            self.assertEqual(expected_output[i], line.strip("\n"))
+            self.assertEqual(expected_output[i], self.d.format_line(line).strip("\n"))
             i = i + 1
 
     def test_parse_log(self):
-        pass
+        log = """Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized
+Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized
+Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11
+Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up
+Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting
+Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting
+Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed"""
+        log = log.split("\n")
+        expected_output = """0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized
+0:00:00 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862263] Bluetooth: RFCOMM socket layer initialized
+0:00:00 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    5.862265] Bluetooth: RFCOMM ver 1.11
+0:00:02 0:00:02 : Sep 30 09:29:56 zaphod kernel: [    7.474110] r8169 0000:02:00.0: eth0: link up
+0:00:02 0:00:00 : Sep 30 09:29:56 zaphod kernel: [    7.477213] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+0:00:04 0:00:02 : Sep 30 09:29:58 zaphod rsyslogd-2177: imuxsock begins to drop messages from pid 2896 due to rate-limiting
+0:00:09 0:00:05 : Sep 30 09:30:03 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2896 due to rate-limiting
+0:05:00 0:04:51 : Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+0:05:00 0:00:00 : Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" x-pid="2049" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+"""
+        out = StringIO.StringIO()
+        self.d.parse_log(log, "%b %d %H:%M:%S", out, False, False)
+        self.assertEqual(expected_output, out.getvalue())
 
     def test_check_add_zero_pads_negative(self):
         self.assertEqual(False, self.d.check_add_zero_pads(["!", "-p"]))
