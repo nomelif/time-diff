@@ -4,6 +4,7 @@ import sys
 import platform
 import locale
 import os
+import re
 
 class TimeDiff:
 	"""
@@ -124,6 +125,28 @@ ARGUMENTS (All are mandatory)
 					print("Formatting error for datetime format prefix, ignoring")
 					return "%b %d %H:%M:%S"
 		return "%b %d %H:%M:%S"
+
+# Returns, whether to remove zero-paddings or not
+
+	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		for arg in args:
+			if arg == "-p":
+				return False
+		return True
+
+
+# Removes zero-paddings
+
+	def remove_zero_pads(self, line):
+		p = re.compile("([^0-9]0+[1-9][0-9]*|[^0-9]0{2,}[^0-9])")
+		matches = p.findall(" "+line+" ")
+		for match in matches:
+			match = match.strip(" /b")
+			i = 0
+			while match[i] == "0" and i < len(match)-1:
+				i=i+1
+			line = line.replace(match, match[i:])
+		return line
 
 # Calls set_locale_settings and get_formatting_string, returns output from get_formatting_string
 

@@ -146,5 +146,18 @@ Sep 30 09:34:54 zaphod rsyslogd: [origin software="rsyslogd" swVersion="5.8.11" 
         self.d.parse_log(self.d.cache_input(log_in, platform.system(), True), self.d.set_formatting(["!"]), out)
         actual_output = out.getvalue()
         self.assertEqual(expected_output, actual_output)
+
+    def test_check_remove_zero_pads_negative(self):
+        self.assertEqual(False, self.d.check_remove_zero_pads(["!", "-p"]))
+
+    def test_check_remove_zero_pads_positive(self):
+        self.assertEqual(True, self.d.check_remove_zero_pads(["!"]))
+
+    def test_remove_zero_pads_none(self):
+        self.assertEqual("1 4 Tue", self.d.remove_zero_pads("1 4 Tue"))
+
+    def test_remove_zero_pads_present(self):
+        self.assertEqual("1 4 0 0 9007 Tue", self.d.remove_zero_pads("01 004 000 0 9007 Tue"))
+
 if __name__ == '__main__':
     unittest.main()
