@@ -1,0 +1,2174 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+
+      <title>TimeDiff API documentation</title>
+      <meta name="description" content="">
+
+  
+  <style type="text/css">
+  
+/*! normalize.css v1.1.1 | MIT License | git.io/normalize */
+
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+/**
+ * Correct `block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+    display: block;
+}
+
+/**
+ * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+
+audio,
+canvas,
+video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+/**
+ * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
+ * Known issue: no IE 6 support.
+ */
+
+[hidden] {
+    display: none;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+/**
+ * 1. Prevent system color scheme's background color being used in Firefox, IE,
+ *    and Opera.
+ * 2. Prevent system color scheme's text color being used in Firefox, IE, and
+ *    Opera.
+ * 3. Correct text resizing oddly in IE 6/7 when body `font-size` is set using
+ *    `em` units.
+ * 4. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+
+html {
+    background: #fff; /* 1 */
+    color: #000; /* 2 */
+    font-size: 100%; /* 3 */
+    -webkit-text-size-adjust: 100%; /* 4 */
+    -ms-text-size-adjust: 100%; /* 4 */
+}
+
+/**
+ * Address `font-family` inconsistency between `textarea` and other form
+ * elements.
+ */
+
+html,
+button,
+input,
+select,
+textarea {
+    font-family: sans-serif;
+}
+
+/**
+ * Address margins handled incorrectly in IE 6/7.
+ */
+
+body {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+
+a:focus {
+    outline: thin dotted;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+/**
+ * Address font sizes and margins set differently in IE 6/7.
+ * Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
+ * and Chrome.
+ */
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.67em;
+    margin: 2.33em 0;
+}
+
+/**
+ * Address styling not present in IE 7/8/9, Safari 5, and Chrome.
+ */
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/**
+ * Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
+ */
+
+b,
+strong {
+    font-weight: bold;
+}
+
+blockquote {
+    margin: 1em 40px;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+
+dfn {
+    font-style: italic;
+}
+
+/**
+ * Address differences between Firefox and other browsers.
+ * Known issue: no IE 6/7 normalization.
+ */
+
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
+
+/**
+ * Address styling not present in IE 6/7/8/9.
+ */
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+/**
+ * Address margins set differently in IE 6/7.
+ */
+
+p,
+pre {
+    margin: 1em 0;
+}
+
+/**
+ * Correct font family set oddly in IE 6, Safari 4/5, and Chrome.
+ */
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+}
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/**
+ * Address CSS quotes not supported in IE 6/7.
+ */
+
+q {
+    quotes: none;
+}
+
+/**
+ * Address `quotes` property not supported in Safari 4.
+ */
+
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+
+small {
+    font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+/**
+ * Address margins set differently in IE 6/7.
+ */
+
+dl,
+menu,
+ol,
+ul {
+    margin: 1em 0;
+}
+
+dd {
+    margin: 0 0 0 40px;
+}
+
+/**
+ * Address paddings set differently in IE 6/7.
+ */
+
+menu,
+ol,
+ul {
+    padding: 0 0 0 40px;
+}
+
+/**
+ * Correct list images handled incorrectly in IE 7.
+ */
+
+nav ul,
+nav ol {
+    list-style: none;
+    list-style-image: none;
+}
+
+/* ==========================================================================
+   Embedded content
+   ========================================================================== */
+
+/**
+ * 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3.
+ * 2. Improve image quality when scaled in IE 7.
+ */
+
+img {
+    border: 0; /* 1 */
+    -ms-interpolation-mode: bicubic; /* 2 */
+}
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Figures
+   ========================================================================== */
+
+/**
+ * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
+ */
+
+figure {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+/**
+ * Correct margin displayed oddly in IE 6/7.
+ */
+
+form {
+    margin: 0;
+}
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct color not being inherited in IE 6/7/8/9.
+ * 2. Correct text not wrapping in Firefox 3.
+ * 3. Correct alignment displayed oddly in IE 6/7.
+ */
+
+legend {
+    border: 0; /* 1 */
+    padding: 0;
+    white-space: normal; /* 2 */
+    *margin-left: -7px; /* 3 */
+}
+
+/**
+ * 1. Correct font size not being inherited in all browsers.
+ * 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5,
+ *    and Chrome.
+ * 3. Improve appearance and consistency in all browsers.
+ */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%; /* 1 */
+    margin: 0; /* 2 */
+    vertical-align: baseline; /* 3 */
+    *vertical-align: middle; /* 3 */
+}
+
+/**
+ * Address Firefox 3+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+button,
+input {
+    line-height: normal;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+
+button,
+select {
+    text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+ *    Known issue: inner spacing remains in IE 6.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button; /* 2 */
+    cursor: pointer; /* 3 */
+    *overflow: visible;  /* 4 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+/**
+ * 1. Address box sizing set to content-box in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ * 3. Remove excess padding in IE 7.
+ *    Known issue: excess padding remains in IE 6.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+    *height: 13px; /* 3 */
+    *width: 13px; /* 3 */
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; /* 2 */
+    box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 3+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/**
+ * 1. Remove default vertical scrollbar in IE 6/7/8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+/**
+ * Remove most spacing between table cells.
+ */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+  </style>
+
+  <style type="text/css">
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ddd;
+    height: 100%;
+  }
+
+  #container {
+    width: 840px;
+    background-color: #fdfdfd;
+    color: #111;
+    margin: 0 auto;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    padding: 10px 25px;
+    min-height: 100%;
+  }
+
+  #nav {
+    font-size: 130%;
+    margin: 0 0 15px 0;
+  }
+
+  #top {
+    display: block;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    font-size: 140%;
+  }
+
+  h1 {
+    margin: 0 0 10px 0;
+  }
+
+  h2 {
+    margin: 25px 0 10px 0;
+  }
+
+  h3 {
+    margin: 25px 0 10px 0;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 105%;
+  }
+
+  a {
+    color: #058;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #e08524;
+  }
+
+  p {
+    line-height: 1.35em;
+  }
+
+  pre, code, .mono, .name {
+    font-family: "Ubuntu Mono", "Cousine", "DejaVu Sans Mono", monospace;
+  }
+
+  .ident {
+    color: #900;
+  }
+
+  code {
+    background: #e8e8e8;
+  } 
+
+  pre {
+    background: #e8e8e8;
+    padding: 6px;
+    margin: 0 30px;
+  }
+
+  .codehilite {
+    margin: 0 30px 10px 30px;
+  }
+
+    .codehilite pre {
+      margin: 0;
+    }
+
+  table#module-list {
+    font-size: 110%;
+  }
+
+    table#module-list tr td:first-child {
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    table#module-list td {
+      vertical-align: top;
+      padding-bottom: 8px;
+    }
+
+      table#module-list td p {
+        margin: 0 0 7px 0;
+      }
+
+  .def {
+    display: table;
+  }
+
+    .def p {
+      display: table-cell;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .def p:first-child {
+      white-space: nowrap;
+    }
+
+    .def p:last-child {
+      width: 100%;
+    }
+
+  ul#index {
+    padding: 0;
+    margin: 0;
+  }
+
+    ul#index .class_name {
+      /* font-size: 110%; */
+      font-weight: bold;
+    }
+
+    ul#index li {
+      margin-bottom: 18px;
+    }
+
+      ul#index ul li {
+        margin-bottom: 8px;
+      }
+
+    ul#index, ul#index ul {
+      list-style-type: none;
+    }
+
+    ul#index ul {
+      margin: 0 0 10px 20px;
+      padding: 0;
+    }
+
+  .column_list {
+    width: 100%;
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .column_list:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    height: 0;
+    content: " ";
+    clear: both;
+  }
+
+    .column_list ul {
+      float: left;
+      text-align: left;
+      width: 32%;
+      margin: 0 !important;
+    }
+
+  .item {
+    margin: 0 0 25px 0;
+  }
+
+    .item .class {
+      margin: 0 0 25px 30px;
+    }
+
+      .item .class ul.class_list {
+        margin: 0 0 20px 0;
+      }
+
+    .item .name {
+      background: #e8e8e8;
+      padding: 4px;
+      margin: 0 0 8px 0;
+      font-size: 110%;
+      font-weight: bold;
+    }
+
+    .item .empty_desc {
+      margin: 0 0 5px 0;
+      padding: 0;
+    }
+
+    .item .inheritance {
+      margin: 3px 0 10px 0;
+      padding: 0 8px;
+    }
+
+    .item .inherited {
+      color: #666;
+    }
+
+    .item .desc {
+      padding: 0 8px;
+      margin: 0;
+    }
+
+      .item .desc p {
+        margin: 0 0 10px 0;
+      }
+
+    .source_cont {
+      margin: 10px 8px 0 8px;
+      padding: 0;
+    }
+
+    .source_link {
+      font-weight: bold;
+    }
+
+    .source {
+      display: none;
+      max-height: 600px;
+      overflow-y: scroll;
+      margin-bottom: 15px;
+    }
+
+      .source .codehilite {
+        margin: 0;
+      }
+
+  .desc h1, .desc h2, .desc h3 {
+    font-size: 100% !important;
+  }
+
+  /*****************************/
+
+  </style>
+
+
+  <style type="text/css">
+  
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+  </style>
+
+  <script type="text/javascript">
+    function toggle(id, $link) {
+      $node = document.getElementById(id);
+      if (!$node)
+        return;
+      if (!$node.style.display || $node.style.display == 'none') {
+        $node.style.display = 'block';
+        $link.innerHTML = 'Hide source.';
+      } else {
+        $node.style.display = 'none';
+        $link.innerHTML = 'Show source.';
+      }
+    }
+  </script>
+</head>
+<body>
+<a href="#" id="top">Top</a>
+
+<div id="container">
+
+    
+  
+
+  
+
+
+  <h1>Module TimeDiff</h1>
+  
+  
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff', this);">Show source.</a></p>
+    <div id="source-TimeDiff" class="source">
+      <pre><code>import time
+import datetime
+import sys
+import platform
+import locale
+import os
+import re
+import StringIO
+
+class TimeDiff:
+	"""
+
+Class containing all methods related to parsing logs. The program itself is run from _../bin/time-diff_.
+
+	"""
+
+# Empty __init__-method
+
+	def __init__(self):
+		""" Empty _\_\_init\_\__ function """
+		pass
+
+# Returns help to be showed with -h or --help argument
+
+	def get_help_text(self):
+		"""
+Returns help text, used when calling _time-diff -h_ or _time-diff --help_.
+
+		""" 
+		return """Use by piping file (or greped lines) to program.
+
+ARGUMENTS (All are mandatory)
+
+
+-h,  --help           : Show this help
+-f=, --format=        : Set datetime format options, defaults to "%b %d %H:%M:%S"
+-F=, --format-preset= : Set datetime formatting preset, defaults to none accepted values are:
+
+	* custom1 : "%Y%m%d_%H%M%S"
+
+-l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-r                    : Removes zero-padding from lines, eg. 002 becomes 2.
+-p                    : Cancels adding zero-padding, eg. without -p 2 would become 02"""
+
+	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Tells user that he / she enttered parameters, that werent understood, doesn't affect parsing of logs.
+
+		"""
+		for arg in args[1:]:
+		 	is_known = False
+		 	for known_arg in ["-p", "-r" "-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
+		 		try:
+					if arg.split("=")[0] == known_arg:
+		 				is_known = True
+		 		except:
+		 			pass
+		 	if not is_known:
+		 		if debug:
+		 			return "Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
+		 		else:
+		 			print("Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
+
+	def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Displays help from _self.get_help_text()_.
+
+		"""
+		if self.is_help_needed(args, os_name, debug):
+			if debug:
+				return self.get_help_text()
+			else:
+				print(self.get_help_text())
+				return True
+		return False
+	def is_help_needed(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns True if _../bin/time-diff_ was called with argument _-h_ or _--help_.
+
+		"""
+		for arg in args:
+			if arg == "-h" or arg == "--help":
+					return True
+		return False
+
+	def set_locale_settings(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Sets locale if such is given through _-l_ or _--locale_ for formatting logs containing names of months and weekdays. Default is American English, if it isn't installed this falls back to the systems current locale.
+
+		"""
+		locale_error = False
+		eng_locale = "en_US"
+		if os_name == "Windows":
+			eng_locale = "en-US"
+		try:
+			locale.setlocale(locale.LC_ALL, eng_locale)
+		except:
+			locale_error = True
+		for arg in args[1:]:
+			if "-l=" in arg or "-locale=" in arg:
+				try:
+					locale.setlocale(locale.LC_ALL, arg.split("=")[1])
+				except:
+					print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
+			elif locale_error:
+				if debug:
+					raise LocaleError("")
+				else:
+					print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
+
+	def get_formatting_string(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns string to use for formatting log input. If a preset is correctly specified using _-F_ or _--format-preset_, the corresponding formatting string is returned. If no preset is given and a string is correctly specified using _-f_ or _--format_, it is returned. If a preset is specified, but it doesn't exist and no correct explicit formatting string is given with _-f_ or _--format_, this returns "%b %d %H:%M:%S". If no correct preset is specified, but a correct explicit formatting is, this returns the later. If no correct formatting of any sort is specified, returns "%b %d %H:%M:%S".
+
+		"""
+		for arg in args[1:]:
+			if "--format=" in arg:
+				try:
+					return arg.split("--format=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-f=" in arg:
+				try:
+					return arg.split("-f=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "--format-preset=" in arg:
+				try:
+					if arg.split("--format-preset=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
+					else:
+						print("No such formatting prefix exists, ignoring")
+						return "%b %d %H:%M:%S"
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-F=" in arg:
+				try:
+					if arg.split("-F=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
+					else:
+						print("No such formatting prefix exists, ignoring")
+						return "%b %d %H:%M:%S"
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
+					return "%b %d %H:%M:%S"
+		return "%b %d %H:%M:%S"
+
+	def check_add_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to add zero-paddings or not. If one of the args give is _-p_, returns False, else returns True.
+
+		"""
+		for arg in args:
+			if arg == "-p":
+				return False
+		return True
+
+	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to remove zero-paddings or not. If one of the args given is _-r_, returns True, else returns False.
+
+		"""
+		for arg in args:
+			if arg == "-r":
+				return True
+		return False
+
+	def remove_zero_pads(self, line):
+		"""
+
+Removes zero-paddings from input string. Eg. if input is "Tue Oct 03", the function returns "Tue Oct 3".
+
+		"""
+		p = re.compile("([^0-9]0+[1-9][0-9]*|[^0-9]0{2,}[^0-9])")
+		matches = p.findall(" "+line+" ")
+		for match in matches:
+			match = match.strip(" /b")
+			i = 0
+			while match[i] == "0" and i < len(match)-1:
+				i=i+1
+			line = line.replace(match, match[i:])
+		return line
+
+	def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Calls _self.display_help()_, _self.set_locale_settings()_ and _self.get_formatting_string()_, returns output from _self.get_formatting_string()_.
+
+		"""
+		self.respond_to_wrong_parameters(args, os_name, debug)
+		self.display_help(args, os_name, debug)
+		self.set_locale_settings(args, os_name, debug)
+		return self.get_formatting_string(args, os_name, debug)
+	
+	def check_first_line_matches(self, formatting_string, input_data):
+		"""
+
+Checks, whether the formatting string matches first line of data. If so, returns True, else returns False.
+
+		"""
+		first_time = ""
+		try:
+			try:
+				first_time = time.strptime(" ".join(input_data[0].strip("\n").split(" ")[:3]), formatting_string) # Time of first message as time.struct_time
+				return True
+			except ValueError, v:
+			    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+			        first_time = input_data[0].split(v.args[0][26:])[0]
+			        first_time = time.strptime(first_time, formatting_string)
+			    else:
+					raise v
+		except ValueError:
+					print("Formatting string {0} does not match line {1}\n".format(formatting_string, input_data[0]))
+					return False
+
+	def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
+		"""
+
+Caches given logs into a list, returns the list where the log is cached. Every item in the list is a line from the logs.
+
+		"""
+		if self.is_help_needed() and (not sys.stdin.isatty()) or debug:
+			log_input = [] # Cache input into list
+			if debug and not isinstance(input_data, list):
+				log_input = input_data.getvalue().split("\n")
+			else:
+				for line in input_data:
+					log_input.append(line)
+			return log_input
+		elif (not sys.stdin.isatty()) or debug:
+			log_input = [] # Cache input into list
+			for line in input_data:
+				log_input.append(line)
+			return log_input
+		return []
+
+	def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses log files using _self.parse_line()_, formats result using _self.format_line()_
+
+		"""
+		if(len(log_input) > 0):
+			try:
+				try:
+					self.first_time = time.strptime(" ".join(log_input[0].strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
+				except ValueError, v:
+				    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+				        self.first_time = log_input[0].split(v.args[0][26:])[0]
+				        self.first_time = time.strptime(self.first_time, time_format)
+				    else:
+						raise v
+			except ValueError:
+				out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+			else:
+				out.write("0:00:00 : {0}\n".format(log_input[0]))
+				self.previous_time = self.first_time
+				for line in log_input[1:]: # Iterate over list
+					new_line = self.parse_line(line, time_format, zero_pads_add, zero_pads_remove)
+					if new_line == None:
+						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+					else:
+						out.write(self.format_line(new_line))
+		elif self.is_help_needed():
+			out.write("No input specified, see --help or -h for intructions\n")
+
+	def format_line(self, args):
+		"""
+
+Expects a tuple of three elemts containing the time from the first line in the log, the time from the previous line in the log and the contents of the current line, formats it to match: [time from first line] [time from previous line] : [contents of the line].
+
+		"""
+		return("{0} {1} : {2}\n".format(args[0], args[1], args[2]))
+
+	def parse_line(self, line, time_format, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses a single line from a log, returns the tuple (difference_in_time_from_first, difference_in_time_from_previous, line's_contents)
+
+		"""
+		orig_line = line
+		if zero_pads_add == None:
+			zero_pads_add = self.check_add_zero_pads()
+		if zero_pads_remove == None:
+			zero_pads_add = self.check_remove_zero_pads()
+		if  zero_pads_add and not zero_pads_remove:
+			line = line.zfill(2)
+		elif not zero_pads_add and zero_pads_remove:
+			line = self.remove_zero_pads(line)
+		try:
+			msg_time = time.strptime(line, time_format) # Time of first message as time.struct_time
+		except ValueError, v:
+			msg_time = line.split(v.args[0][26:])[0]
+			msg_time = time.strptime(msg_time, time_format)
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+		else:
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+</code></pre>
+    </div>
+
+  <hr>
+
+  <h2>Index</h2>
+
+  <ul id="index">
+
+
+    <li><h4><a href="#header-classes">Classes</a></h4>
+      <ul>
+          <li class="mono">
+            <span class="class_name"><a href="#TimeDiff.TimeDiff">TimeDiff</a></span>
+            
+              
+  
+  <div class="column_list">
+      <ul>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.__init__">__init__</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.cache_input">cache_input</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.check_add_zero_pads">check_add_zero_pads</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.check_first_line_matches">check_first_line_matches</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.check_remove_zero_pads">check_remove_zero_pads</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.display_help">display_help</a></li>
+      </ul>
+      <ul>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.format_line">format_line</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.get_formatting_string">get_formatting_string</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.get_help_text">get_help_text</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.is_help_needed">is_help_needed</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.parse_line">parse_line</a></li>
+      </ul>
+      <ul>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.parse_log">parse_log</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.remove_zero_pads">remove_zero_pads</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.respond_to_wrong_parameters">respond_to_wrong_parameters</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.set_formatting">set_formatting</a></li>
+          <li class="mono"><a href="#TimeDiff.TimeDiff.set_locale_settings">set_locale_settings</a></li>
+      </ul>
+  </div>
+
+          </li>
+      </ul>
+    </li>
+
+  </ul>
+
+
+
+  <h2 id="header-classes">Classes</h2>
+      
+      <div class="item">
+        <p id="TimeDiff.TimeDiff" class="name">class <span class="ident">TimeDiff</span></p>
+        
+  
+      <div class="desc"><p>Class containing all methods related to parsing logs. The program itself is run from <em>../bin/time-diff</em>.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff" class="source">
+      <pre><code>class TimeDiff:
+	"""
+
+Class containing all methods related to parsing logs. The program itself is run from _../bin/time-diff_.
+
+	"""
+
+# Empty __init__-method
+
+	def __init__(self):
+		""" Empty _\_\_init\_\__ function """
+		pass
+
+# Returns help to be showed with -h or --help argument
+
+	def get_help_text(self):
+		"""
+Returns help text, used when calling _time-diff -h_ or _time-diff --help_.
+
+		""" 
+		return """Use by piping file (or greped lines) to program.
+
+ARGUMENTS (All are mandatory)
+
+
+-h,  --help           : Show this help
+-f=, --format=        : Set datetime format options, defaults to "%b %d %H:%M:%S"
+-F=, --format-preset= : Set datetime formatting preset, defaults to none accepted values are:
+
+	* custom1 : "%Y%m%d_%H%M%S"
+
+-l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-r                    : Removes zero-padding from lines, eg. 002 becomes 2.
+-p                    : Cancels adding zero-padding, eg. without -p 2 would become 02"""
+
+	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Tells user that he / she enttered parameters, that werent understood, doesn't affect parsing of logs.
+
+		"""
+		for arg in args[1:]:
+		 	is_known = False
+		 	for known_arg in ["-p", "-r" "-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
+		 		try:
+					if arg.split("=")[0] == known_arg:
+		 				is_known = True
+		 		except:
+		 			pass
+		 	if not is_known:
+		 		if debug:
+		 			return "Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
+		 		else:
+		 			print("Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
+
+	def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Displays help from _self.get_help_text()_.
+
+		"""
+		if self.is_help_needed(args, os_name, debug):
+			if debug:
+				return self.get_help_text()
+			else:
+				print(self.get_help_text())
+				return True
+		return False
+	def is_help_needed(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns True if _../bin/time-diff_ was called with argument _-h_ or _--help_.
+
+		"""
+		for arg in args:
+			if arg == "-h" or arg == "--help":
+					return True
+		return False
+
+	def set_locale_settings(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Sets locale if such is given through _-l_ or _--locale_ for formatting logs containing names of months and weekdays. Default is American English, if it isn't installed this falls back to the systems current locale.
+
+		"""
+		locale_error = False
+		eng_locale = "en_US"
+		if os_name == "Windows":
+			eng_locale = "en-US"
+		try:
+			locale.setlocale(locale.LC_ALL, eng_locale)
+		except:
+			locale_error = True
+		for arg in args[1:]:
+			if "-l=" in arg or "-locale=" in arg:
+				try:
+					locale.setlocale(locale.LC_ALL, arg.split("=")[1])
+				except:
+					print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
+			elif locale_error:
+				if debug:
+					raise LocaleError("")
+				else:
+					print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
+
+	def get_formatting_string(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns string to use for formatting log input. If a preset is correctly specified using _-F_ or _--format-preset_, the corresponding formatting string is returned. If no preset is given and a string is correctly specified using _-f_ or _--format_, it is returned. If a preset is specified, but it doesn't exist and no correct explicit formatting string is given with _-f_ or _--format_, this returns "%b %d %H:%M:%S". If no correct preset is specified, but a correct explicit formatting is, this returns the later. If no correct formatting of any sort is specified, returns "%b %d %H:%M:%S".
+
+		"""
+		for arg in args[1:]:
+			if "--format=" in arg:
+				try:
+					return arg.split("--format=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-f=" in arg:
+				try:
+					return arg.split("-f=")[1]
+				except:
+					print("Formatting error for datetime format, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "--format-preset=" in arg:
+				try:
+					if arg.split("--format-preset=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
+					else:
+						print("No such formatting prefix exists, ignoring")
+						return "%b %d %H:%M:%S"
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
+					return "%b %d %H:%M:%S"
+			elif "-F=" in arg:
+				try:
+					if arg.split("-F=")[1] == "custom1":
+						return "%Y%m%d_%H%M%S"
+					else:
+						print("No such formatting prefix exists, ignoring")
+						return "%b %d %H:%M:%S"
+				except:
+					print("Formatting error for datetime format prefix, ignoring")
+					return "%b %d %H:%M:%S"
+		return "%b %d %H:%M:%S"
+
+	def check_add_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to add zero-paddings or not. If one of the args give is _-p_, returns False, else returns True.
+
+		"""
+		for arg in args:
+			if arg == "-p":
+				return False
+		return True
+
+	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Returns, whether to remove zero-paddings or not. If one of the args given is _-r_, returns True, else returns False.
+
+		"""
+		for arg in args:
+			if arg == "-r":
+				return True
+		return False
+
+	def remove_zero_pads(self, line):
+		"""
+
+Removes zero-paddings from input string. Eg. if input is "Tue Oct 03", the function returns "Tue Oct 3".
+
+		"""
+		p = re.compile("([^0-9]0+[1-9][0-9]*|[^0-9]0{2,}[^0-9])")
+		matches = p.findall(" "+line+" ")
+		for match in matches:
+			match = match.strip(" /b")
+			i = 0
+			while match[i] == "0" and i < len(match)-1:
+				i=i+1
+			line = line.replace(match, match[i:])
+		return line
+
+	def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+		"""
+
+Calls _self.display_help()_, _self.set_locale_settings()_ and _self.get_formatting_string()_, returns output from _self.get_formatting_string()_.
+
+		"""
+		self.respond_to_wrong_parameters(args, os_name, debug)
+		self.display_help(args, os_name, debug)
+		self.set_locale_settings(args, os_name, debug)
+		return self.get_formatting_string(args, os_name, debug)
+	
+	def check_first_line_matches(self, formatting_string, input_data):
+		"""
+
+Checks, whether the formatting string matches first line of data. If so, returns True, else returns False.
+
+		"""
+		first_time = ""
+		try:
+			try:
+				first_time = time.strptime(" ".join(input_data[0].strip("\n").split(" ")[:3]), formatting_string) # Time of first message as time.struct_time
+				return True
+			except ValueError, v:
+			    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+			        first_time = input_data[0].split(v.args[0][26:])[0]
+			        first_time = time.strptime(first_time, formatting_string)
+			    else:
+					raise v
+		except ValueError:
+					print("Formatting string {0} does not match line {1}\n".format(formatting_string, input_data[0]))
+					return False
+
+	def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
+		"""
+
+Caches given logs into a list, returns the list where the log is cached. Every item in the list is a line from the logs.
+
+		"""
+		if self.is_help_needed() and (not sys.stdin.isatty()) or debug:
+			log_input = [] # Cache input into list
+			if debug and not isinstance(input_data, list):
+				log_input = input_data.getvalue().split("\n")
+			else:
+				for line in input_data:
+					log_input.append(line)
+			return log_input
+		elif (not sys.stdin.isatty()) or debug:
+			log_input = [] # Cache input into list
+			for line in input_data:
+				log_input.append(line)
+			return log_input
+		return []
+
+	def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses log files using _self.parse_line()_, formats result using _self.format_line()_
+
+		"""
+		if(len(log_input) > 0):
+			try:
+				try:
+					self.first_time = time.strptime(" ".join(log_input[0].strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
+				except ValueError, v:
+				    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+				        self.first_time = log_input[0].split(v.args[0][26:])[0]
+				        self.first_time = time.strptime(self.first_time, time_format)
+				    else:
+						raise v
+			except ValueError:
+				out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+			else:
+				out.write("0:00:00 : {0}\n".format(log_input[0]))
+				self.previous_time = self.first_time
+				for line in log_input[1:]: # Iterate over list
+					new_line = self.parse_line(line, time_format, zero_pads_add, zero_pads_remove)
+					if new_line == None:
+						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+					else:
+						out.write(self.format_line(new_line))
+		elif self.is_help_needed():
+			out.write("No input specified, see --help or -h for intructions\n")
+
+	def format_line(self, args):
+		"""
+
+Expects a tuple of three elemts containing the time from the first line in the log, the time from the previous line in the log and the contents of the current line, formats it to match: [time from first line] [time from previous line] : [contents of the line].
+
+		"""
+		return("{0} {1} : {2}\n".format(args[0], args[1], args[2]))
+
+	def parse_line(self, line, time_format, zero_pads_add=None, zero_pads_remove=None):
+		"""
+
+Parses a single line from a log, returns the tuple (difference_in_time_from_first, difference_in_time_from_previous, line's_contents)
+
+		"""
+		orig_line = line
+		if zero_pads_add == None:
+			zero_pads_add = self.check_add_zero_pads()
+		if zero_pads_remove == None:
+			zero_pads_add = self.check_remove_zero_pads()
+		if  zero_pads_add and not zero_pads_remove:
+			line = line.zfill(2)
+		elif not zero_pads_add and zero_pads_remove:
+			line = self.remove_zero_pads(line)
+		try:
+			msg_time = time.strptime(line, time_format) # Time of first message as time.struct_time
+		except ValueError, v:
+			msg_time = line.split(v.args[0][26:])[0]
+			msg_time = time.strptime(msg_time, time_format)
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+		else:
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+</code></pre>
+    </div>
+</div>
+
+
+        <div class="class">
+              <h4>Ancestors (in MRO)</h4>
+              <ul class="class_list">
+                <li><a href="#TimeDiff.TimeDiff">TimeDiff</a></li>
+              </ul>
+              <h4>Methods</h4>
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.__init__">
+        <p>def <span class="ident">__init__</span>(</p><p>self)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Empty <em>__init__</em> function</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.__init__', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.__init__" class="source">
+      <pre><code>def __init__(self):
+	""" Empty _\_\_init\_\__ function """
+	pass
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.cache_input">
+        <p>def <span class="ident">cache_input</span>(</p><p>self, input_data=&lt;closed file &#39;&lt;stdin&gt;&#39;, mode &#39;r&#39; at 0x7f65a9b70150&gt;, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Caches given logs into a list, returns the list where the log is cached. Every item in the list is a line from the logs.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.cache_input', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.cache_input" class="source">
+      <pre><code>def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
+	"""
+aches given logs into a list, returns the list where the log is cached. Every item in the list is a line from the logs.
+	"""
+	if self.is_help_needed() and (not sys.stdin.isatty()) or debug:
+		log_input = [] # Cache input into list
+		if debug and not isinstance(input_data, list):
+			log_input = input_data.getvalue().split("\n")
+		else:
+			for line in input_data:
+				log_input.append(line)
+		return log_input
+	elif (not sys.stdin.isatty()) or debug:
+		log_input = [] # Cache input into list
+		for line in input_data:
+			log_input.append(line)
+		return log_input
+	return []
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.check_add_zero_pads">
+        <p>def <span class="ident">check_add_zero_pads</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Returns, whether to add zero-paddings or not. If one of the args give is <em>-p</em>, returns False, else returns True.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.check_add_zero_pads', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.check_add_zero_pads" class="source">
+      <pre><code>def check_add_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+eturns, whether to add zero-paddings or not. If one of the args give is _-p_, returns False, else returns True.
+	"""
+	for arg in args:
+		if arg == "-p":
+			return False
+	return True
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.check_first_line_matches">
+        <p>def <span class="ident">check_first_line_matches</span>(</p><p>self, formatting_string, input_data)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Checks, whether the formatting string matches first line of data. If so, returns True, else returns False.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.check_first_line_matches', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.check_first_line_matches" class="source">
+      <pre><code>def check_first_line_matches(self, formatting_string, input_data):
+	"""
+hecks, whether the formatting string matches first line of data. If so, returns True, else returns False.
+	"""
+	first_time = ""
+	try:
+		try:
+			first_time = time.strptime(" ".join(input_data[0].strip("\n").split(" ")[:3]), formatting_string) # Time of first message as time.struct_time
+			return True
+		except ValueError, v:
+		    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+		        first_time = input_data[0].split(v.args[0][26:])[0]
+		        first_time = time.strptime(first_time, formatting_string)
+		    else:
+				raise v
+	except ValueError:
+				print("Formatting string {0} does not match line {1}\n".format(formatting_string, input_data[0]))
+				return False
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.check_remove_zero_pads">
+        <p>def <span class="ident">check_remove_zero_pads</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Returns, whether to remove zero-paddings or not. If one of the args given is <em>-r</em>, returns True, else returns False.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.check_remove_zero_pads', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.check_remove_zero_pads" class="source">
+      <pre><code>def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+eturns, whether to remove zero-paddings or not. If one of the args given is _-r_, returns True, else returns False.
+	"""
+	for arg in args:
+		if arg == "-r":
+			return True
+	return False
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.display_help">
+        <p>def <span class="ident">display_help</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Displays help from <em>self.get_help_text()</em>.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.display_help', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.display_help" class="source">
+      <pre><code>def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+isplays help from _self.get_help_text()_.
+	"""
+	if self.is_help_needed(args, os_name, debug):
+		if debug:
+			return self.get_help_text()
+		else:
+			print(self.get_help_text())
+			return True
+	return False
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.format_line">
+        <p>def <span class="ident">format_line</span>(</p><p>self, args)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Expects a tuple of three elemts containing the time from the first line in the log, the time from the previous line in the log and the contents of the current line, formats it to match: [time from first line] [time from previous line] : [contents of the line].</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.format_line', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.format_line" class="source">
+      <pre><code>def format_line(self, args):
+	"""
+xpects a tuple of three elemts containing the time from the first line in the log, the time from the previous line in the log and the contents of the current line, formats it to match: [time from first line] [time from previous line] : [contents of the line].
+	"""
+	return("{0} {1} : {2}\n".format(args[0], args[1], args[2]))
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.get_formatting_string">
+        <p>def <span class="ident">get_formatting_string</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Returns string to use for formatting log input. If a preset is correctly specified using <em>-F</em> or <em>--format-preset</em>, the corresponding formatting string is returned. If no preset is given and a string is correctly specified using <em>-f</em> or <em>--format</em>, it is returned. If a preset is specified, but it doesn't exist and no correct explicit formatting string is given with <em>-f</em> or <em>--format</em>, this returns "%b %d %H:%M:%S". If no correct preset is specified, but a correct explicit formatting is, this returns the later. If no correct formatting of any sort is specified, returns "%b %d %H:%M:%S".</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.get_formatting_string', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.get_formatting_string" class="source">
+      <pre><code>def get_formatting_string(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+eturns string to use for formatting log input. If a preset is correctly specified using _-F_ or _--format-preset_, the corresponding formatting string is returned. If no preset is given and a string is correctly specified using _-f_ or _--format_, it is returned. If a preset is specified, but it doesn't exist and no correct explicit formatting string is given with _-f_ or _--format_, this returns "%b %d %H:%M:%S". If no correct preset is specified, but a correct explicit formatting is, this returns the later. If no correct formatting of any sort is specified, returns "%b %d %H:%M:%S".
+	"""
+	for arg in args[1:]:
+		if "--format=" in arg:
+			try:
+				return arg.split("--format=")[1]
+			except:
+				print("Formatting error for datetime format, ignoring")
+				return "%b %d %H:%M:%S"
+		elif "-f=" in arg:
+			try:
+				return arg.split("-f=")[1]
+			except:
+				print("Formatting error for datetime format, ignoring")
+				return "%b %d %H:%M:%S"
+		elif "--format-preset=" in arg:
+			try:
+				if arg.split("--format-preset=")[1] == "custom1":
+					return "%Y%m%d_%H%M%S"
+				else:
+					print("No such formatting prefix exists, ignoring")
+					return "%b %d %H:%M:%S"
+			except:
+				print("Formatting error for datetime format prefix, ignoring")
+				return "%b %d %H:%M:%S"
+		elif "-F=" in arg:
+			try:
+				if arg.split("-F=")[1] == "custom1":
+					return "%Y%m%d_%H%M%S"
+				else:
+					print("No such formatting prefix exists, ignoring")
+					return "%b %d %H:%M:%S"
+			except:
+				print("Formatting error for datetime format prefix, ignoring")
+				return "%b %d %H:%M:%S"
+	return "%b %d %H:%M:%S"
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.get_help_text">
+        <p>def <span class="ident">get_help_text</span>(</p><p>self)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Returns help text, used when calling <em>time-diff -h</em> or <em>time-diff --help</em>.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.get_help_text', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.get_help_text" class="source">
+      <pre><code>def get_help_text(self):
+	"""
+eturns help text, used when calling _time-diff -h_ or _time-diff --help_.
+	""" 
+	return """Use by piping file (or greped lines) to program.
+RGUMENTS (All are mandatory)
+h,  --help           : Show this help
+f=, --format=        : Set datetime format options, defaults to "%b %d %H:%M:%S"
+F=, --format-preset= : Set datetime formatting preset, defaults to none accepted values are:
+* custom1 : "%Y%m%d_%H%M%S"
+l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+r                    : Removes zero-padding from lines, eg. 002 becomes 2.
+p                    : Cancels adding zero-padding, eg. without -p 2 would become 02"""
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.is_help_needed">
+        <p>def <span class="ident">is_help_needed</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Returns True if <em>../bin/time-diff</em> was called with argument <em>-h</em> or <em>--help</em>.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.is_help_needed', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.is_help_needed" class="source">
+      <pre><code>def is_help_needed(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+eturns True if _../bin/time-diff_ was called with argument _-h_ or _--help_.
+	"""
+	for arg in args:
+		if arg == "-h" or arg == "--help":
+				return True
+	return False
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.parse_line">
+        <p>def <span class="ident">parse_line</span>(</p><p>self, line, time_format, zero_pads_add=None, zero_pads_remove=None)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Parses a single line from a log, returns the tuple (difference_in_time_from_first, difference_in_time_from_previous, line's_contents)</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.parse_line', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.parse_line" class="source">
+      <pre><code>def parse_line(self, line, time_format, zero_pads_add=None, zero_pads_remove=None):
+	"""
+arses a single line from a log, returns the tuple (difference_in_time_from_first, difference_in_time_from_previous, line's_contents)
+	"""
+	orig_line = line
+	if zero_pads_add == None:
+		zero_pads_add = self.check_add_zero_pads()
+	if zero_pads_remove == None:
+		zero_pads_add = self.check_remove_zero_pads()
+	if  zero_pads_add and not zero_pads_remove:
+		line = line.zfill(2)
+	elif not zero_pads_add and zero_pads_remove:
+		line = self.remove_zero_pads(line)
+	try:
+		msg_time = time.strptime(line, time_format) # Time of first message as time.struct_time
+	except ValueError, v:
+		msg_time = line.split(v.args[0][26:])[0]
+		msg_time = time.strptime(msg_time, time_format)
+		time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+		time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+		self.previous_time = msg_time
+		return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+	else:
+		time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+		time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+		self.previous_time = msg_time
+		return (str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n"))
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.parse_log">
+        <p>def <span class="ident">parse_log</span>(</p><p>self, log_input, time_format=&#39;%b %d %H:%M:%S&#39;, out=&lt;open file &#39;&lt;stdout&gt;&#39;, mode &#39;w&#39; at 0x7f65a9b701e0&gt;, zero_pads_add=None, zero_pads_remove=None)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Parses log files using <em>self.parse_line()</em>, formats result using <em>self.format_line()</em></p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.parse_log', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.parse_log" class="source">
+      <pre><code>def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout, zero_pads_add=None, zero_pads_remove=None):
+	"""
+arses log files using _self.parse_line()_, formats result using _self.format_line()_
+	"""
+	if(len(log_input) > 0):
+		try:
+			try:
+				self.first_time = time.strptime(" ".join(log_input[0].strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
+			except ValueError, v:
+			    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
+			        self.first_time = log_input[0].split(v.args[0][26:])[0]
+			        self.first_time = time.strptime(self.first_time, time_format)
+			    else:
+					raise v
+		except ValueError:
+			out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+		else:
+			out.write("0:00:00 : {0}\n".format(log_input[0]))
+			self.previous_time = self.first_time
+			for line in log_input[1:]: # Iterate over list
+				new_line = self.parse_line(line, time_format, zero_pads_add, zero_pads_remove)
+				if new_line == None:
+					out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+				else:
+					out.write(self.format_line(new_line))
+	elif self.is_help_needed():
+		out.write("No input specified, see --help or -h for intructions\n")
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.remove_zero_pads">
+        <p>def <span class="ident">remove_zero_pads</span>(</p><p>self, line)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Removes zero-paddings from input string. Eg. if input is "Tue Oct 03", the function returns "Tue Oct 3".</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.remove_zero_pads', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.remove_zero_pads" class="source">
+      <pre><code>def remove_zero_pads(self, line):
+	"""
+emoves zero-paddings from input string. Eg. if input is "Tue Oct 03", the function returns "Tue Oct 3".
+	"""
+	p = re.compile("([^0-9]0+[1-9][0-9]*|[^0-9]0{2,}[^0-9])")
+	matches = p.findall(" "+line+" ")
+	for match in matches:
+		match = match.strip(" /b")
+		i = 0
+		while match[i] == "0" and i < len(match)-1:
+			i=i+1
+		line = line.replace(match, match[i:])
+	return line
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.respond_to_wrong_parameters">
+        <p>def <span class="ident">respond_to_wrong_parameters</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Tells user that he / she enttered parameters, that werent understood, doesn't affect parsing of logs.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.respond_to_wrong_parameters', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.respond_to_wrong_parameters" class="source">
+      <pre><code>def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+ells user that he / she enttered parameters, that werent understood, doesn't affect parsing of logs.
+	"""
+	for arg in args[1:]:
+	 	is_known = False
+	 	for known_arg in ["-p", "-r" "-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
+	 		try:
+				if arg.split("=")[0] == known_arg:
+	 				is_known = True
+	 		except:
+	 			pass
+	 	if not is_known:
+	 		if debug:
+	 			return "Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
+	 		else:
+	 			print("Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.set_formatting">
+        <p>def <span class="ident">set_formatting</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Calls <em>self.display_help()</em>, <em>self.set_locale_settings()</em> and <em>self.get_formatting_string()</em>, returns output from <em>self.get_formatting_string()</em>.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.set_formatting', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.set_formatting" class="source">
+      <pre><code>def set_formatting(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+alls _self.display_help()_, _self.set_locale_settings()_ and _self.get_formatting_string()_, returns output from _self.get_formatting_string()_.
+	"""
+	self.respond_to_wrong_parameters(args, os_name, debug)
+	self.display_help(args, os_name, debug)
+	self.set_locale_settings(args, os_name, debug)
+	return self.get_formatting_string(args, os_name, debug)
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="TimeDiff.TimeDiff.set_locale_settings">
+        <p>def <span class="ident">set_locale_settings</span>(</p><p>self, args=[&#39;/usr/local/bin/pdoc&#39;, &#39;TimeDiff.py&#39;, &#39;--html&#39;], os_name=&#39;Linux&#39;, debug=False)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Sets locale if such is given through <em>-l</em> or <em>--locale</em> for formatting logs containing names of months and weekdays. Default is American English, if it isn't installed this falls back to the systems current locale.</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-TimeDiff.TimeDiff.set_locale_settings', this);">Show source.</a></p>
+    <div id="source-TimeDiff.TimeDiff.set_locale_settings" class="source">
+      <pre><code>def set_locale_settings(self, args=sys.argv, os_name=platform.system(), debug=False):
+	"""
+ets locale if such is given through _-l_ or _--locale_ for formatting logs containing names of months and weekdays. Default is American English, if it isn't installed this falls back to the systems current locale.
+	"""
+	locale_error = False
+	eng_locale = "en_US"
+	if os_name == "Windows":
+		eng_locale = "en-US"
+	try:
+		locale.setlocale(locale.LC_ALL, eng_locale)
+	except:
+		locale_error = True
+	for arg in args[1:]:
+		if "-l=" in arg or "-locale=" in arg:
+			try:
+				locale.setlocale(locale.LC_ALL, arg.split("=")[1])
+			except:
+				print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
+		elif locale_error:
+			if debug:
+				raise LocaleError("")
+			else:
+				print("Can't set locale to {0}, is it installed correctly?".format(eng_locale))
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+        </div>
+      </div>
+
+
+
+<hr>
+<p style="text-align: right;">
+  Documentation generated by
+  <code><a href="https://github.com/BurntSushi/pdoc">pdoc</a></code>
+  0.2.4.
+
+  pdoc is in the public domain with the
+  <a href="http://unlicense.org">UNLICENSE</a>.
+</p>
+</div>
+</body>
+</html>
