@@ -5,6 +5,7 @@ import platform
 import locale
 import os
 import re
+import StringIO
 
 class TimeDiff:
 	"""
@@ -32,14 +33,16 @@ ARGUMENTS (All are mandatory)
 
 	* custom1 : "%Y%m%d_%H%M%S"
 
--l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows)."""
+-l=, --locale=        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-r                    : Removes zero-padding from lines, eg. 002 becomes 2.
+-p                    : Cancels adding zero-padding, eg. without -p 2 would become 02"""
 
 # Looks for not understood parameters and outputs error messages if such are found
 
 	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
 		for arg in args[1:]:
 		 	is_known = False
-		 	for known_arg in ["-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
+		 	for known_arg in ["-p", "-r" "-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
 		 		try:
 					if arg.split("=")[0] == known_arg:
 		 				is_known = True
@@ -47,21 +50,25 @@ ARGUMENTS (All are mandatory)
 		 			pass
 		 	if not is_known:
 		 		if debug:
-		 			return "Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
+		 			return "Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
 		 		else:
-		 			print("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
+		 			print("Argument {0} not understood, only -p, -r, -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
 
 
 
 # Displays help if the user asked for it
 
 	def display_help(self, args=sys.argv, os_name=platform.system(), debug=False):
+		if self.is_help_needed(args, os_name, debug):
+			if debug:
+				return self.get_help_text()
+			else:
+				print(self.get_help_text())
+				return True
+		return False
+	def is_help_needed(self, args=sys.argv, os_name=platform.system(), debug=False):
 		for arg in args:
 			if arg == "-h" or arg == "--help":
-				if debug:
-					return self.get_help_text()
-				else:
-					print(self.get_help_text())
 					return True
 		return False
 
@@ -126,14 +133,21 @@ ARGUMENTS (All are mandatory)
 					return "%b %d %H:%M:%S"
 		return "%b %d %H:%M:%S"
 
-# Returns, whether to remove zero-paddings or not
+# Returns, whether to add zero-paddings or not
 
-	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+	def check_add_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
 		for arg in args:
 			if arg == "-p":
 				return False
 		return True
 
+# Returns, whether to remove zero-paddings or not
+
+	def check_remove_zero_pads(self, args=sys.argv, os_name=platform.system(), debug=False):
+		for arg in args:
+			if arg == "-r":
+				return True
+		return False
 
 # Removes zero-paddings
 
@@ -177,57 +191,62 @@ ARGUMENTS (All are mandatory)
 # Caches given logs into a list, returns the list
 
 	def cache_input(self, input_data=sys.stdin, args=sys.argv, debug=False):
-		if len(args) > 1:
-			if not "-h" in args[1] and (not sys.stdin.isatty()) or debug:
-				log_input = [] # Cache input into list
-				if debug:
-					log_input = input_data.getvalue().split("\n")
-				else:
-					for line in input_data:
-						log_input.append(line)
-				return log_input
+		if self.is_help_needed() and (not sys.stdin.isatty()) or debug:
+			log_input = [] # Cache input into list
+			if debug and not isinstance(input_data, list):
+				log_input = input_data.getvalue().split("\n")
+			else:
+				for line in input_data:
+					log_input.append(line)
+			return log_input
 		elif (not sys.stdin.isatty()) or debug:
 			log_input = [] # Cache input into list
 			for line in input_data:
 				log_input.append(line)
 			return log_input
-		else:
-			return []
+		return []
 
 	def parse_log(self, log_input, time_format="%b %d %H:%M:%S", out=sys.stdout):
 		if(len(log_input) > 0):
 			try:
 				try:
-					first_time = time.strptime(" ".join(log_input[0].strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
+					self.first_time = time.strptime(" ".join(log_input[0].strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
 				except ValueError, v:
 				    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
-				        first_time = log_input[0].split(v.args[0][26:])[0]
-				        first_time = time.strptime(first_time, time_format)
+				        self.first_time = log_input[0].split(v.args[0][26:])[0]
+				        self.first_time = time.strptime(self.first_time, time_format)
 				    else:
 						raise v
 			except ValueError:
 						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
 			else:
-				previous_time = first_time
-				try:
-					for line in log_input[1:]: # Iterate over list
-						try:
-							try:
-								msg_time = time.strptime(" ".join(line.strip("\n").split(" ")[:3]), time_format) # Time of first message as time.struct_time
-							except ValueError, v:
-							    if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
-							        msg_time = line.split(v.args[0][26:])[0]
-							        msg_time = time.strptime(msg_time, time_format)
-							    else:
-									raise v
-						except ValueError:
-							out.write("Formatting string {0} does not match line {1}\n".format(time_format, line))
-						else:
-							time_diff_from_begin = time.mktime(msg_time) - time.mktime(first_time)
-							time_diff_from_previous = time.mktime(msg_time) - time.mktime(previous_time)
-							out.write("{0} {1} : {2}\n".format(str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n")))
-							previous_time = msg_time
-				except ValueError:
-					out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+				self.previous_time = self.first_time
+				for line in log_input[1:]: # Iterate over list
+					new_line = self.parse_line(line, time_format)
+					if new_line == None:
+						out.write("Formatting string {0} does not match line {1}\n".format(time_format, log_input[0]))
+					else:
+						out.write(new_line)
 		elif not "-h" in sys.argv[-1]:
 			out.write("No input specified, see --help or -h for intructions\n")
+
+	def parse_line(self, line, time_format):
+		orig_line = line
+		if self.check_add_zero_pads() and not self.check_remove_zero_pads():
+			line = line.zfill(2)
+		elif not self.check_add_zero_pads() and self.check_remove_zero_pads():
+			line = self.remove_zero_pads(line)
+		try:
+			msg_time = time.strptime(line, time_format) # Time of first message as time.struct_time
+		except ValueError, v:
+			msg_time = line.split(v.args[0][26:])[0]
+			msg_time = time.strptime(msg_time, time_format)
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return("{0} {1} : {2}\n".format(str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n")))
+		else:
+			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
+			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
+			self.previous_time = msg_time
+			return("{0} {1} : {2}\n".format(str(datetime.timedelta(seconds=time_diff_from_begin)), str(datetime.timedelta(seconds=time_diff_from_previous)), line.strip("\n")))
