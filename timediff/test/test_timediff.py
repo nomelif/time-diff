@@ -114,7 +114,7 @@ class TestTimeDiff(unittest.TestCase):
             self.d.set_formatting(["!"], "--locale=en_US")
             eng_locale = "en_US"
             self.assertEqual(eng_locale, locale.getlocale()[0])
-            
+
     def test_format_line(self):
         input_data = [
         ("0:00:00", "0:00:00", "Sep 30 09:29:54 zaphod kernel: [    5.862256] Bluetooth: RFCOMM TTY layer initialized"),
