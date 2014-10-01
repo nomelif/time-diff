@@ -19,16 +19,16 @@ class TestTimeDiff(unittest.TestCase):
         self.d = TimeDiff.TimeDiff()
  
     def test_formatting_preset_short_existing(self):
-        self.assertEqual("%Y%m%d_%H%M%S", self.d.set_formatting(["!", "-p=custom1"]))
+        self.assertEqual("%Y%m%d_%H%M%S", self.d.set_formatting(["!", "-F=custom1"]))
 
     def test_bad_arg(self):
-        self.assertEqual("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format("bad_data"), self.d.respond_to_wrong_parameters(["!", "bad_data"], platform.system(), True))
+        self.assertEqual("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format("bad_data"), self.d.respond_to_wrong_parameters(["!", "bad_data"], platform.system(), True))
 
     def test_formatting_preset_long_existing(self):
         self.assertEqual("%Y%m%d_%H%M%S", self.d.set_formatting(["!", "--format-preset=custom1"]))
 
     def test_formatting_preset_short_wrong(self):
-        self.assertEqual("%b %d %H:%M:%S", self.d.set_formatting(["!", "-p=diibadaabaduu"]))
+        self.assertEqual("%b %d %H:%M:%S", self.d.set_formatting(["!", "-F=diibadaabaduu"]))
 
     def test_formatting_preset_long_wrong(self):
         self.assertEqual("%b %d %H:%M:%S", self.d.set_formatting(["!", "--format-preset=diibadaabaduu"]))

@@ -27,7 +27,7 @@ ARGUMENTS (All are mandatory)
 
 -h,  --help           : Show this help
 -f=, --format=        : Set datetime format options, defaults to "%b %d %H:%M:%S"
--p=, --format-preset= : Set datetime formatting preset, defaults to none accepted values are:
+-F=, --format-preset= : Set datetime formatting preset, defaults to none accepted values are:
 
 	* custom1 : "%Y%m%d_%H%M%S"
 
@@ -38,7 +38,7 @@ ARGUMENTS (All are mandatory)
 	def respond_to_wrong_parameters(self, args=sys.argv, os_name=platform.system(), debug=False):
 		for arg in args[1:]:
 		 	is_known = False
-		 	for known_arg in ["-f", "-h", "--help", "--format", "-p", "--format-preset", "-l", "--locale"]:
+		 	for known_arg in ["-f", "-h", "--help", "--format", "-F", "--format-preset", "-l", "--locale"]:
 		 		try:
 					if arg.split("=")[0] == known_arg:
 		 				is_known = True
@@ -46,9 +46,9 @@ ARGUMENTS (All are mandatory)
 		 			pass
 		 	if not is_known:
 		 		if debug:
-		 			return "Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format(arg)
+		 			return "Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg)
 		 		else:
-		 			print("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -p and --format-preset are known, ignoring argument.".format(arg))
+		 			print("Argument {0} not understood, only -h, --help, -l, --locale, -f, --format, -F and --format-preset are known, ignoring argument.".format(arg))
 
 
 
@@ -113,9 +113,9 @@ ARGUMENTS (All are mandatory)
 				except:
 					print("Formatting error for datetime format prefix, ignoring")
 					return "%b %d %H:%M:%S"
-			elif "-p=" in arg:
+			elif "-F=" in arg:
 				try:
-					if arg.split("-p=")[1] == "custom1":
+					if arg.split("-F=")[1] == "custom1":
 						return "%Y%m%d_%H%M%S"
 					else:
 						print("No such formatting prefix exists, ignoring")

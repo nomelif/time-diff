@@ -43,6 +43,6 @@ Arguments
 TimeDiff accepts the following arguments:
 
 * **-f** and **--format:** Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **--format="%b %d %H:%M:%S"**. Defaults to **"%b %d %H:%M:%S"**.
-* **-p** and **--format-preset**: Specify format by preset, only **--format-preset=custom1** works for now, it results in the format **"%Y%m%d_%H%M%S"**
+* **-F** and **--format-preset**: Specify format by preset, only **--format-preset=custom1** works for now, it results in the format **"%Y%m%d_%H%M%S"**
 * **-l** and **-locale:** Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h** and **--help:** Display a help containing basically this same information.
