@@ -33,6 +33,7 @@ cli_in = cli_input.CliInput()
 cli_out = cli_output.CliOutput()
 format = "%Y%m%d_%H%M%S"
 parse_logs = False
+args = {}
 if select.select([sys.stdin,],[],[],0.0)[0]:
 	args = cli_in.get_params_dict(sys.argv)
 	if args["-F"] != None or args["-f"] != None:
@@ -63,8 +64,8 @@ else:
     	print(help)
     else:
     	print("No input specified")
-logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), args, format)
 if parse_logs:
+	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
 	for line in logs:
 		try:
 			print(cli_out.format_line(line))

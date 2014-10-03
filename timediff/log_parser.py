@@ -27,7 +27,7 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 		
-	def parse_logs(self, log_arr, args, time_format):
+	def parse_logs(self, log_arr, time_format, zero_pad=True):
 		"""
 
 Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
@@ -35,10 +35,10 @@ Function that parses a log-array as given by cli_input.CliInput. Returns a list 
 		"""
 		logs = []
 		for line in log_arr:
-			logs.append(self.parse_line(line, args, time_format))
+			logs.append(self.parse_line(line, time_format, zero_pad))
 		return logs
 
-	def parse_line(self, line, args, time_format):
+	def parse_line(self, line, time_format, zero_pad=True):
 		"""
 
 Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
@@ -47,7 +47,7 @@ Parses a single line from a log-array. Returns the tuple [time from first line] 
 		orig_line = line
 		msg_time = None
 		msg_time_set = False
-		if  not args["-p"]:
+		if  zero_pad:
 			line = line.zfill(2)
 		try:
 			try:

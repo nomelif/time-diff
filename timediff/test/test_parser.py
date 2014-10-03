@@ -45,15 +45,15 @@ Oct  3 09:31:23 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2918 du
         (datetime.timedelta(seconds=9), datetime.timedelta(seconds=5), "Oct  3 09:31:23 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2918 due to rate-limiting"),
         None
         ]
-        actual_output = self.parser.parse_logs(self.log.split("\n"), {"-p":False, "-v":False}, "%b %d %H:%M:%S")
+        actual_output = self.parser.parse_logs(self.log.split("\n"), "%b %d %H:%M:%S")
         self.assertEqual(expected_output, actual_output)
 
     def test_parse_line(self):
     	self.parser = log_parser.LogParser()
     	secs = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (2, 2), (2, 0), (4, 2), (9, 5)]
     	for times, line in zip(secs, self.log.split("\n")):
-        	self.assertEqual((datetime.timedelta(seconds=times[0]), datetime.timedelta(seconds=times[1]), line), self.parser.parse_line(line, {"-p":False}, "%b %d %H:%M:%S"))
-        self.assertEqual(None, self.parser.parse_line("!", {"-p":False}, "%b %d %H:%M:%S"))
+        	self.assertEqual((datetime.timedelta(seconds=times[0]), datetime.timedelta(seconds=times[1]), line), self.parser.parse_line(line, "%b %d %H:%M:%S"))
+        self.assertEqual(None, self.parser.parse_line("!", "%b %d %H:%M:%S"))
 
 if __name__ == '__main__':
     unittest.main()
