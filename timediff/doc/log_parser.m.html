@@ -947,7 +947,7 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 		
-	def parse_logs(self, log_arr, args, time_format):
+	def parse_logs(self, log_arr, time_format, zero_pad=True):
 		"""
 
 Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
@@ -955,10 +955,10 @@ Function that parses a log-array as given by cli_input.CliInput. Returns a list 
 		"""
 		logs = []
 		for line in log_arr:
-			logs.append(self.parse_line(line, args, time_format))
+			logs.append(self.parse_line(line, time_format, zero_pad))
 		return logs
 
-	def parse_line(self, line, args, time_format):
+	def parse_line(self, line, time_format, zero_pad=True):
 		"""
 
 Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
@@ -967,7 +967,7 @@ Parses a single line from a log-array. Returns the tuple [time from first line] 
 		orig_line = line
 		msg_time = None
 		msg_time_set = False
-		if  not args["-p"]:
+		if  zero_pad:
 			line = line.zfill(2)
 		try:
 			try:
@@ -1069,7 +1069,7 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 		
-	def parse_logs(self, log_arr, args, time_format):
+	def parse_logs(self, log_arr, time_format, zero_pad=True):
 		"""
 
 Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
@@ -1077,10 +1077,10 @@ Function that parses a log-array as given by cli_input.CliInput. Returns a list 
 		"""
 		logs = []
 		for line in log_arr:
-			logs.append(self.parse_line(line, args, time_format))
+			logs.append(self.parse_line(line, time_format, zero_pad))
 		return logs
 
-	def parse_line(self, line, args, time_format):
+	def parse_line(self, line, time_format, zero_pad=True):
 		"""
 
 Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
@@ -1089,7 +1089,7 @@ Parses a single line from a log-array. Returns the tuple [time from first line] 
 		orig_line = line
 		msg_time = None
 		msg_time_set = False
-		if  not args["-p"]:
+		if  zero_pad:
 			line = line.zfill(2)
 		try:
 			try:
@@ -1179,7 +1179,7 @@ mpty _\_\_init\_\__ -method.
                   
     <div class="item">
       <div class="name def" id="log_parser.LogParser.parse_line">
-        <p>def <span class="ident">parse_line</span>(</p><p>self, line, args, time_format)</p>
+        <p>def <span class="ident">parse_line</span>(</p><p>self, line, time_format, zero_pad=True)</p>
       </div>
       
 
@@ -1189,14 +1189,14 @@ mpty _\_\_init\_\__ -method.
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.parse_line', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.parse_line" class="source">
-      <pre><code>def parse_line(self, line, args, time_format):
+      <pre><code>def parse_line(self, line, time_format, zero_pad=True):
 	"""
 arses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
 	"""
 	orig_line = line
 	msg_time = None
 	msg_time_set = False
-	if  not args["-p"]:
+	if  zero_pad:
 		line = line.zfill(2)
 	try:
 		try:
@@ -1233,7 +1233,7 @@ arses a single line from a log-array. Returns the tuple [time from first line] [
                   
     <div class="item">
       <div class="name def" id="log_parser.LogParser.parse_logs">
-        <p>def <span class="ident">parse_logs</span>(</p><p>self, log_arr, args, time_format)</p>
+        <p>def <span class="ident">parse_logs</span>(</p><p>self, log_arr, time_format, zero_pad=True)</p>
       </div>
       
 
@@ -1243,13 +1243,13 @@ arses a single line from a log-array. Returns the tuple [time from first line] [
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.parse_logs', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.parse_logs" class="source">
-      <pre><code>def parse_logs(self, log_arr, args, time_format):
+      <pre><code>def parse_logs(self, log_arr, time_format, zero_pad=True):
 	"""
 unction that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
 	"""
 	logs = []
 	for line in log_arr:
-		logs.append(self.parse_line(line, args, time_format))
+		logs.append(self.parse_line(line, time_format, zero_pad))
 	return logs
 </code></pre>
     </div>
