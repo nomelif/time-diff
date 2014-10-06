@@ -1,0 +1,126 @@
+#!/usr/bin/python
+import os
+import sys
+import select
+import traceback
+import locale
+import matplotlib.pylab as plt
+from scipy import stats
+import numpy
+import sys
+import calendar
+from math import floor, ceil
+import time
+
+ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
+TIMEDIFF_PATH = os.path.join(ROOT_PATH, 'timediff')
+
+sys.path.append(TIMEDIFF_PATH)
+
+import log_parser
+import cli_input
+import cli_output
+
+help = """Use by piping file (or greped lines) to program.
+
+ARGUMENTS (All are mandatory)
+
+
+-h        : Show this help
+-f=       : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
+-F=       : Set datetime formatting preset, defaults to none, accepted values are:
+
+	* custom1 : "%b %d %H:%M:%S"
+-l=       : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-v        : Sets program to verbose mode, errors will be written to console.
+-p        : Cancels adding zero-padding, eg. without -p 2 would become 02
+--log     : If set makes y-axis scale logarithmic"""
+log_parser = log_parser.LogParser()
+cli_in = cli_input.CliInput()
+cli_out = cli_output.CliOutput()
+format = "%Y%m%d_%H%M%S"
+parse_logs = False
+args = {}
+if select.select([sys.stdin,],[],[],0.0)[0]:
+	args = cli_in.get_params_dict(sys.argv)
+	if args["-F"] != None or args["-f"] != None:
+		if args["-F"] != None and args["-f"] != None:
+			format = args["-f"]
+		elif args["-F"] != None:
+			if args["-F"] == "custom1":
+				format = "%b %d %H:%M:%S"
+		else:
+			format = args["-f"]
+	eng_locale = "en_US"
+	if args["-l"]  != None:
+		try:
+			locale.setlocale(locale.LC_ALL, args["l"])
+		except:
+			if args["-v"]:
+				print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
+	else:
+		try:
+			locale.setlocale(locale.LC_ALL, eng_locale)
+		except:
+			if args["-v"]:
+				print("Locale en_US not installed, setting locale to system default.")
+			locale.setlocale(locale.LC_ALL, "")
+	parse_logs = True
+else:
+    if cli_in.get_params_dict(sys.argv)["-h"]:
+    	print(help)
+    else:
+    	print("No input specified")
+
+def plot_KDE(times, log=False):
+	"""
+
+Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithm. Returns nothing.
+
+	"""
+	b = plt.figure(2)
+	plt.xlabel('Time (s)', fontsize=20)
+	plt.ylabel('Quantity (pcs)', fontsize=20)
+	ticks = numpy.linspace(min(times), max(times), 10000)
+	density = stats.kde.gaussian_kde(times)
+	plt.plot(ticks, density(ticks))
+	plt.grid()
+	ax = plt.gca()
+	if log:
+		ax.set_yscale("log")
+		b.suptitle('Gausssian Kernel Density Estimation (KDE)  (logarithmically scaled y-axis)', fontsize=12)
+	else:
+		b.suptitle('Gausssian Kernel Density Estimation (KDE)', fontsize=12)
+	b.show()
+
+def plot_histogram(times, log=False):
+	"""
+
+Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithm. Returns nothing.
+
+	"""
+	a = plt.figure(1)
+	plt.xlabel('Time (s)', fontsize=20)
+	plt.ylabel('Quantity (pcs)', fontsize=20)
+	minimum = floor(min(times))
+	maximum = ceil(max(times))
+	n_bins = maximum - minimum
+	plt.hist(times, bins=n_bins)
+	plt.grid()
+	ax = plt.gca()
+	if log:
+		ax.set_yscale("log")
+		a.suptitle('Histogram (logarithmically scaled y-axis)', fontsize=12)
+	else:
+		a.suptitle('Histogram', fontsize=12)
+	a.show()
+
+if parse_logs:
+	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
+	times = []
+	for line in logs:
+		times.append(line[1].total_seconds()/100)
+	logarithmic = "--log" in sys.argv
+	plot_histogram(times, logarithmic)
+	plot_KDE(times, logarithmic)
+	plt.show()
