@@ -83,4 +83,4 @@ TimeDiffPlot accepts the following arguments:
 * **-l**    : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h**    : Display a help containing basically this same information.
 * **-v**    : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs".
-* **--log** : If **--log** is specified, the program will set the scaling for the y-axis to be logarithmic. If not specified, it is set to linear.
+* **--logarithmic** : If **--logarithmic** is specified, the program will set the scaling for the y-axis to be logarithmic. If not specified, it is set to linear.

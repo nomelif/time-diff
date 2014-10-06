@@ -28,50 +28,28 @@ ARGUMENTS (All are mandatory)
 -l=       : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
 -v        : Sets program to verbose mode, errors will be written to console.
 -p        : Cancels adding zero-padding, eg. without -p 2 would become 02"""
+exit_code = 0
 log_parser = log_parser.LogParser()
 cli_in = cli_input.CliInput()
 cli_out = cli_output.CliOutput()
 format = "%Y%m%d_%H%M%S"
 parse_logs = False
-args = {}
-if select.select([sys.stdin,],[],[],0.0)[0]:
-	args = cli_in.get_params_dict(sys.argv)
-	if args["-F"] != None or args["-f"] != None:
-		if args["-F"] != None and args["-f"] != None:
-			format = args["-f"]
-		elif args["-F"] != None:
-			if args["-F"] == "custom1":
-				format = "%b %d %H:%M:%S"
-		else:
-			format = args["-f"]
-	eng_locale = "en_US"
-	if args["-l"]  != None:
-		try:
-			locale.setlocale(locale.LC_ALL, args["l"])
-		except:
-			if args["-v"]:
-				print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
-	else:
-		try:
-			locale.setlocale(locale.LC_ALL, eng_locale)
-		except:
-			if args["-v"]:
-				print("Locale en_US not installed, setting locale to system default.")
-			locale.setlocale(locale.LC_ALL, "")
-	parse_logs = True
-else:
-    if cli_in.get_params_dict(sys.argv)["-h"]:
-    	print(help)
-    else:
-    	print("No input specified")
+args = cli_in.get_params_dict(sys.argv)
+values_dict = cli_in.parse_args_dict(args)
+sys.stderr.write(values_dict["err msg"])
+parse_logs = values_dict["proceed to parse"]
+exit_code = values_dict["err code"]
+format = values_dict["format"]
 if parse_logs:
 	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
 	for line in logs:
 		try:
 			print(cli_out.format_line(line))
 		except Exception, v:
+			exit_code = 1
 			if args["-v"]:
-				print("\n\n----------------------\nError in python code:\n\n")
-				traceback.print_tb(sys.exc_traceback)
-				print("\n\n\t{0}\n\n----------------------".format(v.args[0]))
-			print("Pattern \"{0}\" does not match logs".format(format))
+				sys.stderr.write("\n\n----------------------\nError in python code:\n\n\n")
+				sys.stderr.write(traceback.format_exc(v))
+				sys.stderr.write("\n\n\t{0}\n\n----------------------\n".format(v.args[0]))
+			sys.stderr.write("Pattern \"{0}\" does not match logs\n".format(format))
+sys.exit(exit_code)

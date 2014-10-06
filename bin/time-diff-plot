@@ -26,56 +26,32 @@ help = """Use by piping file (or greped lines) to program.
 ARGUMENTS (All are mandatory)
 
 
--h        : Show this help
--f=       : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
--F=       : Set datetime formatting preset, defaults to none, accepted values are:
+-h            : Show this help
+-f=           : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
+-F=           : Set datetime formatting preset, defaults to none, accepted values are:
 
 	* custom1 : "%b %d %H:%M:%S"
--l=       : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
--v        : Sets program to verbose mode, errors will be written to console.
--p        : Cancels adding zero-padding, eg. without -p 2 would become 02
---log     : If set makes y-axis scale logarithmic"""
+-l=           : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-v            : Sets program to verbose mode, errors will be written to console.
+-p            : Cancels adding zero-padding, eg. without -p 2 would become 02
+--logarithmic : If set makes y-axis scale logarithmic"""
+exit_code = 0
 log_parser = log_parser.LogParser()
 cli_in = cli_input.CliInput()
 cli_out = cli_output.CliOutput()
 format = "%Y%m%d_%H%M%S"
 parse_logs = False
-args = {}
-if select.select([sys.stdin,],[],[],0.0)[0]:
-	args = cli_in.get_params_dict(sys.argv)
-	if args["-F"] != None or args["-f"] != None:
-		if args["-F"] != None and args["-f"] != None:
-			format = args["-f"]
-		elif args["-F"] != None:
-			if args["-F"] == "custom1":
-				format = "%b %d %H:%M:%S"
-		else:
-			format = args["-f"]
-	eng_locale = "en_US"
-	if args["-l"]  != None:
-		try:
-			locale.setlocale(locale.LC_ALL, args["l"])
-		except:
-			if args["-v"]:
-				print("Unknown locale or locale not installed, setting locale to {0}".format(eng_locale))
-	else:
-		try:
-			locale.setlocale(locale.LC_ALL, eng_locale)
-		except:
-			if args["-v"]:
-				print("Locale en_US not installed, setting locale to system default.")
-			locale.setlocale(locale.LC_ALL, "")
-	parse_logs = True
-else:
-    if cli_in.get_params_dict(sys.argv)["-h"]:
-    	print(help)
-    else:
-    	print("No input specified")
+args = cli_in.get_params_dict(sys.argv)
+values_dict = cli_in.parse_args_dict(args)
+sys.stderr.write(values_dict["err msg"])
+parse_logs = values_dict["proceed to parse"]
+exit_code = values_dict["err code"]
+format = values_dict["format"]
 
 def plot_KDE(times, log=False):
 	"""
 
-Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithm. Returns nothing.
+Plots kernel density average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
 
 	"""
 	b = plt.figure(2)
@@ -96,7 +72,7 @@ Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y
 def plot_histogram(times, log=False):
 	"""
 
-Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithm. Returns nothing.
+Plots histogram of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
 
 	"""
 	a = plt.figure(1)
@@ -116,11 +92,22 @@ Plots Kernel Density Average of _times_. If argument _log_ is set to True, the y
 	a.show()
 
 if parse_logs:
-	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
+	log_arr = cli_in.get_log_arr(sys.stdin)
+	try:
+		logs = log_parser.parse_logs(log_arr, format, args["-p"])
+	except:
+		sys.stderr.write("Format \"{0}\" is invalid\n".format(format))
+		sys.exit(1)
 	times = []
 	for line in logs:
-		times.append(line[1].total_seconds()/100)
-	logarithmic = "--log" in sys.argv
+		try:
+			value_to_add  = line[1].total_seconds()/100
+			times.append(value_to_add)
+		except:
+			sys.stderr.write("Line doesn't match format \"{0}\"\n".format(format))
+			exit_code = 1
+	logarithmic = "--logarithmic" in sys.argv
 	plot_histogram(times, logarithmic)
 	plot_KDE(times, logarithmic)
 	plt.show()
+	sys.exit(exit_code)
