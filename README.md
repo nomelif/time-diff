@@ -3,7 +3,7 @@ TimeDiff and TimeDiffPlot
 
 TimeDiff parses log files and outputs the difference in time between log entries. Can work on either files directly, or through grep or similar. Allows for any syntax for the time through python [datetime.strftime() and datetime.strptime()](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats").
 
-TimeDiffPlot plots graphs on how common a certain difference in time between log entries is. Is called like TimeDiff (see above). Supports both linear and logarithmical scales. TimeiffPlot requires Matplotlib, Numpy and Scipy.
+TimeDiffPlot plots graphs on how common a certain difference in time between log entries is. Is called like TimeDiff (see above). Supports both linear and logarithmical scales. TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiff and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
 
