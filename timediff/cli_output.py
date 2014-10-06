@@ -1,3 +1,4 @@
+import datetime
 class CliOutput():
 	"""
 
@@ -12,13 +13,31 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 
-	def format_line(self, line_tuple):
+	def format_timedelta(self, timedelta, round_to="s"):
 		"""
 
-Returns formated string containing data from _Parser.parse_line_.
+Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "<spaces_to_create_consistent_padding><seconds> seconds". If it is given a _round_to_-argument, it returns "<spaces_to_create_consistent_padding><time_floored_in_given_unit> <units name>".
+
+		"""
+		if round_to == "s" :
+			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " seconds"
+		else:
+			if round_to == "ms":
+				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " milliseconds"
+			elif round_to == "minutes":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " minutes"
+			elif round_to == "hours":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " hours"
+			elif round_to == "days":
+				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " days"
+
+	def format_line(self, line_tuple, round_to="s"):
+		"""
+
+Returns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_.
 
 		"""
 		try:
-			return "{0} {1} : {2}".format(str(line_tuple[0]), str(line_tuple[1]), str(line_tuple[2]))
-		except IndexError:
+			return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
+		except:
 			pass

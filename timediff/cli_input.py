@@ -23,11 +23,11 @@ Empty _\_\_init\_\__ -method.
 Returns a dictionary with one key per parameter.
 
 		"""
-		params_dict = {"-v":False, "-h":False, "-f":None, "-F":None, "-p":False, "-l":None}
+		params_dict = {"-v":False, "-h":False, "-f":None, "-F":None, "-p":False, "-l":None, "-r":None}
 		for key in params_dict.keys():
 			if self.match_arg(args, key):
 				key_val = True
-				if not key in ("-v", "-h", "-p", "-l"):
+				if not key in ("-v", "-h", "-p"):
 					try:
 						for arg in args:
 							if arg[:len(key)] == key:
@@ -59,9 +59,14 @@ Takes the input stream, reads it and returns an array with the stream read into 
 			arr.append(line.strip("\n"))
 		return arr
 
-	def parse_args_dict(self, args):
+	def parse_args_dict(self, args, debug=False):
+		"""
+
+Returns correct values for various settings used by both _/bin/time-diff_ and _/bin/time-diff-plot_. Also sets locale.
+
+		"""
 		out = {"err code":0, "err msg":"", "format":"%Y%m%d_%H%M%S", "proceed to parse":False}
-		if select.select([sys.stdin,],[],[],0.0)[0]:
+		if select.select([sys.stdin,],[],[],0.0)[0] or debug:
 			if args["-F"] != None or args["-f"] != None:
 				if args["-F"] != None and args["-f"] != None:
 					out["format"] = args["-f"]
@@ -91,5 +96,6 @@ Takes the input stream, reads it and returns an array with the stream read into 
 		    if args["-h"]:
 		    	print(help)
 		    else:
+		    	out["err code"] = 1
 		    	out["err msg"] = "No input specified\n"
 		return out

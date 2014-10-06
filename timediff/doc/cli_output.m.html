@@ -918,7 +918,8 @@ table {
   
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output', this);">Show source.</a></p>
     <div id="source-cli_output" class="source">
-      <pre><code>class CliOutput():
+      <pre><code>import datetime
+class CliOutput():
 	"""
 
 Class used to format line-tuples given by parser.Parser
@@ -932,15 +933,33 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 
-	def format_line(self, line_tuple):
+	def format_timedelta(self, timedelta, round_to="s"):
 		"""
 
-Returns formated string containing data from _Parser.parse_line_.
+Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "<spaces_to_create_consistent_padding><seconds> seconds". If it is given a _round_to_-argument, it returns "<spaces_to_create_consistent_padding><time_floored_in_given_unit> <units name>".
+
+		"""
+		if round_to == "s" :
+			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " seconds"
+		else:
+			if round_to == "ms":
+				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " milliseconds"
+			elif round_to == "minutes":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " minutes"
+			elif round_to == "hours":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " hours"
+			elif round_to == "days":
+				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " days"
+
+	def format_line(self, line_tuple, round_to="s"):
+		"""
+
+Returns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_.
 
 		"""
 		try:
-			return "{0} {1} : {2}".format(str(line_tuple[0]), str(line_tuple[1]), str(line_tuple[2]))
-		except IndexError:
+			return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
+		except:
 			pass
 </code></pre>
     </div>
@@ -967,6 +986,7 @@ Returns formated string containing data from _Parser.parse_line_.
           <li class="mono"><a href="#cli_output.CliOutput.format_line">format_line</a></li>
       </ul>
       <ul>
+          <li class="mono"><a href="#cli_output.CliOutput.format_timedelta">format_timedelta</a></li>
       </ul>
   </div>
 
@@ -1002,15 +1022,33 @@ Empty _\_\_init\_\__ -method.
 		"""
 		pass
 
-	def format_line(self, line_tuple):
+	def format_timedelta(self, timedelta, round_to="s"):
 		"""
 
-Returns formated string containing data from _Parser.parse_line_.
+Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "<spaces_to_create_consistent_padding><seconds> seconds". If it is given a _round_to_-argument, it returns "<spaces_to_create_consistent_padding><time_floored_in_given_unit> <units name>".
+
+		"""
+		if round_to == "s" :
+			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " seconds"
+		else:
+			if round_to == "ms":
+				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " milliseconds"
+			elif round_to == "minutes":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " minutes"
+			elif round_to == "hours":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " hours"
+			elif round_to == "days":
+				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " days"
+
+	def format_line(self, line_tuple, round_to="s"):
+		"""
+
+Returns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_.
 
 		"""
 		try:
-			return "{0} {1} : {2}".format(str(line_tuple[0]), str(line_tuple[1]), str(line_tuple[2]))
-		except IndexError:
+			return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
+		except:
 			pass
 </code></pre>
     </div>
@@ -1050,24 +1088,58 @@ mpty _\_\_init\_\__ -method.
                   
     <div class="item">
       <div class="name def" id="cli_output.CliOutput.format_line">
-        <p>def <span class="ident">format_line</span>(</p><p>self, line_tuple)</p>
+        <p>def <span class="ident">format_line</span>(</p><p>self, line_tuple, round_to=&#39;s&#39;)</p>
       </div>
       
 
       
   
-      <div class="desc"><p>Returns formated string containing data from <em>Parser.parse_line</em>.</p></div>
+      <div class="desc"><p>Returns formated string containing data from <em>Parser.parse_line</em>. Times are formatted using <em>CliOutput.format_timedelta</em>.</p></div>
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput.format_line', this);">Show source.</a></p>
     <div id="source-cli_output.CliOutput.format_line" class="source">
-      <pre><code>def format_line(self, line_tuple):
+      <pre><code>def format_line(self, line_tuple, round_to="s"):
 	"""
-eturns formated string containing data from _Parser.parse_line_.
+eturns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_.
 	"""
 	try:
-		return "{0} {1} : {2}".format(str(line_tuple[0]), str(line_tuple[1]), str(line_tuple[2]))
-	except IndexError:
+		return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
+	except:
 		pass
+</code></pre>
+    </div>
+</div>
+
+    </div>
+  
+                  
+    <div class="item">
+      <div class="name def" id="cli_output.CliOutput.format_timedelta">
+        <p>def <span class="ident">format_timedelta</span>(</p><p>self, timedelta, round_to=&#39;s&#39;)</p>
+      </div>
+      
+
+      
+  
+      <div class="desc"><p>Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "<spaces_to_create_consistent_padding><seconds> seconds". If it is given a <em>round_to</em>-argument, it returns "<spaces_to_create_consistent_padding><time_floored_in_given_unit> <units name>".</p></div>
+    <div class="source_cont">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput.format_timedelta', this);">Show source.</a></p>
+    <div id="source-cli_output.CliOutput.format_timedelta" class="source">
+      <pre><code>def format_timedelta(self, timedelta, round_to="s"):
+	"""
+akes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "<spaces_to_create_consistent_padding><seconds> seconds". If it is given a _round_to_-argument, it returns "<spaces_to_create_consistent_padding><time_floored_in_given_unit> <units name>".
+	"""
+	if round_to == "s" :
+		return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " seconds"
+	else:
+		if round_to == "ms":
+			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " milliseconds"
+		elif round_to == "minutes":
+			return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " minutes"
+		elif round_to == "hours":
+			return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " hours"
+		elif round_to == "days":
+			return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " days"
 </code></pre>
     </div>
 </div>

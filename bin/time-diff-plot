@@ -111,3 +111,5 @@ if parse_logs:
 	plot_KDE(times, logarithmic)
 	plt.show()
 	sys.exit(exit_code)
+elif "-h" in sys.argv:
+	print(help)

@@ -57,7 +57,8 @@ TimeDiff accepts the following arguments:
 * **-F** : Specify format by preset, only **-F=custom1** works for now, it results in the format **"%b %d %H:%M:%S"**
 * **-l** : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h** : Display a help containing basically this same information.
-* **-v** : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs".
+* **-v** : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.
+* **-r** : Set time-unit to round to while formatting cli-output, default is seconds. Accepts values _s_ (seconds), _ms_ (milliseconds), _minutes_ (minutes), _hours_ (hours) and _days_ (days). Regardless of the given value, the program will always floor the values.
 
 Running TimeDiffPlot
 ====================
@@ -82,5 +83,5 @@ TimeDiffPlot accepts the following arguments:
 * **-F**    : Specify format by preset, only **-F=custom1** works for now, it results in the format **"%b %d %H:%M:%S"**
 * **-l**    : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h**    : Display a help containing basically this same information.
-* **-v**    : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs".
+* **-v**    : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.
 * **--logarithmic** : If **--logarithmic** is specified, the program will set the scaling for the y-axis to be logarithmic. If not specified, it is set to linear.
