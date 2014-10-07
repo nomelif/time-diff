@@ -16,9 +16,17 @@ import log_parser
 import cli_input
 import cli_output
 
+cli_in = cli_input.CliInput()
+cli_out = cli_output.CliOutput()
+
 parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
 parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, defaults to \"%%Y%%m%%d_%%H%%M%%S\" overrides given presets.")
-parser.add_argument('--format-preset', "-F", nargs='?', default="", help="Set datetime formatting preset, defaults to none", choices=["custom1"])
+preset_text = ""
+preset_text = ""
+for key in cli_in.PRESETS.keys():
+	preset_text += key+" -> "+cli_in.PRESETS[key]+", "
+preset_text = "%%".join(preset_text[:-2].split("%"))
+parser.add_argument('--format-preset', "-F", nargs='?', default=cli_in.DEFAULT_PRESET, help="Set datetime formatting preset, defaults to "+cli_in.DEFAULT_PRESET+". Values are:\n"+preset_text, choices=cli_in.PRESETS.keys())
 parser.add_argument('--locale', "-l", nargs='?', default="en_US", help="Sets locale to be used with parsing month and weekday names, defaults to American English (en_US).")
 parser.add_argument('--verbose', "-v", action="store_true", help="Sets program to verbose mode. This will result in loger descriptions of errors being written to the stderr.")
 parser.add_argument('--cancel-padding', "-p", action="store_true", help="Cancels adding zero-padding, eg. without -p 2 would become 02.")
@@ -28,18 +36,10 @@ args = parser.parse_args()
 
 exit_code = 0
 log_parser = log_parser.LogParser()
-cli_in = cli_input.CliInput()
-cli_out = cli_output.CliOutput()
 parse_logs = True
 format = args.format
 if format == "":
-	if args.format_preset != "":
-		if args.format_preset == "custom1":
-			format = "%b %d %H:%M:%S"
-		else:
-			format = "%Y%m%d_%H%M%S"
-	else:
-		format = "%Y%m%d_%H%M%S"
+	format = cli_in.PRESETS[args.format_preset]
 
 round_to = args.round_to
 

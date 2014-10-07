@@ -1,9 +1,9 @@
 TimeDiff and TimeDiffPlot
 =========================
 
-TimeDiff parses log files and outputs the difference in time between log entries. Can work on either files directly, or through grep or similar. Allows for any syntax for the time through python [datetime.strftime() and datetime.strptime()](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats").
+This repository contains two programs, TimeDiff and TimeDiffPlot. Both take log-files in the form of streams as input. TimeDiff then outputs the difference in time between log entries, TimeDiffPlot uses Matplotlib, Numpy and Scipy to graph the differences in the log-files. Both allow any syntax for the time through python [datetime.strftime() and datetime.strptime()](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). TimeDiff and TimeDiffPlot also come with formatting presets located in timediff/cli_input.py.
 
-TimeDiffPlot plots graphs on how common a certain difference in time between log entries is. Is called like TimeDiff (see above). Supports both linear and logarithmical scales. TimeDiffPlot requires Matplotlib, Numpy and Scipy.
+TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiff and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
 
@@ -56,30 +56,32 @@ Output:
 Usage of TimeDiff
 -----------------
 
-    usage: time-diff [-h] [--format [FORMAT]] [--format-preset [{custom1}]]
-                     [--locale [LOCALE]] [--verbose] [--cancel-padding]
-                     [--round-to {s,ms,min,h,d}]
+    usage: time-diff [-h] [--format [FORMAT]] [--format-preset [{linux1,custom1}]]
+                 [--locale [LOCALE]] [--verbose] [--cancel-padding]
+                 [--round-to {s,ms,min,h,d}]
 
     Calculate differences in time of log entries and output them into the console.
 
     optional arguments:
-      -h, --help            show this help message and exit
-      --format [FORMAT], -f [FORMAT]
-                            Sets datetime format options, defaults to
-                            "%Y%m%d_%H%M%S" overrides given presets.
-      --format-preset [{custom1}], -F [{custom1}]
-                            Set datetime formatting preset, defaults to none
-      --locale [LOCALE], -l [LOCALE]
-                            Sets locale to be used with parsing month and weekday
-                            names, defaults to American English (en_US).
-      --verbose, -v         Sets program to verbose mode. This will result in
-                            loger descriptions of errors being written to the
-                            stderr.
-      --cancel-padding, -p  Cancels adding zero-padding, eg. without -p 2 would
-                            become 02.
-      --round-to {s,ms,min,h,d}, -r {s,ms,min,h,d}
-                            Sets what time-unit to round to while doing
-                            formatting.
+    -h, --help            show this help message and exit
+    --format [FORMAT], -f [FORMAT]
+                        Sets datetime format options, defaults to
+                        "%Y%m%d_%H%M%S" overrides given presets.
+    --format-preset [{linux1,custom1}], -F [{linux1,custom1}]
+                        Set datetime formatting preset, defaults to custom1.
+                        Values are: linux1 -> %b %d %H:%M:%S, custom1 ->
+                        %Y%m%d_%H%M%S
+    --locale [LOCALE], -l [LOCALE]
+                        Sets locale to be used with parsing month and weekday
+                        names, defaults to American English (en_US).
+    --verbose, -v         Sets program to verbose mode. This will result in
+                        loger descriptions of errors being written to the
+                        stderr.
+    --cancel-padding, -p  Cancels adding zero-padding, eg. without -p 2 would
+                        become 02.
+    --round-to {s,ms,min,h,d}, -r {s,ms,min,h,d}
+                        Sets what time-unit to round to while doing
+                        formatting.
 
 Running TimeDiffPlot
 ====================
@@ -92,24 +94,25 @@ You may also want to pipe in data from grep
 
     $ grep <data_to_grep> <grep's_args> | ./<path_to_TimeDiff>/time_diff/bin/time-diff-plot <arguments>
 
-TimeDiffPlot outputs nothing.
+TimeDiffPlot outputs nothing. Using TimeDiffPlot with logs of over 50 000 lines may take some time.
 
 Usage of TimeDiffPlot
 ---------------------
 
-    usage: time-diff-plot [-h] [--format [FORMAT]] [--format-preset [{custom1}]]
-                          [--locale [LOCALE]] [--verbose] [--cancel-padding]
-                          [--logarithmic]
+    usage: time-diff-plot [-h] [--format [FORMAT]]
+                          [--format-preset [{linux1,custom1}]] [--locale [LOCALE]]
+                          [--verbose] [--cancel-padding] [--logarithmic]
 
     Calculate differences in time of log entries and output them into the console.
 
     optional arguments:
       -h, --help            show this help message and exit
       --format [FORMAT], -f [FORMAT]
-                            Sets datetime format options, defaults to
-                            "%Y%m%d_%H%M%S" overrides given presets.
-      --format-preset [{custom1}], -F [{custom1}]
-                            Set datetime formatting preset, defaults to none
+                            Sets datetime format options, overrides given presets.
+      --format-preset [{linux1,custom1}], -F [{linux1,custom1}]
+                            Set datetime formatting preset, defaults to custom1.
+                            Values are: linux1 -> %b %d %H:%M:%S, custom1 ->
+                            %Y%m%d_%H%M%S
       --locale [LOCALE], -l [LOCALE]
                             Sets locale to be used with parsing month and weekday
                             names, defaults to American English (en_US).
@@ -119,3 +122,5 @@ Usage of TimeDiffPlot
       --cancel-padding, -p  Cancels adding zero-padding, eg. without -p 2 would
                             become 02.
       --logarithmic, -L     Sets y-axis of plots to be on a logarithmic scale
+
+
