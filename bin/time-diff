@@ -53,14 +53,24 @@ if args["-r"] in ("s", "hours", "minutes", "days", "millis"):
 if parse_logs:
 	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
 	for line in logs:
-		try:
-			print(cli_out.format_line(line, round_to))
-		except Exception, v:
+		if line != None:
+			try:
+				formatted_line = cli_out.format_line(line, round_to)
+				if formatted_line != None:
+					print(formatted_line)
+				else:
+					sys.stderr.write("Format \"{0}\" doesn't match line \"{1}\"\n".format(format, line))
+					exit_code = 1
+
+			except Exception, v:
+				exit_code = 1
+				if args["-v"]:
+					sys.stderr.write("\n\n----------------------\nError in python code:\n\n\n")
+					sys.stderr.write(traceback.format_exc(v))
+					sys.stderr.write("\n\n\t{0}\n\n----------------------\n".format(v.args[0]))
+				sys.stderr.write("Pattern \"{0}\" does not match logs\n".format(format))
+		else:
 			exit_code = 1
-			if args["-v"]:
-				sys.stderr.write("\n\n----------------------\nError in python code:\n\n\n")
-				sys.stderr.write(traceback.format_exc(v))
-				sys.stderr.write("\n\n\t{0}\n\n----------------------\n".format(v.args[0]))
 			sys.stderr.write("Pattern \"{0}\" does not match logs\n".format(format))
 	sys.exit(exit_code)
 elif "-h" in sys.argv:
