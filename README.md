@@ -27,7 +27,7 @@ Example of of running TimeDiff
 
 Command entered:
 
-    $ grep Logitech /var/log/messages | ./time_diff/bin/time-diff F=custom1
+    $ grep Logitech /var/log/messages | ./time_diff/bin/time-diff Fcustom1
     
 Output:
 
@@ -53,8 +53,8 @@ Arguments of TimeDiff
 TimeDiff accepts the following arguments:
 
 * **-p** : If not set the time will be parsed like all numerical parts of it would be zero-padded, eg. Tue Oct 5 would become Tue Oct 05.
-* **-f** : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f="%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
-* **-F** : Specify format by preset, only **-F=custom1** works for now, it results in the format **"%b %d %H:%M:%S"**
+* **-f** : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f"%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
+* **-F** : Specify format by preset, only **-Fcustom1** works for now, it results in the format **"%b %d %H:%M:%S"**
 * **-l** : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h** : Display a help containing basically this same information.
 * **-v** : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.
@@ -79,8 +79,8 @@ Arguments of TimeDiffPlot
 TimeDiffPlot accepts the following arguments:
 
 * **-p**    : If not set the time will be parsed like all numerical parts of it would be zero-padded, eg. Tue Oct 5 would become Tue Oct 05.
-* **-f**    : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f="%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
-* **-F**    : Specify format by preset, only **-F=custom1** works for now, it results in the format **"%b %d %H:%M:%S"**
+* **-f**    : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f"%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
+* **-F**    : Specify format by preset, only **-Fcustom1** works for now, it results in the format **"%b %d %H:%M:%S"**
 * **-l**    : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
 * **-h**    : Display a help containing basically this same information.
 * **-v**    : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.

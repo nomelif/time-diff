@@ -21,11 +21,11 @@ ARGUMENTS (All are mandatory)
 
 
 -h        : Show this help
--f=       : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
--F=       : Set datetime formatting preset, defaults to none, accepted values are:
+-f        : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
+-F        : Set datetime formatting preset, defaults to none, accepted values are:
 
 	* custom1 : "%b %d %H:%M:%S"
--l=       : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
+-l        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
 -v        : Sets program to verbose mode, errors will be written to console.
 -p        : Cancels adding zero-padding, eg. without -p 2 would become 02
 -r        : Sets what time-unit to round to while doing formatting. Accepted values are:

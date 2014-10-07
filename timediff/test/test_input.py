@@ -32,7 +32,7 @@ Oct  3 09:31:23 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2918 du
 
     def test_get_params_dict(self):
 
-        params_dict = self.input.get_params_dict(["-f=\"value for f\"", "-p", "-F"])
+        params_dict = self.input.get_params_dict(["-f\"value for f\"", "-p", "-F"])
         self.assertEqual(params_dict["-f"], "\"value for f\"")
         self.assertEqual(params_dict["-p"], True)
         self.assertEqual(params_dict["-v"], False)
