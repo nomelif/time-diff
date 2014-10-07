@@ -27,7 +27,7 @@ Example of of running TimeDiff
 
 Command entered:
 
-    $ grep Logitech /var/log/messages | ./time_diff/bin/time-diff -F custom1
+    $ cat /var/log/messages | ./time_diff/bin/time-diff -F custom1
     
 Output:
 
