@@ -32,20 +32,26 @@ Command entered:
 Output:
 
     
-    0:00:00 0:00:00 : Sep 29 09:31:03 zaphod kernel: [    1.895439] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.1/usb3/3-1/3-1:1.0/input/input1
-    0:00:00 0:00:00 : Sep 29 09:31:03 zaphod kernel: [    1.895683] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.1-1/input0
-    4:34:23 4:34:23 : Sep 29 14:05:26 zaphod kernel: [  170.629218] usb 2-1: Manufacturer: Logitech
-    4:34:23 0:00:00 : Sep 29 14:05:26 zaphod kernel: [  170.678132] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.0/usb2/2-1/2-1:1.0/input/input4
-    4:34:23 0:00:00 : Sep 29 14:05:26 zaphod kernel: [  170.678506] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.0-1/input0
-    5:00:10 0:25:47 : Sep 29 14:31:13 zaphod kernel: [    1.549321] usb 3-2: Manufacturer: Logitech
-    5:00:10 0:00:00 : Sep 29 14:31:13 zaphod kernel: [    1.899382] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.1/usb3/3-2/3-2:1.0/input/input1
-    5:00:10 0:00:00 : Sep 29 14:31:13 zaphod kernel: [    1.899472] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.1-2/input0
-    23:58:51 18:58:41 : Sep 30 09:29:54 zaphod kernel: [    1.553405] usb 3-2: Manufacturer: Logitech
-    23:58:51 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    1.906468] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.1/usb3/3-2/3-2:1.0/input/input1
-    23:58:51 0:00:00 : Sep 30 09:29:54 zaphod kernel: [    1.906555] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.1-2/input0
-    2 days, 0:01:22 1 day, 0:02:31 : Oct  1 09:32:25 zaphod kernel: [    1.549285] usb 3-2: Manufacturer: Logitech
-    2 days, 0:01:22 0:00:00 : Oct  1 09:32:25 zaphod kernel: [    1.902569] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.1/usb3/3-2/3-2:1.0/input/input1
-    2 days, 0:01:22 0:00:00 : Oct  1 09:32:25 zaphod kernel: [    1.902656] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.1-2/input0
+             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031111] scsi6 : usb-storage 1-2:1.0
+     
+             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031328] usbcore: registered new interface driver usb-storage
+     
+             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031334] USB Mass Storage support registered.
+     
+             1 s          1 s : Oct  7 10:17:22 zaphod kernel: [ 2802.102076] scsi 6:0:0:0: Direct-Access     Kingston DT 101 G2        PMAP PQ: 0 ANSI: 0 CCS
+     
+             1 s          0 s : Oct  7 10:17:22 zaphod kernel: [ 2802.104902] sd 6:0:0:0: Attached scsi generic sg1 type 0
+     
+             3 s          2 s : Oct  7 10:17:24 zaphod kernel: [ 2803.969196] sd 6:0:0:0: [sdb] 15495168 512-byte logical blocks: (7.93 GB/7.38 GiB)
+     
+             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2803.973449] sd 6:0:0:0: [sdb] Write Protect is off
+     
+             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2804.031763]  sdb: sdb1
+     
+             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2804.045140] sd 6:0:0:0: [sdb] Attached SCSI removable disk
+     
+             4 s          1 s : Oct  7 10:17:25 zaphod kernel: [ 2804.831579] FAT-fs (sdb1): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!
+
 
 Usage of TimeDiff
 -----------------
