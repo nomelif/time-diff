@@ -11,6 +11,7 @@ import sys
 import calendar
 from math import floor, ceil
 import time
+import argparse
 
 ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
 TIMEDIFF_PATH = os.path.join(ROOT_PATH, 'timediff')
@@ -21,61 +22,60 @@ import log_parser
 import cli_input
 import cli_output
 
-help = """Use by piping file (or greped lines) to program.
+parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
+parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, defaults to \"%%Y%%m%%d_%%H%%M%%S\" overrides given presets.")
+parser.add_argument('--format-preset', "-F", nargs='?', default="", help="Set datetime formatting preset, defaults to none", choices=["custom1"])
+parser.add_argument('--locale', "-l", nargs='?', default="en_US", help="Sets locale to be used with parsing month and weekday names, defaults to American English (en_US).")
+parser.add_argument('--verbose', "-v", action="store_true", help="Sets program to verbose mode. This will result in loger descriptions of errors being written to the stderr.")
+parser.add_argument('--cancel-padding', "-p", action="store_true", help="Cancels adding zero-padding, eg. without -p 2 would become 02.")
+parser.add_argument('--logarithmic', "-L", action="store_true", help="Sets y-axis of plots to be on a logarithmic scale")
 
-ARGUMENTS (All are mandatory)
-
-
--h            : Show this help
--f            : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
--F            : Set datetime formatting preset, defaults to none, accepted values are:
-
-	* custom1 : "%b %d %H:%M:%S"
--l            : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
--v            : Sets program to verbose mode, errors will be written to console.
--p            : Cancels adding zero-padding, eg. without -p 2 would become 02
---logarithmic : If set makes y-axis scale logarithmic"""
+args = parser.parse_args()
 exit_code = 0
 log_parser = log_parser.LogParser()
 cli_in = cli_input.CliInput()
 cli_out = cli_output.CliOutput()
-format = "%Y%m%d_%H%M%S"
-parse_logs = False
-args = cli_in.get_params_dict(sys.argv)
-values_dict = cli_in.parse_args_dict(args)
-sys.stderr.write(values_dict["err msg"])
-parse_logs = values_dict["proceed to parse"]
-exit_code = values_dict["err code"]
-format = values_dict["format"]
+parse_logs = True
+format = args.format
+total_plots = 1
 
-def plot_KDE(times, log=False):
+if format == "":
+	if args.format_preset != "":
+		if args.format_preset == "custom1":
+			format = "%b %d %H:%M:%S"
+		else:
+			format = "%Y%m%d_%H%M%S"
+	else:
+		format = "%Y%m%d_%H%M%S"
+
+def plot_KDE(times, ndth, title, log=False):
 	"""
 
 Plots kernel density average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
 
 	"""
-	b = plt.figure(2)
+	b = plt.figure(ndth)
 	plt.xlabel('Time (s)', fontsize=20)
-	plt.ylabel('Quantity (pcs)', fontsize=20)
-	ticks = numpy.linspace(min(times), max(times), 10000)
+	plt.ylabel('Quantity (relative)', fontsize=20)
+	ticks = numpy.linspace(min(times), max(times), 250)
 	density = stats.kde.gaussian_kde(times)
 	plt.plot(ticks, density(ticks))
 	plt.grid()
-	ax = plt.gca()
 	if log:
+		ax = plt.gca()
 		ax.set_yscale("log")
-		b.suptitle('Gausssian Kernel Density Estimation (KDE)  (logarithmically scaled y-axis)', fontsize=12)
+		b.suptitle(title+'  (logarithmically scaled y-axis)', fontsize=12)
 	else:
-		b.suptitle('Gausssian Kernel Density Estimation (KDE)', fontsize=12)
+		b.suptitle(title, fontsize=12)
 	b.show()
 
-def plot_histogram(times, log=False):
+def plot_histogram(times, ndth, title, log=False):
 	"""
 
 Plots histogram of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
 
 	"""
-	a = plt.figure(1)
+	a = plt.figure(ndth)
 	plt.xlabel('Time (s)', fontsize=20)
 	plt.ylabel('Quantity (pcs)', fontsize=20)
 	minimum = floor(min(times))
@@ -83,33 +83,37 @@ Plots histogram of _times_. If argument _log_ is set to True, the y-axis' scale 
 	n_bins = maximum - minimum
 	plt.hist(times, bins=n_bins)
 	plt.grid()
-	ax = plt.gca()
 	if log:
+		ax = plt.gca()
 		ax.set_yscale("log")
-		a.suptitle('Histogram (logarithmically scaled y-axis)', fontsize=12)
+		a.suptitle(title  + ' (logarithmically scaled y-axis)', fontsize=12)
 	else:
-		a.suptitle('Histogram', fontsize=12)
+		a.suptitle(title, fontsize=12)
 	a.show()
 
-if parse_logs:
-	log_arr = cli_in.get_log_arr(sys.stdin)
-	try:
-		logs = log_parser.parse_logs(log_arr, format, args["-p"])
-	except:
-		sys.stderr.write("Format \"{0}\" is invalid\n".format(format))
-		sys.exit(1)
-	times = []
-	for line in logs:
-		try:
-			value_to_add  = line[1].total_seconds()/100
-			times.append(value_to_add)
-		except:
-			sys.stderr.write("Line doesn't match format \"{0}\"\n".format(format))
+if select.select([sys.stdin,],[],[],0.0)[0]:
+	times_from_begin = []
+	times_from_previous = []
+	parse = log_parser.parse_line
+	for line in sys.stdin:
+		parsed_line = parse(line, format, args.cancel_padding)
+		if parsed_line != None:
+			times_from_begin.append(parsed_line[0].seconds)
+			times_from_previous.append(parsed_line[1].seconds)
+			pass
+		else:
+			sys.stderr.write("Formatting \"{0}\" does not match line {1}\n".format(format, line))
 			exit_code = 1
-	logarithmic = "--logarithmic" in sys.argv
-	plot_histogram(times, logarithmic)
-	plot_KDE(times, logarithmic)
+	print("!")
+	logarithmic = args.logarithmic
+	a = time.clock()
+	plot_histogram(times_from_previous, total_plots, "Frequence Histogram", logarithmic)
+	total_plots += 1
+	plot_histogram(times_from_begin, total_plots, "Log entries over time Histogram", logarithmic)
+	total_plots += 1
+	plot_KDE(times_from_previous, total_plots, "Frequence Gaussian KDE", logarithmic)
+	total_plots += 1
+	plot_KDE(times_from_begin, total_plots, "Log entries over time Gaussian KDE", logarithmic)
+	print(time.clock() - a)
 	plt.show()
-	sys.exit(exit_code)
-elif "-h" in sys.argv:
-	print(help)
+sys.exit(exit_code)

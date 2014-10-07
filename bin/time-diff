@@ -4,6 +4,7 @@ import sys
 import select
 import traceback
 import locale
+import argparse
 
 
 ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
@@ -15,63 +16,39 @@ import log_parser
 import cli_input
 import cli_output
 
-help = """Use by piping file (or greped lines) to program.
+parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
+parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, defaults to \"%%Y%%m%%d_%%H%%M%%S\" overrides given presets.")
+parser.add_argument('--format-preset', "-F", nargs='?', default="", help="Set datetime formatting preset, defaults to none", choices=["custom1"])
+parser.add_argument('--locale', "-l", nargs='?', default="en_US", help="Sets locale to be used with parsing month and weekday names, defaults to American English (en_US).")
+parser.add_argument('--verbose', "-v", action="store_true", help="Sets program to verbose mode. This will result in loger descriptions of errors being written to the stderr.")
+parser.add_argument('--cancel-padding', "-p", action="store_true", help="Cancels adding zero-padding, eg. without -p 2 would become 02.")
+parser.add_argument('--round-to', "-r", default="s", help="Sets what time-unit to round to while doing formatting.", choices=["s", "ms", "min", "h", "d"])
 
-ARGUMENTS (All are mandatory)
+args = parser.parse_args()
 
-
--h        : Show this help
--f        : Set datetime format options, defaults to "%Y%m%d_%H%M%S" overrides given presets
--F        : Set datetime formatting preset, defaults to none, accepted values are:
-
-	* custom1 : "%b %d %H:%M:%S"
--l        : Sets locale to be used with parsing month and weekday names, defaults to American English (en_US on unix, en-US on Windows).
--v        : Sets program to verbose mode, errors will be written to console.
--p        : Cancels adding zero-padding, eg. without -p 2 would become 02
--r        : Sets what time-unit to round to while doing formatting. Accepted values are:
-	* s       : (default) second
-	* ms      : milliseconds
-	* minutes : minutes
-	* hours   : hours
-	* days    : days"""
 exit_code = 0
 log_parser = log_parser.LogParser()
 cli_in = cli_input.CliInput()
 cli_out = cli_output.CliOutput()
-format = "%Y%m%d_%H%M%S"
-parse_logs = False
-round_to = "s"
-args = cli_in.get_params_dict(sys.argv)
-values_dict = cli_in.parse_args_dict(args)
-sys.stderr.write(values_dict["err msg"])
-parse_logs = values_dict["proceed to parse"]
-exit_code = values_dict["err code"]
-format = values_dict["format"]
-if args["-r"] in ("s", "hours", "minutes", "days", "millis"):
-	print(args["-r"])
-	round_to = args["-r"]
-if parse_logs:
-	logs = log_parser.parse_logs(cli_in.get_log_arr(sys.stdin), format, args["-p"])
-	for line in logs:
-		if line != None:
-			try:
-				formatted_line = cli_out.format_line(line, round_to)
-				if formatted_line != None:
-					print(formatted_line)
-				else:
-					sys.stderr.write("Format \"{0}\" doesn't match line \"{1}\"\n".format(format, line))
-					exit_code = 1
-
-			except Exception, v:
-				exit_code = 1
-				if args["-v"]:
-					sys.stderr.write("\n\n----------------------\nError in python code:\n\n\n")
-					sys.stderr.write(traceback.format_exc(v))
-					sys.stderr.write("\n\n\t{0}\n\n----------------------\n".format(v.args[0]))
-				sys.stderr.write("Pattern \"{0}\" does not match logs\n".format(format))
+parse_logs = True
+format = args.format
+if format == "":
+	if args.format_preset != "":
+		if args.format_preset == "custom1":
+			format = "%b %d %H:%M:%S"
 		else:
+			format = "%Y%m%d_%H%M%S"
+	else:
+		format = "%Y%m%d_%H%M%S"
+
+round_to = args.round_to
+
+if select.select([sys.stdin,],[],[],0.0)[0]:
+	for line in sys.stdin:
+		parsed_line = log_parser.parse_line(line, format, args.cancel_padding)
+		if parsed_line != None:
+			print cli_out.format_line(parsed_line, round_to)
+		else:
+			sys.stderr.write("Formatting \"{0}\" does not match line {1}\n".format(format, line))
 			exit_code = 1
-			sys.stderr.write("Pattern \"{0}\" does not match logs\n".format(format))
-	sys.exit(exit_code)
-elif "-h" in sys.argv:
-	print(help)
+sys.exit(exit_code)

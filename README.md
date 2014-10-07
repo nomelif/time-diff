@@ -47,18 +47,33 @@ Output:
     2 days, 0:01:22 0:00:00 : Oct  1 09:32:25 zaphod kernel: [    1.902569] input: Logitech USB-PS/2 Optical Mouse as /devices/pci0000:00/0000:00:13.1/usb3/3-2/3-2:1.0/input/input1
     2 days, 0:01:22 0:00:00 : Oct  1 09:32:25 zaphod kernel: [    1.902656] generic-usb 0003:046D:C051.0001: input,hidraw0: USB HID v1.10 Mouse [Logitech USB-PS/2 Optical Mouse] on usb-0000:00:13.1-2/input0
 
-Arguments of TimeDiff
----------------------
+Usage of TimeDiff
+-----------------
 
-TimeDiff accepts the following arguments:
+    usage: time-diff [-h] [--format [FORMAT]] [--format-preset [{custom1}]]
+                     [--locale [LOCALE]] [--verbose] [--cancel-padding]
+                     [--round-to {s,ms,min,h,d}]
 
-* **-p** : If not set the time will be parsed like all numerical parts of it would be zero-padded, eg. Tue Oct 5 would become Tue Oct 05.
-* **-f** : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f"%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
-* **-F** : Specify format by preset, only **-Fcustom1** works for now, it results in the format **"%b %d %H:%M:%S"**
-* **-l** : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
-* **-h** : Display a help containing basically this same information.
-* **-v** : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.
-* **-r** : Set time-unit to round to while formatting cli-output, default is seconds. Accepts values _s_ (seconds), _ms_ (milliseconds), _minutes_ (minutes), _hours_ (hours) and _days_ (days). Regardless of the given value, the program will always floor the values.
+    Calculate differences in time of log entries and output them into the console.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --format [FORMAT], -f [FORMAT]
+                            Sets datetime format options, defaults to
+                            "%Y%m%d_%H%M%S" overrides given presets.
+      --format-preset [{custom1}], -F [{custom1}]
+                            Set datetime formatting preset, defaults to none
+      --locale [LOCALE], -l [LOCALE]
+                            Sets locale to be used with parsing month and weekday
+                            names, defaults to American English (en_US).
+      --verbose, -v         Sets program to verbose mode. This will result in
+                            loger descriptions of errors being written to the
+                            stderr.
+      --cancel-padding, -p  Cancels adding zero-padding, eg. without -p 2 would
+                            become 02.
+      --round-to {s,ms,min,h,d}, -r {s,ms,min,h,d}
+                            Sets what time-unit to round to while doing
+                            formatting.
 
 Running TimeDiffPlot
 ====================
@@ -73,15 +88,28 @@ You may also want to pipe in data from grep
 
 TimeDiffPlot outputs nothing.
 
-Arguments of TimeDiffPlot
--------------------------
+Usage of TimeDiffPlot
+---------------------
 
-TimeDiffPlot accepts the following arguments:
+    usage: time-diff-plot [-h] [--format [FORMAT]] [--format-preset [{custom1}]]
+                          [--locale [LOCALE]] [--verbose] [--cancel-padding]
+                          [--logarithmic]
 
-* **-p**    : If not set the time will be parsed like all numerical parts of it would be zero-padded, eg. Tue Oct 5 would become Tue Oct 05.
-* **-f**    : Specify datetime format as seen [here](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). For ex. **-f"%b %d %H:%M:%S"**. Defaults to **"%Y%m%d_%H%M%S"**.
-* **-F**    : Specify format by preset, only **-Fcustom1** works for now, it results in the format **"%b %d %H:%M:%S"**
-* **-l**    : Set locale to use for parsing dates containing human-readable words, for ex. "Tuesday", "Oct" etc. Defaults to American English locale if installed, else falls back to the system's default locale.
-* **-h**    : Display a help containing basically this same information.
-* **-v**    : Set program to verbose mode, program will output python errors regarding parsings of logs. If not set program only outputs "Pattern "[formatting_pattern_used]" does not match logs". Errors always go to stderr.
-* **--logarithmic** : If **--logarithmic** is specified, the program will set the scaling for the y-axis to be logarithmic. If not specified, it is set to linear.
+    Calculate differences in time of log entries and output them into the console.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --format [FORMAT], -f [FORMAT]
+                            Sets datetime format options, defaults to
+                            "%Y%m%d_%H%M%S" overrides given presets.
+      --format-preset [{custom1}], -F [{custom1}]
+                            Set datetime formatting preset, defaults to none
+      --locale [LOCALE], -l [LOCALE]
+                            Sets locale to be used with parsing month and weekday
+                            names, defaults to American English (en_US).
+      --verbose, -v         Sets program to verbose mode. This will result in
+                            loger descriptions of errors being written to the
+                            stderr.
+      --cancel-padding, -p  Cancels adding zero-padding, eg. without -p 2 would
+                            become 02.
+      --logarithmic, -L     Sets y-axis of plots to be on a logarithmic scale

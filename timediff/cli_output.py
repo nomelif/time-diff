@@ -20,16 +20,16 @@ Takes in a datetime.Timedelta, that gets formatted to a String. Without argument
 
 		"""
 		if round_to == "s" :
-			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " seconds"
+			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " s"
 		else:
 			if round_to == "ms":
-				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " milliseconds"
-			elif round_to == "minutes":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " minutes"
-			elif round_to == "hours":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " hours"
-			elif round_to == "days":
-				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " days"
+				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " ms"
+			elif round_to == "min":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " min"
+			elif round_to == "h":
+				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " h"
+			elif round_to == "d":
+				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " d"
 
 	def format_line(self, line_tuple, round_to="s"):
 		"""

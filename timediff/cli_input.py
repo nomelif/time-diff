@@ -31,9 +31,7 @@ Returns a dictionary with one key per parameter.
 					try:
 						for arg in args:
 							if arg[:len(key)] == key:
-								key_val = arg[2:]
-								if key_val == "":
-									key_val = None
+								key_val = arg.split("=")[1]
 					except:
 						key_val = None
 				params_dict[key] = key_val
