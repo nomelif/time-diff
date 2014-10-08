@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 
-      <title>cli_output API documentation</title>
+      <title>conf_reader API documentation</title>
       <meta name="description" content="">
 
   
@@ -913,54 +913,51 @@ table {
   
 
 
-  <h1>Module cli_output</h1>
+  <h1>Module conf_reader</h1>
   
   
-    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output', this);">Show source.</a></p>
-    <div id="source-cli_output" class="source">
-      <pre><code>import datetime
-class CliOutput():
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-conf_reader', this);">Show source.</a></p>
+    <div id="source-conf_reader" class="source">
+      <pre><code>import json
+import sys
+
+class ConfReader():
 	"""
 
-Class used to format line-tuples given by parser.Parser
+Class used to parse command-line input. Currently holds presets for formatting options
+
+	"""
+	DEFAULT_PRESET = ""
+	"""
+Default formatting if no options are given.
+	"""
+	PRESETS = {}
+	"""
+
+List of all possible formatting presets and their values.
+
+	"""
+	VERSION = "0.9"
+	"""
+
+Current version of program.
 
 	"""
 	def __init__(self):
 		"""
 
-Empty _\_\_init\_\__ -method.
+Reads configuration file and 
 
 		"""
-		pass
-
-	def format_timedelta(self, timedelta, round_to="s"):
-		"""
-
-Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "[spaces_to_create_consistent_padding][seconds] seconds". If it is given a _round_to_-argument, it returns "[spaces_to_create_consistent_padding][time_floored_in_given_unit] [units name]". Accepted values for time-units to round to are: _s_, _min_, _ms_, _h_ and _d_.
-
-		"""
-		if round_to == "s" :
-			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " s"
-		else:
-			if round_to == "ms":
-				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " ms"
-			elif round_to == "min":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " min"
-			elif round_to == "h":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " h"
-			elif round_to == "d":
-				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " d"
-
-	def format_line(self, line_tuple, round_to="s"):
-		"""
-
-Returns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_. Takes _round_to_-argument, that will be forwarded to _format_timedelta_.
-
-		"""
+		config = {"version":"0.9", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
 		try:
-			return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
-		except:
-			pass
+			with open("../timediff/timediff.json", "r") as f:
+				config = json.load(f)
+		except IOError:
+			sys.stderr.write("Error loading configuration file timediff.json.\n")
+			sys.exit(1)
+		self.DEFAULT_PRESET = config["default-preset"]
+		self.PRESETS = config["presets"]
 </code></pre>
     </div>
 
@@ -974,19 +971,17 @@ Returns formated string containing data from _Parser.parse_line_. Times are form
     <li><h4><a href="#header-classes">Classes</a></h4>
       <ul>
           <li class="mono">
-            <span class="class_name"><a href="#cli_output.CliOutput">CliOutput</a></span>
+            <span class="class_name"><a href="#conf_reader.ConfReader">ConfReader</a></span>
             
               
   
   <div class="column_list">
       <ul>
-          <li class="mono"><a href="#cli_output.CliOutput.__init__">__init__</a></li>
+          <li class="mono"><a href="#conf_reader.ConfReader.__init__">__init__</a></li>
       </ul>
       <ul>
-          <li class="mono"><a href="#cli_output.CliOutput.format_line">format_line</a></li>
       </ul>
       <ul>
-          <li class="mono"><a href="#cli_output.CliOutput.format_timedelta">format_timedelta</a></li>
       </ul>
   </div>
 
@@ -1001,55 +996,50 @@ Returns formated string containing data from _Parser.parse_line_. Times are form
   <h2 id="header-classes">Classes</h2>
       
       <div class="item">
-        <p id="cli_output.CliOutput" class="name">class <span class="ident">CliOutput</span></p>
+        <p id="conf_reader.ConfReader" class="name">class <span class="ident">ConfReader</span></p>
         
   
-      <div class="desc"><p>Class used to format line-tuples given by parser.Parser</p></div>
+      <div class="desc"><p>Class used to parse command-line input. Currently holds presets for formatting options</p></div>
     <div class="source_cont">
-    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput', this);">Show source.</a></p>
-    <div id="source-cli_output.CliOutput" class="source">
-      <pre><code>class CliOutput():
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-conf_reader.ConfReader', this);">Show source.</a></p>
+    <div id="source-conf_reader.ConfReader" class="source">
+      <pre><code>class ConfReader():
 	"""
 
-Class used to format line-tuples given by parser.Parser
+Class used to parse command-line input. Currently holds presets for formatting options
+
+	"""
+	DEFAULT_PRESET = ""
+	"""
+Default formatting if no options are given.
+	"""
+	PRESETS = {}
+	"""
+
+List of all possible formatting presets and their values.
+
+	"""
+	VERSION = "0.9"
+	"""
+
+Current version of program.
 
 	"""
 	def __init__(self):
 		"""
 
-Empty _\_\_init\_\__ -method.
+Reads configuration file and 
 
 		"""
-		pass
-
-	def format_timedelta(self, timedelta, round_to="s"):
-		"""
-
-Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "[spaces_to_create_consistent_padding][seconds] seconds". If it is given a _round_to_-argument, it returns "[spaces_to_create_consistent_padding][time_floored_in_given_unit] [units name]". Accepted values for time-units to round to are: _s_, _min_, _ms_, _h_ and _d_.
-
-		"""
-		if round_to == "s" :
-			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " s"
-		else:
-			if round_to == "ms":
-				return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " ms"
-			elif round_to == "min":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " min"
-			elif round_to == "h":
-				return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " h"
-			elif round_to == "d":
-				return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " d"
-
-	def format_line(self, line_tuple, round_to="s"):
-		"""
-
-Returns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_. Takes _round_to_-argument, that will be forwarded to _format_timedelta_.
-
-		"""
+		config = {"version":"0.9", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
 		try:
-			return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
-		except:
-			pass
+			with open("../timediff/timediff.json", "r") as f:
+				config = json.load(f)
+		except IOError:
+			sys.stderr.write("Error loading configuration file timediff.json.\n")
+			sys.exit(1)
+		self.DEFAULT_PRESET = config["default-preset"]
+		self.PRESETS = config["presets"]
 </code></pre>
     </div>
 </div>
@@ -1058,88 +1048,90 @@ Returns formated string containing data from _Parser.parse_line_. Times are form
         <div class="class">
               <h4>Ancestors (in MRO)</h4>
               <ul class="class_list">
-                <li><a href="#cli_output.CliOutput">CliOutput</a></li>
+                <li><a href="#conf_reader.ConfReader">ConfReader</a></li>
               </ul>
+              <h4>Class variables</h4>
+                  <div class="item">
+                    <p id="conf_reader.ConfReader.DEFAULT_PRESET" class="name">var <span class="ident">DEFAULT_PRESET</span></p>
+                    
+
+                    
+  
+      <div class="desc"><p>Default formatting if no options are given.</p></div>
+    <div class="source_cont">
+</div>
+
+                  </div>
+                  <div class="item">
+                    <p id="conf_reader.ConfReader.PRESETS" class="name">var <span class="ident">PRESETS</span></p>
+                    
+
+                    
+  
+      <div class="desc"><p>List of all possible formatting presets and their values.</p></div>
+    <div class="source_cont">
+</div>
+
+                  </div>
+                  <div class="item">
+                    <p id="conf_reader.ConfReader.VERSION" class="name">var <span class="ident">VERSION</span></p>
+                    
+
+                    
+  
+      <div class="desc"><p>Current version of program.</p></div>
+    <div class="source_cont">
+</div>
+
+                  </div>
+              <h4>Instance variables</h4>
+                  <div class="item">
+                    <p id="conf_reader.ConfReader.DEFAULT_PRESET" class="name">var <span class="ident">DEFAULT_PRESET</span></p>
+                    
+
+                    
+  
+    <div class="source_cont">
+</div>
+
+                  </div>
+                  <div class="item">
+                    <p id="conf_reader.ConfReader.PRESETS" class="name">var <span class="ident">PRESETS</span></p>
+                    
+
+                    
+  
+    <div class="source_cont">
+</div>
+
+                  </div>
               <h4>Methods</h4>
                   
     <div class="item">
-      <div class="name def" id="cli_output.CliOutput.__init__">
+      <div class="name def" id="conf_reader.ConfReader.__init__">
         <p>def <span class="ident">__init__</span>(</p><p>self)</p>
       </div>
       
 
       
   
-      <div class="desc"><p>Empty <em>__init__</em> -method.</p></div>
+      <div class="desc"><p>Reads configuration file and</p></div>
     <div class="source_cont">
-    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput.__init__', this);">Show source.</a></p>
-    <div id="source-cli_output.CliOutput.__init__" class="source">
+    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-conf_reader.ConfReader.__init__', this);">Show source.</a></p>
+    <div id="source-conf_reader.ConfReader.__init__" class="source">
       <pre><code>def __init__(self):
 	"""
-mpty _\_\_init\_\__ -method.
+eads configuration file and 
 	"""
-	pass
-</code></pre>
-    </div>
-</div>
-
-    </div>
-  
-                  
-    <div class="item">
-      <div class="name def" id="cli_output.CliOutput.format_line">
-        <p>def <span class="ident">format_line</span>(</p><p>self, line_tuple, round_to=&#39;s&#39;)</p>
-      </div>
-      
-
-      
-  
-      <div class="desc"><p>Returns formated string containing data from <em>Parser.parse_line</em>. Times are formatted using <em>CliOutput.format_timedelta</em>. Takes <em>round_to</em>-argument, that will be forwarded to <em>format_timedelta</em>.</p></div>
-    <div class="source_cont">
-    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput.format_line', this);">Show source.</a></p>
-    <div id="source-cli_output.CliOutput.format_line" class="source">
-      <pre><code>def format_line(self, line_tuple, round_to="s"):
-	"""
-eturns formated string containing data from _Parser.parse_line_. Times are formatted using _CliOutput.format_timedelta_. Takes _round_to_-argument, that will be forwarded to _format_timedelta_.
-	"""
+	config = {"version":"0.9", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
 	try:
-		return "{0} {1} : {2}".format(self.format_timedelta(line_tuple[0], round_to), self.format_timedelta(line_tuple[1], round_to), str(line_tuple[2]))
-	except:
-		pass
-</code></pre>
-    </div>
-</div>
-
-    </div>
-  
-                  
-    <div class="item">
-      <div class="name def" id="cli_output.CliOutput.format_timedelta">
-        <p>def <span class="ident">format_timedelta</span>(</p><p>self, timedelta, round_to=&#39;s&#39;)</p>
-      </div>
-      
-
-      
-  
-      <div class="desc"><p>Takes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "[spaces_to_create_consistent_padding][seconds] seconds". If it is given a <em>round_to</em>-argument, it returns "[spaces_to_create_consistent_padding][time_floored_in_given_unit] [units name]". Accepted values for time-units to round to are: <em>s</em>, <em>min</em>, <em>ms</em>, <em>h</em> and <em>d</em>.</p></div>
-    <div class="source_cont">
-    <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-cli_output.CliOutput.format_timedelta', this);">Show source.</a></p>
-    <div id="source-cli_output.CliOutput.format_timedelta" class="source">
-      <pre><code>def format_timedelta(self, timedelta, round_to="s"):
-	"""
-akes in a datetime.Timedelta, that gets formatted to a String. Without arguments it returns "[spaces_to_create_consistent_padding][seconds] seconds". If it is given a _round_to_-argument, it returns "[spaces_to_create_consistent_padding][time_floored_in_given_unit] [units name]". Accepted values for time-units to round to are: _s_, _min_, _ms_, _h_ and _d_.
-	"""
-	if round_to == "s" :
-		return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())) + " s"
-	else:
-		if round_to == "ms":
-			return " "*(10 - len(str(int(timedelta.total_seconds())))) + str(int(timedelta.total_seconds())*1000 + int(timedelta.microseconds/1000.)) + " ms"
-		elif round_to == "min":
-			return " "*(10 - len(str(int(timedelta.total_seconds()) / 60))) + str(int(timedelta.total_seconds()) / 60) + " min"
-		elif round_to == "h":
-			return " "*(10 - len(str(int(timedelta.total_seconds()) / 60 / 24))) + str(int(timedelta.total_seconds()) / 60 / 24) + " h"
-		elif round_to == "d":
-			return " "*(10 - len(str(timedelta.days))) + str(timedelta.days) + " d"
+		with open("../timediff/timediff.json", "r") as f:
+			config = json.load(f)
+	except IOError:
+		sys.stderr.write("Error loading configuration file timediff.json.\n")
+		sys.exit(1)
+	self.DEFAULT_PRESET = config["default-preset"]
+	self.PRESETS = config["presets"]
 </code></pre>
     </div>
 </div>
