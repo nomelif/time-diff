@@ -18,7 +18,7 @@ Default formatting if no options are given.
 List of all possible formatting presets and their values.
 
 	"""
-	VERSION = "0.9"
+	VERSION = "0.9.35"
 	"""
 
 Current version of program.
@@ -30,7 +30,7 @@ Current version of program.
 Reads configuration file and 
 
 		"""
-		config = {"version":"0.9", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
+		config = {"version":"0.9.35", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
 		try:
 			with open("/etc/timediff/timediff.json", "r") as f:
 				config = json.load(f)

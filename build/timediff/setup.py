@@ -1,15 +1,25 @@
 # -*- coding=utf-8 -*-
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     # Application name:
     name="TimeDiff",
 
     # Version number (initial):
-    version="0.9.37", 
+    version="0.9.3", 
 
     # Packages
     packages=["timediff"],
+
+    # Package data
+    package_data={
+    "timediff":['README.md',
+'LICENSE.txt',
+'timediff/doc/*.html',
+'timediff/*.py',
+'timediff/*.json',
+'bin/*']
+    },
 
     data_files=[('/etc/timediff', ['timediff/timediff.json'])],
 
@@ -24,8 +34,6 @@ setup(
     requires=[
         "matplotlib", "numpy", "scipy"
     ],
-
-    provides=["timediff",],
 
     # License
     license=open("LICENSE.txt").read(),
