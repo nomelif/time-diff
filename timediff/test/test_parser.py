@@ -88,10 +88,19 @@ Oct  3 09:31:23 zaphod rsyslogd-2177: imuxsock lost 56 messages from pid 2918 du
 
     def test_parse_line(self):
     	self.parser = log_parser.LogParser()
-    	secs = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (2, 2), (2, 0), (4, 2), (9, 5)]
-    	for times, line in zip(secs, self.log.split("\n")):
+    	seconds = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (2, 2), (2, 0), (4, 2), (9, 5)]
+    	for times, line in zip(seconds, self.log.split("\n")):
+            #               ^ zip converts two arrays a and b to a list of tuples [(a[0], b[0]), (a[1], b[1]), ... , (a[-2], b[-2]), (a[-1], b[-1])].
         	self.assertEqual((datetime.timedelta(seconds=times[0]), datetime.timedelta(seconds=times[1]), line), self.parser.parse_line(line, "%b %d %H:%M:%S"))
         self.assertEqual(None, self.parser.parse_line("!", "%b %d %H:%M:%S"))
+
+    def test_get_diff(self):
+        self.parser = log_parser.LogParser()
+        seconds = [0, 0, 0, 0, 0, 0, 2, 0, 2, 5]
+        for time, line in zip(seconds, self.log.split("\n")):
+            #              ^ zip converts two arrays a and b to a list of tuples [(a[0], b[0]), (a[1], b[1]), ... , (a[-2], b[-2]), (a[-1], b[-1])].
+            self.assertEqual(time, self.parser.get_diff(line, "%b %d %H:%M:%S"))
+        self.assertEqual(None, self.parser.get_diff("!", "%b %d %H:%M:%S"))
 
 if __name__ == '__main__':
     unittest.main()

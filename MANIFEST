@@ -7,9 +7,10 @@ setup.py
 bin/time-diff
 bin/time-diff-plot
 timediff/__init__.py
-timediff/cli_input.py
 timediff/cli_output.py
+timediff/conf_reader.py
 timediff/log_parser.py
-timediff/doc/cli_input.m.html
+timediff/timediff.json
 timediff/doc/cli_output.m.html
+timediff/doc/conf_reader.m.html
 timediff/doc/log_parser.m.html

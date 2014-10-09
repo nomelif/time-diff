@@ -1,11 +1,20 @@
 TimeDiff and TimeDiffPlot
 =========================
 
-This repository contains two programs, TimeDiff and TimeDiffPlot. Both take log-files in the form of streams as input. TimeDiff then outputs the difference in time between log entries, TimeDiffPlot uses Matplotlib, Numpy and Scipy to graph the differences in the log-files. Both allow any syntax for the time through python [datetime.strftime() and datetime.strptime()](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). TimeDiff and TimeDiffPlot also come with formatting presets located in timediff/cli_input.py.
+This repository contains two programs, TimeDiff and TimeDiffPlot. Both take log-files in the form of streams as input. TimeDiff then outputs the difference in time between log entries, TimeDiffPlot uses Matplotlib, Numpy and Scipy to graph the differences in the log-files. Both allow any syntax for the time through python [datetime.strftime() and datetime.strptime()](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior "Syntax for entering time formats"). Formatting presets for bothes time-diff and time-diff-plot can be set in /etc/timediff/timediff.json.
 
 TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiff and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
+
+TimeDiff 0.9.3
+
+Installing TimeDiff
+===================
+
+TimeDiff can be installed through pip by calling
+
+    # pip install timediff
 
 Running TimeDiff
 ================
@@ -27,7 +36,7 @@ Example of of running TimeDiff
 
 Command entered:
 
-    $ cat /var/log/messages | ./time_diff/bin/time-diff -F custom1
+    $ cat /var/log/messages | ./time_diff/bin/time-diff -F linux1
     
 Output:
 

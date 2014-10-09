@@ -6,7 +6,7 @@ setup(
     name="TimeDiff",
 
     # Version number (initial):
-    version="1.0", 
+    version="0.9.3", 
 
     # Packages
     packages=["timediff"],
@@ -17,8 +17,11 @@ setup(
 'LICENSE.txt',
 'timediff/doc/*.html',
 'timediff/*.py',
+'timediff/*.json',
 'bin/*']
     },
+
+    data_files=[('/etc/timediff', ['timediff/timediff.json'])],
 
     # Details
     url="https://github.com/nomelif/time-diff",

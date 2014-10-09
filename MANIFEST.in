@@ -4,3 +4,4 @@ include README.md
 
 recursive-include bin *
 recursive-include timediff/doc *
+include timediff/timediff.json
