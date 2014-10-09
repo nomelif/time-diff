@@ -1,0 +1,171 @@
+#!/usr/bin/python
+import os
+import sys
+import select
+import traceback
+import locale
+import matplotlib.pylab as plt
+from scipy import stats
+import numpy
+import sys
+import calendar
+from math import floor, ceil
+import time
+import argparse
+import re
+
+ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
+TIMEDIFF_PATH = os.path.join(ROOT_PATH, 'timediff')
+sys.path.append(TIMEDIFF_PATH)
+
+try:
+	import log_parser
+	import conf_reader
+	import cli_output
+except ImportError:
+	from timediff import log_parser
+	from timediff import conf_reader
+	from timediff import cli_output
+
+conf = conf_reader.ConfReader()
+cli_out = cli_output.CliOutput()
+
+parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
+parser.add_argument('filename', nargs='?', default="", help="Optional filename for reading file instead of stream")
+parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, overrides given presets.")
+preset_text = ""
+for key in conf.PRESETS.keys():
+	preset_text += key+" -> "+conf.PRESETS[key]+", "
+preset_text = "%%".join(preset_text[:-2].split("%"))
+parser.add_argument('--format-preset', "-F", nargs='?', default=conf.DEFAULT_PRESET, help="Set datetime formatting preset, defaults to "+conf.DEFAULT_PRESET+". Values are:\n"+preset_text, choices=conf.PRESETS.keys())
+parser.add_argument('--locale', "-l", nargs='?', default="en_US", help="Sets locale to be used with parsing month and weekday names, defaults to American English (en_US).")
+parser.add_argument('--verbose', "-v", action="store_true", help="Sets program to verbose mode. This will result in loger descriptions of errors being written to the stderr.")
+parser.add_argument('--cancel-padding', "-p", action="store_true", help="Cancels adding zero-padding, eg. without -p 2 would become 02.")
+parser.add_argument('--logarithmic', "-L", action="store_true", help="Sets y-axis of plots to be on a logarithmic scale")
+parser.add_argument('--version', "-V", action="store_true", help="Displays version number")
+parser.add_argument('--output-path', "-O", nargs='?', default="", help="Path for outputting images to disk.")
+parser.add_argument('--output-format', "-o", nargs='?', default=conf.OUTPUT_FORMAT, help="Format of outputted graphs. Choices are .emf, .eps, .pdf, .png, .ps, .raw, .rgba, .svg and .svgz.")
+
+args = parser.parse_args()
+if args.version:
+	print(conf.VERSION)
+else:
+	exit_code = 0
+	log_parser = log_parser.LogParser()
+	parse_logs = True
+	format = args.format
+	total_plots = 1
+
+	if format == "":
+		format = conf.PRESETS[args.format_preset]
+
+
+	def plot_KDE(times, ndth, title, is_over_time, output_path, output_format, log=False):
+		"""
+
+	Plots kernel density average of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
+
+		"""
+		b = plt.figure(ndth)
+		if is_over_time:
+			plt.xlabel('Time (s)', fontsize=20)
+		else:
+			plt.xlabel('Interval (s)', fontsize=20)
+		plt.ylabel('Quantity (relative)', fontsize=20)
+		ticks = numpy.linspace(min(times), max(times), 250)
+		density = stats.kde.gaussian_kde(times)
+		plt.plot(ticks, density(ticks))
+		plt.grid()
+		if log:
+			ax = plt.gca()
+			ax.set_yscale("log")
+			b.suptitle(title+'  (logarithmically scaled y-axis)', fontsize=12)
+			if output_path == "":
+				b.show()
+			else:
+				if is_over_time:
+					b.savefig(output_path+" KDE (logarithmic, over time)"+output_format)
+				else:
+					b.savefig(output_path+" KDE (loagithmic)"+output_format)
+		else:
+			b.suptitle(title, fontsize=12)
+			if output_path == "":
+				b.show()
+			else:
+				if is_over_time:
+					b.savefig(output_path+" KDE (over time)"+output_format)
+				else:
+					b.savefig(output_path+" KDE"+output_format)
+
+	def plot_histogram(times, ndth, title, is_over_time, output_path, output_format, log=False):
+		"""
+
+	Plots histogram of _times_. If argument _log_ is set to True, the y-axis' scale becomes logarithmic. Returns nothing.
+
+		"""
+		a = plt.figure(ndth)
+		if is_over_time:
+			plt.xlabel('Time (s)', fontsize=20)
+		else:
+			plt.xlabel('Interval (s)', fontsize=20)
+		minimum = floor(min(times))
+		maximum = ceil(max(times))
+		n_bins = maximum - minimum
+		plt.hist(times, bins=n_bins)
+		plt.grid()
+		if log:
+			ax = plt.gca()
+			ax.set_yscale("log")
+			a.suptitle(title  + ' (logarithmically scaled y-axis)', fontsize=12)
+			if output_path == "":
+				a.show()
+			else:
+				if is_over_time:
+					a.savefig(output_path+" histogram (logarithmic, over time)"+output_format)
+				else:
+					a.savefig(output_path+" histogram (loagithmic)"+output_format)
+		else:
+			a.suptitle(title, fontsize=12)
+			if output_path == "":
+				a.show()
+			else:
+				if is_over_time:
+					a.savefig(output_path+" histogram (over time)"+output_format)
+				else:
+					a.savefig(output_path+" histogram"+output_format)
+	stream = sys.stdin
+	try:
+		stream = open(args.filename, "r")
+	except IOError:
+		stream = sys.stdin
+	times_from_begin = []
+	times_from_previous = []
+	parse = log_parser.parse_line
+	for line in stream:
+		parsed_line = parse(line, format, args.cancel_padding)
+		if parsed_line != None:
+			times_from_begin.append(parsed_line[0].seconds)
+			times_from_previous.append(parsed_line[1].seconds)
+			pass
+		else:
+			sys.stderr.write("Formatting \"{0}\" does not match line {1}\n".format(format, line))
+			exit_code = 1
+	if len(times_from_begin) > 0 or len(times_from_previous) > 0:
+		output_path = args.output_path
+		output_format = args.output_format
+		logarithmic = args.logarithmic
+		plot_histogram(times_from_previous, total_plots, "Interval Histogram", False, output_path, output_format, logarithmic)
+		total_plots += 1
+		plot_histogram(times_from_begin, total_plots, "Log entries over time Histogram", True, output_path, output_format, logarithmic)
+		total_plots += 1
+		plot_KDE(times_from_previous, total_plots, "Interval Gaussian KDE", False, output_path, output_format, logarithmic)
+		total_plots += 1
+		plot_KDE(times_from_begin, total_plots, "Log entries over time Gaussian KDE", True, output_path, output_format, logarithmic)
+		if output_path == "":
+			plt.show()
+	else:
+		print("No lines matching given time-format.")
+		exit_code  = 1
+	if args.filename != "":
+		stream.close()
+	sys.exit(exit_code)

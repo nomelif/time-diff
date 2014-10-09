@@ -1,6 +1,7 @@
 
 {
-"version":"0.9.3",
+"version":"0.9.5",
 "default-preset":"custom1",
-"presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}
+"presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"},
+"image-out":".png"
 }

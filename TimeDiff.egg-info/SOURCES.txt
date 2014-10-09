@@ -7,8 +7,8 @@ TimeDiff.egg-info/PKG-INFO
 TimeDiff.egg-info/SOURCES.txt
 TimeDiff.egg-info/dependency_links.txt
 TimeDiff.egg-info/top_level.txt
-bin/time-diff
-bin/time-diff-plot
+bin/timediffplot
+bin/timedifftext
 timediff/__init__.py
 timediff/cli_output.py
 timediff/conf_reader.py

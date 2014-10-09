@@ -1,0 +1,65 @@
+#!/usr/bin/python
+import os
+import sys
+import select
+import traceback
+import locale
+import argparse
+
+
+ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
+TIMEDIFF_PATH = os.path.join(ROOT_PATH, 'timediff')
+
+sys.path.append(TIMEDIFF_PATH)
+try:
+	import log_parser
+	import conf_reader
+	import cli_output
+except ImportError:
+	from timediff import log_parser
+	from timediff import conf_reader
+	from timediff import cli_output
+
+conf = conf_reader.ConfReader()
+cli_out = cli_output.CliOutput()
+
+parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
+parser.add_argument('filename', nargs='?', default="", help="Optional filename for reading file instead of stream")
+parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, defaults to \"%%Y%%m%%d_%%H%%M%%S\" overrides given presets.")
+preset_text = ""
+preset_text = ""
+for key in conf.PRESETS.keys():
+	preset_text += key+" -> "+conf.PRESETS[key]+", "
+preset_text = "%%".join(preset_text[:-2].split("%"))
+parser.add_argument('--format-preset', "-F", nargs='?', default=conf.DEFAULT_PRESET, help="Set datetime formatting preset, defaults to "+conf.DEFAULT_PRESET+". Values are:\n"+preset_text, choices=conf.PRESETS.keys())
+parser.add_argument('--locale', "-l", nargs='?', default="en_US", help="Sets locale to be used with parsing month and weekday names, defaults to American English (en_US).")
+parser.add_argument('--verbose', "-v", action="store_true", help="Sets program to verbose mode. This will result in loger descriptions of errors being written to the stderr.")
+parser.add_argument('--cancel-padding', "-p", action="store_true", help="Cancels adding zero-padding, eg. without -p 2 would become 02.")
+parser.add_argument('--round-to', "-r", default="s", help="Sets what time-unit to round to while doing formatting.", choices=["s", "ms", "min", "h", "d"])
+parser.add_argument('--version', "-V", action="store_true", help="Displays version number")
+
+args = parser.parse_args()
+if args.version:
+	print(conf.VERSION)
+else:
+	exit_code = 0
+	log_parser = log_parser.LogParser()
+	parse_logs = True
+	format = args.format
+	if format == "":
+		format = conf.PRESETS[args.format_preset]
+
+	round_to = args.round_to
+	stream = sys.stdin
+	try:
+		stream = open(args.filename, "r")
+	except IOError:
+		stream = sys.stdin
+	for line in stream:
+		parsed_line = log_parser.parse_line(line, format, args.cancel_padding)
+		if parsed_line != None:
+			print cli_out.format_line(parsed_line, round_to)
+		else:
+			sys.stderr.write("Formatting \"{0}\" does not match line {1}\n".format(format, line))
+			exit_code = 1
+	sys.exit(exit_code)

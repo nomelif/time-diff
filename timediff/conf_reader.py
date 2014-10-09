@@ -18,19 +18,20 @@ Default formatting if no options are given.
 List of all possible formatting presets and their values.
 
 	"""
-	VERSION = "0.9.37"
+	VERSION = "1.0"
 	"""
 
 Current version of program.
 
 	"""
+	OUTPUT_FORMAT = ".png"
 	def __init__(self):
 		"""
 
 Reads configuration file and 
 
 		"""
-		config = {"version":"0.9.37", "default-preset":"custom1", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
+		config = {"version":"1.0", "default-preset":"custom1", "image-out":".png", "presets":{"custom1":"%Y%m%d_%H%M%S", "linux1":"%b %d %H:%M:%S"}}
 		try:
 			with open("/etc/timediff/timediff.json", "r") as f:
 				config = json.load(f)
@@ -39,3 +40,5 @@ Reads configuration file and
 			sys.exit(1)
 		self.DEFAULT_PRESET = config["default-preset"]
 		self.PRESETS = config["presets"]
+		if config["version"] == "1.0":
+			self.OUTPUT_FORMAT = config["image-out"]

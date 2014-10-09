@@ -6,7 +6,7 @@ setup(
     name="TimeDiff",
 
     # Version number (initial):
-    version="0.9.37", 
+    version="1.0", 
 
     # Packages
     packages=["timediff"],
@@ -37,6 +37,6 @@ setup(
     long_description=open("README.md").read(),
 
     # Scripts
-    scripts=["bin/time-diff", "bin/time-diff-plot"]
+    scripts=["bin/timedifftext", "bin/timediffplot"]
 
 )
