@@ -11,6 +11,8 @@ TimeDiff 1.17
 
 Known issues:
 - Formatting java1 does not read in milliseconds, due to restrictions in Python's datetime module.
+- When upgrading it is possible that the configuration file in _/etc/timediff/timediff.json_ gets overwritten.
+- When creating a new version, version number must be set in many places, can cause problems.
 
 Installing TimeDiff
 ===================
