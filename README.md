@@ -127,7 +127,7 @@ This plot is the KDE of the second plot.
 Running TimeDiffText
 ====================
 
-TimeDiff can be run by calling
+TimeDiffText can be run by calling
 
     $ cat <file_to_parse> | timedifftext <arguments>
 
