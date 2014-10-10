@@ -5,7 +5,7 @@ This repository contains two programs, TimeDiffText and TimeDiffPlot. Both take 
 
 TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
-TimeDiffText and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
+TimeDiffText and TimeDiffPlot are both written in python 2.7 (though it should be backwards-compatible with 2.6) and compatile with Mac OSX and Linux.
 
 TimeDiff 1.15
 
