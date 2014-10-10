@@ -20,11 +20,15 @@ TimeDiffPlot is also dependent of MatPlotLib, NumPy and SciPy. These can be inst
 
     # pip install matplotlib
 
+to install MatPlotLib,
+
     # pip install numpy
 
-and
+to install NumPy and
 
     # pip install scipy
+
+to install SciPy.
 
 During its installation, TimeDiff will write a configuration file to _/etc/timediff/timediff.json_. This is why it requires root to install. If _/etc/timediff/timediff.json_ is not found, TimeDiff will quit.
 
@@ -78,13 +82,28 @@ And we get this output:
 
 Then we run TimeDiffPlot on the original log (_/var/log/messages_)
 
-    $ TimeDiffPlot /var/log/messages
+    $ timediffplot /var/log/messages -F linux1 -O graph
 
 And we get this result:
 
+graph histogram (over time).png
+-------------------------------
+
 ![Histogram over time](graph_histogram_\(over_time\).png)
+
+graph histogram.png
+-------------------
+
 ![Interval histogram](graph_histogram.png)
+
+graph KDE (over time).png
+-------------------------
+
 ![Kernel density estimation over time](graph_KDE_\(over_time\).png)
+
+graph KDE.png
+-------------
+
 ![Interval kernel density estimation](graph_KDE.png)
 
 Running TimeDiffText
@@ -102,7 +121,7 @@ TimeDiffText can also read a file by given filename.
 
     $ timedifftext <filename> <arguments>
 
-TimeDiff will then output the following
+TimeDiffText will then output the following
 
     <difference_from_time_of_first_line> <difference_from_time_of_previous_line> <line_processed>
 
@@ -120,10 +139,10 @@ Usage of TimeDiffText
     --format [FORMAT], -f [FORMAT]
                         Sets datetime format options, defaults to
                         "%Y%m%d_%H%M%S" overrides given presets.
-    --format-preset [{linux1,custom1}], -F [{linux1,custom1}]
+    --format-preset [{linux1,custom1,java1}], -F [{linux1,custom1,java1}]
                         Set datetime formatting preset, defaults to custom1.
                         Values are: linux1 -> %b %d %H:%M:%S, custom1 ->
-                        %Y%m%d_%H%M%S
+                        %Y%m%d_%H%M%S java1 -> %Y-%m-%d %H:%M:%S
     --locale [LOCALE], -l [LOCALE]
                         Sets locale to be used with parsing month and weekday
                         names, defaults to American English (en_US).
@@ -166,10 +185,10 @@ Usage of TimeDiffPlot
       -h, --help            show this help message and exit
       --format [FORMAT], -f [FORMAT]
                             Sets datetime format options, overrides given presets.
-      --format-preset [{linux1,custom1}], -F [{linux1,custom1}]
+      --format-preset [{linux1,custom1,java1}], -F [{linux1,custom1,java1}]
                             Set datetime formatting preset, defaults to custom1.
                             Values are: linux1 -> %b %d %H:%M:%S, custom1 ->
-                            %Y%m%d_%H%M%S
+                            %Y%m%d_%H%M%S java1 -> %Y-%m-%d %H:%M:%S
       --locale [LOCALE], -l [LOCALE]
                             Sets locale to be used with parsing month and weekday
                             names, defaults to American English (en_US).
