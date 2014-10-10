@@ -5,9 +5,9 @@ This repository contains two programs, TimeDiffText and TimeDiffPlot. Both take 
 
 TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
-TimeDiffText and TimeDiffPlot are both written in python 2.7  (though it should be backwards-compatible with 2.6) and compatile with Mac OSX and Linux.
+TimeDiffText and TimeDiffPlot are both written in python 2.7 (though it should be backwards-compatible with 2.6) and compatile with Mac OSX and Linux.
 
-TimeDiff 1.15
+TimeDiff 1.16
 
 Installing TimeDiff
 ===================
@@ -43,16 +43,16 @@ We begin by taking the 10 last lines of _/var/log/syslog_
 
 The file _logfile_ looks like this:
 
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
-    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+    Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+    Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+    Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+    Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+    Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
 
 Then we run TimeDiffText on _logfile_
 
@@ -60,51 +60,66 @@ Then we run TimeDiffText on _logfile_
 
 And we get this output:
 
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d995898e0> (entity: SubscriptionInfo; id: 0x14001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p5> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9978aaf0> (entity: SubscriptionInfo; id: 0x30001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p12> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99437bb0> (entity: SubscriptionInfo; id: 0x64001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p25> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d997efc90> (entity: SubscriptionInfo; id: 0x34001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p13> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d996b82f0> (entity: SubscriptionInfo; id: 0x60001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p24> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9969f760> (entity: SubscriptionInfo; id: 0x4c001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p19> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99420bb0> (entity: SubscriptionInfo; id: 0x44001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p17> ; data: {
-
-       205 s        205 s : Oct 10 10:29:34 air-vpn-10-0-82-3 kernel[0]: process plugin-container[328] caught causing excessive wakeups. Observed wakeups rate (per sec): 387; Maximum permitted wakeups rate (per sec): 150; Observation period: 300 seconds; Task lifetime number of wakeups: 188841
-
-       205 s          0 s : Oct 10 10:29:34 air-vpn-10-0-82-3.portalify.com ReportCrash[905]: Invoking spindump for pid=328 wakeups_rate=387 duration=117 because of excessive wakeups
-
-       209 s          4 s : Oct 10 10:29:38 air-vpn-10-0-82-3.portalify.com spindump[906]: Saved wakeups_resource.spin report for plugin-container version ??? (1.0) to /Library/Logs/DiagnosticReports/plugin-container_2014-10-10-102938_p020031.wakeups_resource.spin
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
 
 Then we run TimeDiffPlot on the original log (_/var/log/messages_)
 
     $ timediffplot /var/log/messages -F linux1 -O graph
+    $ ls -l
 
 And we get this result:
 
-graph histogram (over time).png
--------------------------------
+    -rw-r--r-- 1 usr usr  26K Oct 10 11:03 graph_histogram_absolute_lin.png
+    -rw-r--r-- 1 usr usr  24K Oct 10 11:03 graph_histogram_interval_lin.png
+    -rw-r--r-- 1 usr usr  50K Oct 10 11:01 graph_KDE_absolute_lin.png
+    -rw-r--r-- 1 usr usr  39K Oct 10 11:03 graph_KDE_interval_lin.png
 
-![Histogram over time](graph_histogram_\(over_time\).png)
 
-graph histogram.png
--------------------
+graph_histogram_absolute_lin.png
+--------------------------------
 
-![Interval histogram](graph_histogram.png)
+![Histogram over time](examples/graph_histogram_\(over_time\).png)
 
-graph KDE (over time).png
--------------------------
+In this plot we see the quantity of log entries per second plotted against time. The spike at about 260 s means a lot of log activity.
 
-![Kernel density estimation over time](graph_KDE_\(over_time\).png)
+graph_histogram_interval_lin.png
+--------------------------------
 
-graph KDE.png
--------------
+![Interval histogram](examples/graph_histogram.png)
 
-![Interval kernel density estimation](graph_KDE.png)
+In this plot we see the quantity of errors per interval of n seconds, n increasing as the x-coordinate increases. Put in an other way: a spike somewhere means that there have been logs coming in a repetitive way every n seconds. The big spike at the left side tells us that the interval between log-entries has been mostly short (one second).
+
+graph_KDE_absolute_lin.png
+--------------------------
+
+This plot is the KDE of the first plot. A smooth version of it in other words. Handy if you had a lot of noise in the original plot.
+
+![Kernel density estimation over time](examples/graph_KDE_\(over_time\).png)
+
+graph_KDE_interval_lin.png
+--------------------------
+
+This plot is the KDE of the second plot.
+
+![Interval kernel density estimation](examples/graph_KDE.png)
 
 Running TimeDiffText
 ====================

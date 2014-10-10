@@ -4,10 +4,14 @@ import sys
 import select
 import traceback
 import locale
+
+parset = None
 try:
 	import argparse
+	parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
 except ImportError:
-	import optparse as argparse
+	from optparse import OptionParser
+	parser = OptionParser()
 
 
 ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
@@ -26,7 +30,6 @@ except ImportError:
 conf = conf_reader.ConfReader()
 cli_out = cli_output.CliOutput()
 
-parser = argparse.ArgumentParser(description='Calculate differences in time of log entries and output them into the console.')
 parser.add_argument('filename', nargs='?', default="", help="Optional filename for reading file instead of stream")
 parser.add_argument('--format', "-f", nargs='?', default="", help="Sets datetime format options, defaults to \"%%Y%%m%%d_%%H%%M%%S\" overrides given presets.")
 preset_text = ""

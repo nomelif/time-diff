@@ -7,7 +7,7 @@ TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiffText and TimeDiffPlot are both written in python 2.7 (though it should be backwards-compatible with 2.6) and compatile with Mac OSX and Linux.
 
-TimeDiff 1.15
+TimeDiff 1.16
 
 Installing TimeDiff
 ===================
@@ -60,25 +60,25 @@ Then we run TimeDiffText on _logfile_
 
 And we get this output:
 
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d995898e0> (entity: SubscriptionInfo; id: 0x14001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p5> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9978aaf0> (entity: SubscriptionInfo; id: 0x30001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p12> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99437bb0> (entity: SubscriptionInfo; id: 0x64001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p25> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d997efc90> (entity: SubscriptionInfo; id: 0x34001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p13> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d996b82f0> (entity: SubscriptionInfo; id: 0x60001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p24> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9969f760> (entity: SubscriptionInfo; id: 0x4c001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p19> ; data: {
-
-         0 s          0 s : Oct 10 10:26:09 p CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99420bb0> (entity: SubscriptionInfo; id: 0x44001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p17> ; data: {
-
-       205 s        205 s : Oct 10 10:29:34 air-vpn-10-0-82-3 kernel[0]: process plugin-container[328] caught causing excessive wakeups. Observed wakeups rate (per sec): 387; Maximum permitted wakeups rate (per sec): 150; Observation period: 300 seconds; Task lifetime number of wakeups: 188841
-
-       205 s          0 s : Oct 10 10:29:34 p ReportCrash[905]: Invoking spindump for pid=328 wakeups_rate=387 duration=117 because of excessive wakeups
-
-       209 s          4 s : Oct 10 10:29:38 p spindump[906]: Saved wakeups_resource.spin report for plugin-container version ??? (1.0) to /Library/Logs/DiagnosticReports/plugin-container_2014-10-10-102938_p020031.wakeups_resource.spin
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+         
+         0 s          0 s : Oct 10 10:30:33 p com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
 
 Then we run TimeDiffPlot on the original log (_/var/log/messages_)
 
