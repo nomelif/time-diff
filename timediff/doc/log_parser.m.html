@@ -793,6 +793,70 @@ table {
 
   </style>
 
+    <style type="text/css">
+    .codehilite .hll { background-color: #ffffcc }
+.codehilite  { background: #f8f8f8; }
+.codehilite .c { color: #408080; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #FF0000 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666666 } /* Operator */
+.codehilite .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #BC7A00 } /* Comment.Preproc */
+.codehilite .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #408080; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .gr { color: #FF0000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #00A000 } /* Generic.Inserted */
+.codehilite .go { color: #808080 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #0040D0 } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #7D9029 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #880000 } /* Name.Constant */
+.codehilite .nd { color: #AA22FF } /* Name.Decorator */
+.codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #0000FF } /* Name.Function */
+.codehilite .nl { color: #A0A000 } /* Name.Label */
+.codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+.codehilite .mf { color: #666666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
 
   <style type="text/css">
   
@@ -918,121 +982,122 @@ table {
   
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser', this);">Show source.</a></p>
     <div id="source-log_parser" class="source">
-      <pre><code>import time
-import datetime
+      <div class="codehilite"><pre><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
-class LogParser():
-	"""
+<span class="k">class</span> <span class="nc">LogParser</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Class used to parse logs.
+<span class="sd">Class used to parse logs.</span>
 
-	"""
-	first_time = None
-	"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">first_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Time of the first line.
+<span class="sd">Time of the first line.</span>
 
-	"""
-	previous_time = None
-	"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">previous_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Time of the previous line.
+<span class="sd">Time of the previous line.</span>
 
-	"""
-	def __init__(self):
-		"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Empty _\_\_init\_\__ -method.
+<span class="sd">Empty _\_\_init\_\__ -method.</span>
 
-		"""
-		pass
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">pass</span>
 		
-	def parse_logs(self, log_arr, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">parse_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_arr</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
+<span class="sd">Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.</span>
 
-		"""
-		logs = []
-		for line in log_arr:
-			logs.append(self.parse_line(line, time_format, zero_pad))
-		return logs
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">logs</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">log_arr</span><span class="p">:</span>
+			<span class="n">logs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="p">))</span>
+		<span class="k">return</span> <span class="n">logs</span>
 
-	def get_diff(self, line, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">get_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Parses a single line from a log-array. Returns the difference in time from the previous line
-		"""
-		msg_time = None
-		msg_time_set = False
-		if  zero_pad:
-			line = line.zfill(2)
-		try:
-			try:
-				msg_time = time.strptime(line, time_format)
-				msg_time_set = True
-			except ValueError, v:
-				msg_time = line.split(v.args[0][26:])[0]
-				msg_time = time.strptime(msg_time, time_format)
-				if(msg_time.tm_year == 1900):
-					msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			else:
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			if msg_time_set:
-				if self.first_time == None and self.previous_time == None:
-					self.first_time = msg_time
-					self.previous_time = msg_time
-				time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-				self.previous_time = msg_time
-				return(time_diff_from_previous)
+<span class="sd">Parses a single line from a log-array. Returns the difference in time from the previous line</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+		<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+		<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+			<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+					<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="k">return</span><span class="p">(</span><span class="n">time_diff_from_previous</span><span class="p">)</span>
 
-			else:
-				return None
-		except ValueError:
-			return None
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">return</span> <span class="bp">None</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
 
-	def parse_line(self, line, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">parse_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
+<span class="sd">Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line&#39;s contents]</span>
 
-		"""
-		orig_line = line
-		msg_time = None
-		msg_time_set = False
-		if  zero_pad:
-			line = line.zfill(2)
-		try:
-			try:
-				msg_time = time.strptime(line, time_format)
-				msg_time_set = True
-			except ValueError, v:
-				msg_time = line.split(v.args[0][26:])[0]
-				msg_time = time.strptime(msg_time, time_format)
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			else:
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			if msg_time_set:
-				if self.first_time == None and self.previous_time == None:
-					self.first_time = msg_time
-					self.previous_time = msg_time
-				time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
-				time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-				self.previous_time = msg_time
-				return(datetime.timedelta(seconds=time_diff_from_begin), datetime.timedelta(seconds=time_diff_from_previous), orig_line)
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">orig_line</span> <span class="o">=</span> <span class="n">line</span>
+		<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+		<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+		<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+			<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="n">time_diff_from_begin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_time</span><span class="p">)</span>
+				<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="k">return</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_begin</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_previous</span><span class="p">),</span> <span class="n">orig_line</span><span class="p">)</span>
 
-			else:
-				return None
-		except ValueError:
-			return None
-</code></pre>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">return</span> <span class="bp">None</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
     </div>
 
   <hr>
@@ -1080,118 +1145,119 @@ Parses a single line from a log-array. Returns the tuple [time from first line] 
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser" class="source">
-      <pre><code>class LogParser():
-	"""
+      <div class="codehilite"><pre><span class="k">class</span> <span class="nc">LogParser</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Class used to parse logs.
+<span class="sd">Class used to parse logs.</span>
 
-	"""
-	first_time = None
-	"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">first_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Time of the first line.
+<span class="sd">Time of the first line.</span>
 
-	"""
-	previous_time = None
-	"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">previous_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="sd">&quot;&quot;&quot;</span>
 
-Time of the previous line.
+<span class="sd">Time of the previous line.</span>
 
-	"""
-	def __init__(self):
-		"""
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Empty _\_\_init\_\__ -method.
+<span class="sd">Empty _\_\_init\_\__ -method.</span>
 
-		"""
-		pass
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">pass</span>
 		
-	def parse_logs(self, log_arr, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">parse_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_arr</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
+<span class="sd">Function that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.</span>
 
-		"""
-		logs = []
-		for line in log_arr:
-			logs.append(self.parse_line(line, time_format, zero_pad))
-		return logs
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">logs</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">log_arr</span><span class="p">:</span>
+			<span class="n">logs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="p">))</span>
+		<span class="k">return</span> <span class="n">logs</span>
 
-	def get_diff(self, line, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">get_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Parses a single line from a log-array. Returns the difference in time from the previous line
-		"""
-		msg_time = None
-		msg_time_set = False
-		if  zero_pad:
-			line = line.zfill(2)
-		try:
-			try:
-				msg_time = time.strptime(line, time_format)
-				msg_time_set = True
-			except ValueError, v:
-				msg_time = line.split(v.args[0][26:])[0]
-				msg_time = time.strptime(msg_time, time_format)
-				if(msg_time.tm_year == 1900):
-					msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			else:
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			if msg_time_set:
-				if self.first_time == None and self.previous_time == None:
-					self.first_time = msg_time
-					self.previous_time = msg_time
-				time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-				self.previous_time = msg_time
-				return(time_diff_from_previous)
+<span class="sd">Parses a single line from a log-array. Returns the difference in time from the previous line</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+		<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+		<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+			<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+					<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="k">return</span><span class="p">(</span><span class="n">time_diff_from_previous</span><span class="p">)</span>
 
-			else:
-				return None
-		except ValueError:
-			return None
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">return</span> <span class="bp">None</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
 
-	def parse_line(self, line, time_format, zero_pad=True):
-		"""
+	<span class="k">def</span> <span class="nf">parse_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
 
-Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
+<span class="sd">Parses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line&#39;s contents]</span>
 
-		"""
-		orig_line = line
-		msg_time = None
-		msg_time_set = False
-		if  zero_pad:
-			line = line.zfill(2)
-		try:
-			try:
-				msg_time = time.strptime(line, time_format)
-				msg_time_set = True
-			except ValueError, v:
-				msg_time = line.split(v.args[0][26:])[0]
-				msg_time = time.strptime(msg_time, time_format)
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			else:
-				if(msg_time.tm_year == 1900):
-						msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-				msg_time_set = True
-			if msg_time_set:
-				if self.first_time == None and self.previous_time == None:
-					self.first_time = msg_time
-					self.previous_time = msg_time
-				time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
-				time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-				self.previous_time = msg_time
-				return(datetime.timedelta(seconds=time_diff_from_begin), datetime.timedelta(seconds=time_diff_from_previous), orig_line)
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">orig_line</span> <span class="o">=</span> <span class="n">line</span>
+		<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+		<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+		<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+			<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+				<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+						<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+				<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="n">time_diff_from_begin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_time</span><span class="p">)</span>
+				<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="k">return</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_begin</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_previous</span><span class="p">),</span> <span class="n">orig_line</span><span class="p">)</span>
 
-			else:
-				return None
-		except ValueError:
-			return None
-</code></pre>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">return</span> <span class="bp">None</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
     </div>
 </div>
 
@@ -1238,12 +1304,13 @@ Parses a single line from a log-array. Returns the tuple [time from first line] 
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.__init__', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.__init__" class="source">
-      <pre><code>def __init__(self):
-	"""
-mpty _\_\_init\_\__ -method.
-	"""
-	pass
-</code></pre>
+      <div class="codehilite"><pre><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">mpty _\_\_init\_\__ -method.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">pass</span>
+</pre></div>
+
     </div>
 </div>
 
@@ -1262,40 +1329,41 @@ mpty _\_\_init\_\__ -method.
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.get_diff', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.get_diff" class="source">
-      <pre><code>def get_diff(self, line, time_format, zero_pad=True):
-	"""
-arses a single line from a log-array. Returns the difference in time from the previous line
-	"""
-	msg_time = None
-	msg_time_set = False
-	if  zero_pad:
-		line = line.zfill(2)
-	try:
-		try:
-			msg_time = time.strptime(line, time_format)
-			msg_time_set = True
-		except ValueError, v:
-			msg_time = line.split(v.args[0][26:])[0]
-			msg_time = time.strptime(msg_time, time_format)
-			if(msg_time.tm_year == 1900):
-				msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-			msg_time_set = True
-		else:
-			if(msg_time.tm_year == 1900):
-					msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-			msg_time_set = True
-		if msg_time_set:
-			if self.first_time == None and self.previous_time == None:
-				self.first_time = msg_time
-				self.previous_time = msg_time
-			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-			self.previous_time = msg_time
-			return(time_diff_from_previous)
-		else:
-			return None
-	except ValueError:
-		return None
-</code></pre>
+      <div class="codehilite"><pre><span class="k">def</span> <span class="nf">get_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">arses a single line from a log-array. Returns the difference in time from the previous line</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+	<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+		<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+				<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+					<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+			<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+			<span class="k">return</span><span class="p">(</span><span class="n">time_diff_from_previous</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
+	<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+		<span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
     </div>
 </div>
 
@@ -1314,42 +1382,43 @@ arses a single line from a log-array. Returns the difference in time from the pr
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.parse_line', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.parse_line" class="source">
-      <pre><code>def parse_line(self, line, time_format, zero_pad=True):
-	"""
-arses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line's contents]
-	"""
-	orig_line = line
-	msg_time = None
-	msg_time_set = False
-	if  zero_pad:
-		line = line.zfill(2)
-	try:
-		try:
-			msg_time = time.strptime(line, time_format)
-			msg_time_set = True
-		except ValueError, v:
-			msg_time = line.split(v.args[0][26:])[0]
-			msg_time = time.strptime(msg_time, time_format)
-			if(msg_time.tm_year == 1900):
-					msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-			msg_time_set = True
-		else:
-			if(msg_time.tm_year == 1900):
-					msg_time=time.struct_time((2001, msg_time.tm_mon, msg_time.tm_mday, msg_time.tm_hour, msg_time.tm_min, msg_time.tm_sec, msg_time.tm_wday, msg_time.tm_yday, msg_time.tm_isdst))
-			msg_time_set = True
-		if msg_time_set:
-			if self.first_time == None and self.previous_time == None:
-				self.first_time = msg_time
-				self.previous_time = msg_time
-			time_diff_from_begin = time.mktime(msg_time) - time.mktime(self.first_time)
-			time_diff_from_previous = time.mktime(msg_time) - time.mktime(self.previous_time)
-			self.previous_time = msg_time
-			return(datetime.timedelta(seconds=time_diff_from_begin), datetime.timedelta(seconds=time_diff_from_previous), orig_line)
-		else:
-			return None
-	except ValueError:
-		return None
-</code></pre>
+      <div class="codehilite"><pre><span class="k">def</span> <span class="nf">parse_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">arses a single line from a log-array. Returns the tuple [time from first line] [time from last line] : [line&#39;s contents]</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">orig_line</span> <span class="o">=</span> <span class="n">line</span>
+	<span class="n">msg_time</span> <span class="o">=</span> <span class="bp">None</span>
+	<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">False</span>
+	<span class="k">if</span>  <span class="n">zero_pad</span><span class="p">:</span>
+		<span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">26</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="n">msg_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+					<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">msg_time</span><span class="o">.</span><span class="n">tm_year</span> <span class="o">==</span> <span class="mi">1900</span><span class="p">):</span>
+					<span class="n">msg_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">((</span><span class="mi">2001</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mon</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_mday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_hour</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_min</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_sec</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_wday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_yday</span><span class="p">,</span> <span class="n">msg_time</span><span class="o">.</span><span class="n">tm_isdst</span><span class="p">))</span>
+			<span class="n">msg_time_set</span> <span class="o">=</span> <span class="bp">True</span>
+		<span class="k">if</span> <span class="n">msg_time_set</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">first_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+			<span class="n">time_diff_from_begin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_time</span><span class="p">)</span>
+			<span class="n">time_diff_from_previous</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">msg_time</span><span class="p">)</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="n">msg_time</span>
+			<span class="k">return</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_begin</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_diff_from_previous</span><span class="p">),</span> <span class="n">orig_line</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">None</span>
+	<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+		<span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
     </div>
 </div>
 
@@ -1368,15 +1437,16 @@ arses a single line from a log-array. Returns the tuple [time from first line] [
     <div class="source_cont">
     <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-log_parser.LogParser.parse_logs', this);">Show source.</a></p>
     <div id="source-log_parser.LogParser.parse_logs" class="source">
-      <pre><code>def parse_logs(self, log_arr, time_format, zero_pad=True):
-	"""
-unction that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.
-	"""
-	logs = []
-	for line in log_arr:
-		logs.append(self.parse_line(line, time_format, zero_pad))
-	return logs
-</code></pre>
+      <div class="codehilite"><pre><span class="k">def</span> <span class="nf">parse_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_arr</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">unction that parses a log-array as given by cli_input.CliInput. Returns a list of tuples from _parse_line_.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">logs</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">log_arr</span><span class="p">:</span>
+		<span class="n">logs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">time_format</span><span class="p">,</span> <span class="n">zero_pad</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">logs</span>
+</pre></div>
+
     </div>
 </div>
 

@@ -6,7 +6,7 @@ setup(
     name="TimeDiff",
 
     # Version number (initial):
-    version="1.16", 
+    version="1.17", 
 
     # Packages
     packages=["timediff"],

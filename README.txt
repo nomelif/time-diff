@@ -5,9 +5,12 @@ This repository contains two programs, TimeDiffText and TimeDiffPlot. Both take 
 
 TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
-TimeDiffText and TimeDiffPlot are both written in python 2.7 (though it should be backwards-compatible with 2.6) and compatile with Mac OSX and Linux.
+TimeDiffText and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
 
-TimeDiff 1.16
+TimeDiff 1.17
+
+Known issues:
+- Formatting java1 does not read in milliseconds, due to restrictions in Python's datetime module.
 
 Installing TimeDiff
 ===================
@@ -96,14 +99,14 @@ And we get this result:
 graph_histogram_absolute_lin.png
 --------------------------------
 
-![Histogram over time](examples/graph_histogram_\(over_time\).png)
+![Histogram over time](examples/graph_histogram_absolute_lin.png)
 
 In this plot we see the quantity of log entries per second plotted against time. The spike at about 260 s means a lot of log activity.
 
 graph_histogram_interval_lin.png
 --------------------------------
 
-![Interval histogram](examples/graph_histogram.png)
+![Interval histogram](examples/graph_histogram_interval_lin.png)
 
 In this plot we see the quantity of errors per interval of n seconds, n increasing as the x-coordinate increases. Put in an other way: a spike somewhere means that there have been logs coming in a repetitive way every n seconds. The big spike at the left side tells us that the interval between log-entries has been mostly short (one second).
 
@@ -112,19 +115,19 @@ graph_KDE_absolute_lin.png
 
 This plot is the KDE of the first plot. A smooth version of it in other words. Handy if you had a lot of noise in the original plot.
 
-![Kernel density estimation over time](examples/graph_KDE_\(over_time\).png)
+![Kernel density estimation over time](examples/graph_KDE_absolute_lin.png)
 
 graph_KDE_interval_lin.png
 --------------------------
 
 This plot is the KDE of the second plot.
 
-![Interval kernel density estimation](examples/graph_KDE.png)
+![Interval kernel density estimation](examples/graph_KDE_interval_lin.png)
 
 Running TimeDiffText
 ====================
 
-TimeDiff can be run by calling
+TimeDiffText can be run by calling
 
     $ cat <file_to_parse> | timedifftext <arguments>
 

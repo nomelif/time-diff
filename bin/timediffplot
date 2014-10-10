@@ -11,11 +11,7 @@ import sys
 import calendar
 from math import floor, ceil
 import time
-try:
-	import argparse
-except ImportError:
-	import optparse as argparse
-import re
+import argparse
 
 ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')
 TIMEDIFF_PATH = os.path.join(ROOT_PATH, 'timediff')
