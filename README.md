@@ -9,6 +9,9 @@ TimeDiffText and TimeDiffPlot are both written in python 2.7 (though it should b
 
 TimeDiff 1.16
 
+Known issues:
+- Formatting java1 does not read in milliseconds, due to restrictions in Python's datetime module.
+
 Installing TimeDiff
 ===================
 
