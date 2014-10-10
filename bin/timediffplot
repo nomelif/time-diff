@@ -87,18 +87,18 @@ else:
 				b.show()
 			else:
 				if is_over_time:
-					b.savefig(output_path+" KDE (logarithmic, over time)"+output_format)
+					b.savefig(output_path+"_KDE_absolute_lg"+output_format)
 				else:
-					b.savefig(output_path+" KDE (loagithmic)"+output_format)
+					b.savefig(output_path+"_KDE_interval_lg"+output_format)
 		else:
 			b.suptitle(title, fontsize=12)
 			if output_path == "":
 				b.show()
 			else:
 				if is_over_time:
-					b.savefig(output_path+" KDE (over time)"+output_format)
+					b.savefig(output_path+"_KDE_absolute_lin"+output_format)
 				else:
-					b.savefig(output_path+" KDE"+output_format)
+					b.savefig(output_path+"_KDE_interval_lin"+output_format)
 
 	def plot_histogram(times, ndth, title, is_over_time, output_path, output_format, log=False):
 		"""
@@ -124,18 +124,18 @@ else:
 				a.show()
 			else:
 				if is_over_time:
-					a.savefig(output_path+" histogram (logarithmic, over time)"+output_format)
+					a.savefig(output_path+"_histogram_absolute_lg"+output_format)
 				else:
-					a.savefig(output_path+" histogram (loagithmic)"+output_format)
+					a.savefig(output_path+"_histogram_interval_lg"+output_format)
 		else:
 			a.suptitle(title, fontsize=12)
 			if output_path == "":
 				a.show()
 			else:
 				if is_over_time:
-					a.savefig(output_path+" histogram (over time)"+output_format)
+					a.savefig(output_path+"_histogram_absolute_lin"+output_format)
 				else:
-					a.savefig(output_path+" histogram"+output_format)
+					a.savefig(output_path+"_histogram_interval_lin"+output_format)
 	stream = sys.stdin
 	try:
 		stream = open(args.filename, "r")
