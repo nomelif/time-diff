@@ -7,7 +7,7 @@ TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiffText and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
 
-TimeDiff 1.0
+TimeDiff 1.15
 
 Installing TimeDiff
 ===================

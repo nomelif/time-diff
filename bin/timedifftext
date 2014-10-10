@@ -4,7 +4,10 @@ import sys
 import select
 import traceback
 import locale
-import argparse
+try:
+	import argparse
+except ImportError:
+	import optparse as argparse
 
 
 ROOT_PATH = os.path.abspath(os.path.abspath(os.path.dirname(__file__)) + '/../')

@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: TimeDiff
-Version: 1.0
+Version: 1.1
 Summary: Program for login and plotting time-differences in log-files.
 Home-page: https://github.com/nomelif/time-diff
 Author: Théo Friberg

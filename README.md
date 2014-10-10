@@ -7,7 +7,7 @@ TimeDiffPlot requires Matplotlib, Numpy and Scipy.
 
 TimeDiffText and TimeDiffPlot are both written in python 2.7 and compatile with Mac OSX and Linux.
 
-TimeDiff 0.9.59
+TimeDiff 1.15
 
 Installing TimeDiff
 ===================
@@ -15,6 +15,77 @@ Installing TimeDiff
 TimeDiff can be installed through pip by calling
 
     # pip install timediff
+
+TimeDiffPlot is also dependent of MatPlotLib, NumPy and SciPy. These can be installed by calling
+
+    # pip install matplotlib
+
+    # pip install numpy
+
+and
+
+    # pip install scipy
+
+During its installation, TimeDiff will write a configuration file to _/etc/timediff/timediff.json_. This is why it requires root to install. If _/etc/timediff/timediff.json_ is not found, TimeDiff will quit.
+
+Example of running TimeDiffText and TimeDiffPlot
+================================================
+
+Here is an example of running TimeDiffText and TimeDiffPlot.
+
+We begin by taking the 10 last lines of _/var/log/syslog_
+
+    $ tail /var/log/sysolg > logfile
+
+The file _logfile_ looks like this:
+
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: ERROR: CGSSetWindowTransformAtPlacement() returned 1001
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowListAlpha: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com WindowServer[119]: CGXSetWindowTransform: Operation on a window 0xb6 requiring rights kCGSWindowRightPresenter by caller com.apple.appkit.xpc.openAndSav
+    Oct 10 10:30:33 air-vpn-10-0-82-3.portalify.com com.apple.appkit.xpc.openAndSavePanelService[911]: CGSSetWindowTransformAtPlacement: Failed
+
+Then we run TimeDiffText on _logfile_
+
+    $ timedifftext logfile -F linux1
+
+And we get this output:
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d995898e0> (entity: SubscriptionInfo; id: 0x14001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p5> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9978aaf0> (entity: SubscriptionInfo; id: 0x30001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p12> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99437bb0> (entity: SubscriptionInfo; id: 0x64001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p25> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d997efc90> (entity: SubscriptionInfo; id: 0x34001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p13> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d996b82f0> (entity: SubscriptionInfo; id: 0x60001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p24> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d9969f760> (entity: SubscriptionInfo; id: 0x4c001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p19> ; data: {
+
+         0 s          0 s : Oct 10 10:26:09 air-vpn-10-0-82-3.portalify.com CalendarAgent[210]: [com.apple.calendar.store.log.subscription] [Failed to refresh <CalManagedSubscriptionInfo: 0x7f8d99420bb0> (entity: SubscriptionInfo; id: 0x44001ab <x-coredata://34975977-6047-4D54-96E4-8BAF120B2E45/SubscriptionInfo/p17> ; data: {
+
+       205 s        205 s : Oct 10 10:29:34 air-vpn-10-0-82-3 kernel[0]: process plugin-container[328] caught causing excessive wakeups. Observed wakeups rate (per sec): 387; Maximum permitted wakeups rate (per sec): 150; Observation period: 300 seconds; Task lifetime number of wakeups: 188841
+
+       205 s          0 s : Oct 10 10:29:34 air-vpn-10-0-82-3.portalify.com ReportCrash[905]: Invoking spindump for pid=328 wakeups_rate=387 duration=117 because of excessive wakeups
+
+       209 s          4 s : Oct 10 10:29:38 air-vpn-10-0-82-3.portalify.com spindump[906]: Saved wakeups_resource.spin report for plugin-container version ??? (1.0) to /Library/Logs/DiagnosticReports/plugin-container_2014-10-10-102938_p020031.wakeups_resource.spin
+
+Then we run TimeDiffPlot on the original log (_/var/log/messages_)
+
+    $ TimeDiffPlot /var/log/messages
+
+And we get this result:
+
+![Histogram over time](graph_histogram_\(over_time\).png)
+![Interval histogram](graph_histogram.png)
+![Kernel density estimation over time](graph_KDE_\(over_time\).png)
+![Interval kernel density estimation](graph_KDE.png)
 
 Running TimeDiffText
 ====================
@@ -34,38 +105,6 @@ TimeDiffText can also read a file by given filename.
 TimeDiff will then output the following
 
     <difference_from_time_of_first_line> <difference_from_time_of_previous_line> <line_processed>
-
-Example of of running TimeDiffText
-----------------------------------
-
-Command entered:
-
-    $ cat /var/log/messages | timedifftext -F linux1
-    
-
-Output:
-
-    
-             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031111] scsi6 : usb-storage 1-2:1.0
-     
-             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031328] usbcore: registered new interface driver usb-storage
-     
-             0 s          0 s : Oct  7 10:17:21 zaphod kernel: [ 2801.031334] USB Mass Storage support registered.
-     
-             1 s          1 s : Oct  7 10:17:22 zaphod kernel: [ 2802.102076] scsi 6:0:0:0: Direct-Access     Kingston DT 101 G2        PMAP PQ: 0 ANSI: 0 CCS
-     
-             1 s          0 s : Oct  7 10:17:22 zaphod kernel: [ 2802.104902] sd 6:0:0:0: Attached scsi generic sg1 type 0
-     
-             3 s          2 s : Oct  7 10:17:24 zaphod kernel: [ 2803.969196] sd 6:0:0:0: [sdb] 15495168 512-byte logical blocks: (7.93 GB/7.38 GiB)
-     
-             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2803.973449] sd 6:0:0:0: [sdb] Write Protect is off
-     
-             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2804.031763]  sdb: sdb1
-     
-             3 s          0 s : Oct  7 10:17:24 zaphod kernel: [ 2804.045140] sd 6:0:0:0: [sdb] Attached SCSI removable disk
-     
-             4 s          1 s : Oct  7 10:17:25 zaphod kernel: [ 2804.831579] FAT-fs (sdb1): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!
-
 
 Usage of TimeDiffText
 ---------------------
