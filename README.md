@@ -117,7 +117,7 @@ graph_KDE_absolute_lin.png
 
 This plot is the KDE of the first plot. A smooth version of it in other words. Handy if you had a lot of noise in the original plot.
 
-![Kernel density estimation over time](examples/graph_KDE_absolute_lin.png)
+![Kernel density estimation over time](examples/graph_KDE_absolute_li.png)
 
 graph_KDE_interval_lin.png
 --------------------------
